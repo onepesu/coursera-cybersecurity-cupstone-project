@@ -12,9 +12,9 @@ try:
                         help='Name of employee')
     parser.add_argument('-G', dest='guest',
                         help='Name of guest')
-    parser.add_argument('-A', action='store_true',
+    parser.add_argument('-A', dest='arrival', action='store_true',
                         help='Specify that the current event is an arrival')
-    parser.add_argument('-L', action='store_true',
+    parser.add_argument('-L', dest='departure', action='store_true',
                         help='Specify that the current event is a departure')
     parser.add_argument('-R', dest='room_id',
                         help='Specifies the room ID for an event')

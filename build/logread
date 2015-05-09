@@ -6,15 +6,15 @@ parser = argparse.ArgumentParser()
 try:
     parser.add_argument('-K', dest='token',
                         help=' Token used to authenticate the log')
-    parser.add_argument('-S', action='store_true',
+    parser.add_argument('-S', dest='status', action='store_true',
                         help='Print the current state of the log to stdout')
-    parser.add_argument('-R', action='store_true',
+    parser.add_argument('-R', dest='rooms', action='store_true',
                         help='Give a list of all rooms entered'
                              ' by an employee or guest')
-    parser.add_argument('-T', action='store_true',
+    parser.add_argument('-T', dest='total_time', action='store_true',
                         help='Gives the total time spent in the gallery'
                              ' by an employee or guest')
-    parser.add_argument('-I', action='store_true',
+    parser.add_argument('-I', dest='room_print', action='store_true',
                         help='Prints the rooms that were occupied'
                              ' by all the specified employees and guests'
                              ' at the same time over the complete history'
