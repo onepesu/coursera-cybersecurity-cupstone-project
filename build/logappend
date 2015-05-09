@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import sys
 import logparser
 
@@ -19,11 +20,14 @@ mapping = {
     '-B': {'name': 'batch_file', 'is_flag': True}
 }
 
-log_file = full_arguments[-1]
+file = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
 except logparser.ValidationError():
     print('invalid')
     sys.exit(255)
 
-print(arguments)
+if arguments.get('batch_file'):
+    with open(file, 'r') as opened_file:
+        for line in opened_file.readlines():
+            os.system('./logappend ' + line)
