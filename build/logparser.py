@@ -23,4 +23,7 @@ def parse_args(argument_list, mapping):
         else:
             raise ValidationError('Unexpected argument')
 
+    if accepting_arguments:
+        raise ValidationError('Missing argument')
+
     return parsed_arguments
