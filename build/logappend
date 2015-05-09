@@ -2,7 +2,7 @@
 import sys
 import argparse
 
-parser = argparse.ArgumentParser('Append info to log')
+parser = argparse.ArgumentParser()
 try:
     parser.add_argument('-T', dest='timestamp',
                         help='Time the event is recorded')

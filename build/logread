@@ -2,7 +2,7 @@
 import sys
 import argparse
 
-parser = argparse.ArgumentParser('Read info to log')
+parser = argparse.ArgumentParser()
 try:
     parser.add_argument('-K', dest='token',
                         help=' Token used to authenticate the log')
