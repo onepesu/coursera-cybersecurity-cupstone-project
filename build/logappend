@@ -23,7 +23,7 @@ mapping = {
 file = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
-except logparser.ValidationError():
+except logparser.ValidationError:
     print('invalid')
     sys.exit(255)
 
