@@ -1,32 +1,22 @@
 #!/usr/bin/env python3
 import sys
-import argparse
+import logparser
 
-parser = argparse.ArgumentParser()
-try:
-    parser.add_argument('-K', dest='token',
-                        help=' Token used to authenticate the log')
-    parser.add_argument('-S', dest='status', action='store_true',
-                        help='Print the current state of the log to stdout')
-    parser.add_argument('-R', dest='rooms', action='store_true',
-                        help='Give a list of all rooms entered'
-                             ' by an employee or guest')
-    parser.add_argument('-T', dest='total_time', action='store_true',
-                        help='Gives the total time spent in the gallery'
-                             ' by an employee or guest')
-    parser.add_argument('-I', dest='room_print', action='store_true',
-                        help='Prints the rooms that were occupied'
-                             ' by all the specified employees and guests'
-                             ' at the same time over the complete history'
-                             ' of the gallery')
-    parser.add_argument('-E', dest='employee',
-                        help='Employee name')
-    parser.add_argument('-G', dest='guest',
-                        help='Guest name')
-    parser.add_argument('log', nargs='*',
-                        help='The path to the file containing the event log')
-    args = parser.parse_args()
-except ValueError:
-    # TODO: Ask for the behaviour in case of extra arguments, eg --help
-    print('invalid', file=sys.stderr)
+full_arguments = sys.argv
+
+if len(full_arguments) < 3:
+    print('invalid')
     sys.exit(255)
+
+mapping = {
+    '-K': {'name': 'token', 'max_args': 1},
+    '-S': {'name': 'status', 'is_flag': True},
+    '-R': {'name': 'room_id', 'is_flag': True},
+    '-T': {'name': 'total_time', 'is_flag': True},
+    '-I': {'name': 'rooms', 'is_flag': True},
+    '-E': {'name': 'employee'},
+    '-G': {'name': 'guest'}
+}
+
+log_file = full_arguments[-1]
+arguments = logparser.parse_args(full_arguments[1:-1], mapping)
