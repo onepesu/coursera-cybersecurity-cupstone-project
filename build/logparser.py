@@ -20,6 +20,7 @@ def parse_args(argument_list, mapping):
                 accepting_arguments = True
         elif accepting_arguments:
             parsed_arguments[key] = argument
+            accepting_arguments = False
         else:
             raise ValidationError('Unexpected argument')
 
