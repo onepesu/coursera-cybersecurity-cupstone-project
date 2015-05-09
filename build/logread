@@ -24,3 +24,5 @@ try:
 except logparser.ValidationError:
     print('invalid')
     sys.exit(255)
+
+print(arguments)
