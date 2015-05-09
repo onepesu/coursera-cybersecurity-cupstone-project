@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import logparser
+import validators
 
 full_arguments = sys.argv
 
@@ -23,4 +24,11 @@ try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
 except logparser.ValidationError:
     print('invalid')
+    sys.exit(255)
+
+try:
+    validators.token_validator(log_file, arguments['token'][0])
+except logparser.ValidationError as exc:
+    print(exc)
+    print('security error', file=sys.stderr)
     sys.exit(255)

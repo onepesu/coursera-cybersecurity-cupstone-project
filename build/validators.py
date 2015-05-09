@@ -1,5 +1,8 @@
 import re
+import hmac
+from hashlib import sha256
 import logparser
+import os.path
 
 
 def validate_file_name(file_name):
@@ -62,3 +65,15 @@ def logappend_argument_validator(args, file):
         raise logparser.ValidationError('log file not valid')
     print('true 2')
     return True
+
+
+def token_validator(file, token):
+    if os.path.isfile(file):
+        with open(file, 'r') as opened_file:
+            encrypted_token = opened_file.read().replace('\n', '')
+        hexdigest = hmac.new(
+            bytes(token, 'utf-8'),
+            bytes('this is the right hash', 'utf-8'), sha256
+        ).hexdigest()
+        if not hmac.compare_digest(hexdigest, encrypted_token):
+            raise logparser.ValidationError('Wrong authentication token')
