@@ -2,6 +2,11 @@
 import os
 import sys
 import logparser
+import validators
+
+
+
+
 
 full_arguments = sys.argv
 
@@ -23,7 +28,9 @@ mapping = {
 file = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
-except logparser.ValidationError:
+    validators.logappend_argument_validator(arguments)
+except logparser.ValidationError as exc:
+    print(exc)
     print('invalid')
     sys.exit(255)
 
@@ -31,3 +38,5 @@ if arguments.get('batch_file'):
     with open(file, 'r') as opened_file:
         for line in opened_file.readlines():
             os.system('./logappend ' + line)
+
+print(arguments)
