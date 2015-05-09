@@ -4,15 +4,23 @@ class ValidationError(ValueError):
 
 def parse_args(argument_list, mapping):
     parsed_arguments = {}
-    active_key = None
+    accepting_arguments = False
     for argument in argument_list:
         if argument in mapping.keys():
             if mapping[argument].get('is_flag'):
-                flag_key = mapping[argument]['name']
-                parsed_arguments[flag_key] = True
+                key = mapping[argument]['name']
+                parsed_arguments[key] = True
+                accepting_arguments = False
             else:
-                active_key = mapping[argument]['name']
+                key = mapping[argument]['name']
+                if mapping[argument].get('max_args') is not None:
+                    if mapping[argument]['max_args'] == 0:
+                        raise ValidationError('Too many {}'.format(argument))
+                    mapping[argument]['max_args'] -= 1
+                accepting_arguments = True
+        elif accepting_arguments:
+            parsed_arguments[key] = argument
         else:
-            parsed_arguments[active_key] = argument
+            raise ValidationError('Unexpected argument')
 
     return parsed_arguments
