@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import sys
+import argparse
+
+parser = argparse.ArgumentParser('Append info to log')
+try:
+    parser.add_argument('-T', dest='timestamp',
+                        help='Time the event is recorded')
+    parser.add_argument('-K', dest='token',
+                        help=' Token used to authenticate the log')
+    parser.add_argument('-E', dest='employee',
+                        help='Name of employee')
+    parser.add_argument('-G', dest='guest',
+                        help='Name of guest')
+    parser.add_argument('-A', action='store_true',
+                        help='Specify that the current event is an arrival')
+    parser.add_argument('-L', action='store_true',
+                        help='Specify that the current event is a departure')
+    parser.add_argument('-R', dest='room_id',
+                        help='Specifies the room ID for an event')
+    parser.add_argument('log', nargs='*',
+                        help='The path to the file containing the event log')
+    parser.add_argument('-B', dest='batch_file',
+                        help='Specifies a batch file of commands')
+    args = parser.parse_args()
+except ValueError:
+    # TODO: Ask for the behaviour in case of extra arguments, eg --help
+    print('invalid', file=sys.stderr)
+    sys.exit(255)
