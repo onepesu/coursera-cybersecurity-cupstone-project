@@ -8,6 +8,8 @@ def parse_args(argument_list, mapping):
     for argument in argument_list:
         if argument in mapping.keys():
             if mapping[argument].get('is_flag'):
+                if accepting_arguments:
+                    raise ValidationError('Missing argument')
                 key = mapping[argument]['name']
                 parsed_arguments[key] = True
                 accepting_arguments = False
