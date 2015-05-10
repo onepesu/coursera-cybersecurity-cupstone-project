@@ -33,7 +33,7 @@ def logappend_argument_validator(args):
     except (KeyError, ValueError, IndexError):
         raise ValidationError("timestamp of wrong type or token doesn't exist")
 
-    if timestamp < 0 or timestamp > 2147483647:
+    if timestamp < 0 or timestamp > 1073741824:
             raise ValidationError('timestamp negative')
 
     if not is_alphanumeric(token):
@@ -64,7 +64,7 @@ def logappend_argument_validator(args):
             room_id = int(args['room_id'][0])
         except (KeyError, ValueError, IndexError):
             raise ValidationError('room_id is of wrong type')
-        if room_id < 0 or room_id > 2147483647:
+        if room_id < 0 or room_id > 1073741824:
             raise ValidationError('room_id is negative')
 
     return True
@@ -110,6 +110,12 @@ def logread_argument_validator(args):
             raise ValidationError('too many parameters')
         if len(humans) != 1:
             raise ValidationError('only one human allowed')
+        try:
+            room_id = int(args['room_id'])
+        except (ValueError, IndexError):
+            raise ValidationError('room id invalid')
+        if room_id < 0 or room_id > 1073741824:
+            raise ValidationError('room number out of bounds')
     elif args.get('total_time'):
         if any([args.get('room_id'), args.get('status'), args.get('rooms')]):
             raise ValidationError('too many parameters')
