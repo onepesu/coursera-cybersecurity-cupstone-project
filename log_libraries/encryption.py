@@ -8,5 +8,5 @@ class Encrypt(object):
         return encrypted_message
 
     def decrypt(self, encrypted_message):
-        message = encrypted_message[:-self.salt]
+        message = encrypted_message[:-len(str(self.salt))]
         return message
