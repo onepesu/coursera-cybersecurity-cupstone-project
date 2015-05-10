@@ -1,23 +1,15 @@
 import re
 import hashlib
 import logparser
-import os.path
-
-PATH = 'logs'
 
 
 alphanumeric_pattern = re.compile('^[a-zA-Z0-9]+')
 alpha_pattern = re.compile('^[a-zA-Z]+')
 
 
-def is_filename_valid(file):
-    return re.fullmatch('^[a-zA-Z0-9_]+', file) is not None
-
-
-def validate_file(file_name):
-    full_file_name = os.path.join(PATH, file_name)
-    if not is_filename_valid(file_name) or not os.path.isfile(full_file_name):
-        raise logparser.ValidationError('file/log name invalid')
+def filename_validator(file):
+    if re.fullmatch('^[a-zA-Z0-9_]+', file) is None:
+        raise logparser.ValidationError('filename not valid')
 
 
 def is_alphanumeric(token):
@@ -28,12 +20,11 @@ def is_only_letters(name):
     return alpha_pattern.fullmatch(name) is not None
 
 
-def logappend_argument_validator(args, file):
+def logappend_argument_validator(args):
     if args.get('batch_file'):
         if any([args.get('timestamp'), args.get('token'), args.get('employee'), args.get('guest'),
                 args.get('arrival'), args.get('departure'), args.get('room_id')]):
             raise logparser.ValidationError('You have a batch file and other args')
-        validate_file(file)
         print('true 1')
         return True
     try:
@@ -45,7 +36,7 @@ def logappend_argument_validator(args, file):
     if timestamp < 0 or timestamp > 2147483647:
             raise logparser.ValidationError('timestamp negative')
 
-    if is_alphanumeric(token):
+    if not is_alphanumeric(token):
             raise logparser.ValidationError('token contains invalid characters')
 
     if args.get('employee'):
@@ -59,33 +50,36 @@ def logappend_argument_validator(args, file):
             raise logparser.ValidationError('Neither -E or -G')
 
     if not is_only_letters(human):
-        raise logparser.ValidationError('invalid name')
+        raise logparser.ValidationError('invalid human name')
 
+    # todo: make the next two checks a xor
     if args.get('arrival') and args.get('departure'):
         raise logparser.ValidationError('both arrival and departure')
+
+    if not (args.get('arrival') or args.get('departure')):
+        raise logparser.ValidationError('neither arrival nor departure')
 
     if args.get('room_id'):
         try:
             room_id = int(args['room_id'][0])
         except (KeyError, ValueError, IndexError):
             raise logparser.ValidationError('room_id is of wrong type')
-        if room_id < 0:
+        if room_id < 0 or room_id > 2147483647:
             raise logparser.ValidationError('room_id is negative')
-
-    if not file or not is_filename_valid(file):
-        raise logparser.ValidationError('log file not valid')
 
     print('true 2')
     return True
 
 
-def logread_argument_validator(args, file):
-    validate_file(file)
+def logread_argument_validator(args):
     try:
         token = args['token'][0]
     except (KeyError, IndexError):
         raise logparser.ValidationError("There is no token")
     humans = []
+
+    if not is_alphanumeric(token):
+            raise logparser.ValidationError('token contains invalid characters')
 
     if args.get('employee'):
         if args.get('guest'):
@@ -107,6 +101,9 @@ def logread_argument_validator(args, file):
             raise logparser.ValidationError('humans are present')
         print('fine -S')
         return True
+    else:
+        if not (args.get('employee') or args.get('guest')):
+            raise logparser.ValidationError('neither employee nor guest')
 
     if args.get('room_id'):
         if any([args.get('status'), args.get('total_time'), args.get('rooms')]):
@@ -123,6 +120,7 @@ def logread_argument_validator(args, file):
             raise logparser.ValidationError('too many parameters')
     print('all fine')
     return True
+
 
 def token_validator(file, token):
     with open(file, 'r') as opened_file:
