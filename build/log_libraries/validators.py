@@ -28,7 +28,6 @@ def logappend_argument_validator(args):
         if any([args.get('timestamp'), args.get('token'), args.get('employee'), args.get('guest'),
                 args.get('arrival'), args.get('departure'), args.get('room_id')]):
             raise ValidationError('You have a batch file and other args')
-        print('true 1')
         return True
     try:
         timestamp = int(args['timestamp'][0])
@@ -70,7 +69,6 @@ def logappend_argument_validator(args):
         if room_id < 0 or room_id > 2147483647:
             raise ValidationError('room_id is negative')
 
-    print('true 2')
     return True
 
 
@@ -102,7 +100,6 @@ def logread_argument_validator(args):
             raise ValidationError('too many parameters')
         if len(humans) != 0:
             raise ValidationError('humans are present')
-        print('fine -S')
         return True
     else:
         if not (args.get('employee') or args.get('guest')):
@@ -121,7 +118,6 @@ def logread_argument_validator(args):
     elif args.get('rooms'):
         if any([args.get('room_id'), args.get('total_time'), args.get('status')]):
             raise ValidationError('too many parameters')
-    print('all fine')
     return True
 
 
