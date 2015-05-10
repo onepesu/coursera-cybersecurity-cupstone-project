@@ -1,4 +1,4 @@
 log_dir:
-	mkdir -p logs
+	mkdir -p ../logs
 
 .PHONY: log_dir

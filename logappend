@@ -4,9 +4,11 @@ import os
 import os.path
 import sys
 import hashlib
+
 from log_libraries import logparser
 from log_libraries import validators
 from log_libraries.utils import LOG_PATH, ValidationError
+
 
 path_to_here = os.path.dirname(os.path.abspath(__file__))
 full_arguments = sys.argv
