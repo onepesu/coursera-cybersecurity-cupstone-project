@@ -51,13 +51,13 @@ else:
         except ValidationError:
             print('security error', file=sys.stderr)
             sys.exit(255)
+        try:
+            validators.context_validator(arguments, log_file_name)
+        except ValidationError:
+            print('invalid')
+            sys.exit(255)
     else:
         with open(log_file_name, 'w') as opened_file:
             supplied_token = hashlib.sha512(token).hexdigest()
             opened_file.write(supplied_token + '\n')
-    try:
-        validators.context_validator(arguments, log_file_name)
-    except ValidationError:
-        print('invalid')
-        sys.exit(255)
     append_to_log(arguments, log_file_name)

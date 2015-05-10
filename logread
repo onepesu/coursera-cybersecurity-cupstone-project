@@ -46,9 +46,9 @@ except utils.ValidationError:
 
 if arguments.get('status'):
     utils.print_status(arguments, log_file_name)
-if arguments.get('room_id'):
+elif arguments.get('room_id'):
     utils.print_room_id(arguments, log_file_name)
-if arguments.get('total_time'):
+elif arguments.get('total_time'):
     utils.print_total_time(arguments, log_file_name)
-if arguments.get('rooms'):
+elif arguments.get('rooms'):
     utils.print_rooms(arguments, log_file_name)
