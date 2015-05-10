@@ -1,15 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+from __future__ import print_function
 import os.path
 import sys
-try:
-    from log_libraries import logparser
-    from log_libraries import validators
-    from log_libraries.utils import LOG_PATH, ValidationError
-except ImportError:
-    from .log_libraries import logparser
-    from .log_libraries import validators
-    from .log_libraries.utils import LOG_PATH, ValidationError
+from log_libraries import logparser
+from log_libraries import validators
+from log_libraries.utils import LOG_PATH, ValidationError
 
+path_to_here = os.path.dirname(os.path.abspath(__file__))
 full_arguments = sys.argv
 
 if len(full_arguments) < 3:
@@ -26,17 +23,17 @@ mapping = {
     '-G': {'name': 'guest'}
 }
 
-file = full_arguments[-1]
+file_ = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
-    validators.filename_validator(file)
+    validators.filename_validator(file_)
     validators.logread_argument_validator(arguments)
 except ValidationError:
     print('invalid')
     sys.exit(255)
 
 try:
-    log_file_name = os.path.join(LOG_PATH, file)
+    log_file_name = os.path.join(path_to_here, LOG_PATH, file_)
     if not os.path.isfile(log_file_name):
         raise ValidationError('file does not exist')
     token = arguments['token'][0]

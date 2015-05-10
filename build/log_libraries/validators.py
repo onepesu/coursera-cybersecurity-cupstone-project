@@ -1,32 +1,30 @@
 import re
 import hashlib
-try:
-    from utils import ValidationError
-except ImportError:
-    from .utils import ValidationError
+from utils import ValidationError
 
 
-alphanumeric_pattern = re.compile('^[a-zA-Z0-9]+')
-alpha_pattern = re.compile('^[a-zA-Z]+')
+alphanumeric_pattern = re.compile('^[a-zA-Z0-9]+$')
+alpha_pattern = re.compile('^[a-zA-Z]+$')
 
 
-def filename_validator(file):
-    if re.fullmatch('^[a-zA-Z0-9_]+', file) is None:
+def filename_validator(file_):
+    if re.search('^[a-zA-Z0-9_]+$', file_) is None:
         raise ValidationError('filename not valid')
 
 
 def is_alphanumeric(token):
-    return alphanumeric_pattern.fullmatch(token) is not None
+    return alphanumeric_pattern.search(token) is not None
 
 
 def is_only_letters(name):
-    return alpha_pattern.fullmatch(name) is not None
+    return alpha_pattern.search(name) is not None
 
 
 def logappend_argument_validator(args):
     if args.get('batch_file'):
-        if any([args.get('timestamp'), args.get('token'), args.get('employee'), args.get('guest'),
-                args.get('arrival'), args.get('departure'), args.get('room_id')]):
+        if any([args.get('timestamp'), args.get('token'), args.get('employee'),
+                args.get('guest'), args.get('arrival'), args.get('departure'),
+                args.get('room_id')]):
             raise ValidationError('You have a batch file and other args')
         return True
     try:
@@ -96,7 +94,8 @@ def logread_argument_validator(args):
             raise ValidationError('invalid name')
 
     if args.get('status'):
-        if any([args.get('room_id'), args.get('total_time'),args.get('rooms')]):
+        if any([args.get('room_id'), args.get('total_time'),
+                args.get('rooms')]):
             raise ValidationError('too many parameters')
         if len(humans) != 0:
             raise ValidationError('humans are present')
@@ -106,7 +105,8 @@ def logread_argument_validator(args):
             raise ValidationError('neither employee nor guest')
 
     if args.get('room_id'):
-        if any([args.get('status'), args.get('total_time'), args.get('rooms')]):
+        if any([args.get('status'), args.get('total_time'),
+                args.get('rooms')]):
             raise ValidationError('too many parameters')
         if len(humans) != 1:
             raise ValidationError('only one human allowed')
@@ -116,15 +116,16 @@ def logread_argument_validator(args):
         if len(humans) != 1:
             raise ValidationError('only one human allowed')
     elif args.get('rooms'):
-        if any([args.get('room_id'), args.get('total_time'), args.get('status')]):
+        if any([args.get('room_id'), args.get('total_time'),
+                args.get('status')]):
             raise ValidationError('too many parameters')
     return True
 
 
-def token_validator(file, token):
-    with open(file, 'r') as opened_file:
+def token_validator(file_, token):
+    with open(file_, 'r') as opened_file:
         encrypted_token = opened_file.read().replace('\n', '')
 
-    supplied_token = hashlib.sha512(bytes(token, 'utf-8')).hexdigest()
+    supplied_token = hashlib.sha512(token).hexdigest()
     if supplied_token != encrypted_token:
         raise ValidationError('Wrong authentication token')

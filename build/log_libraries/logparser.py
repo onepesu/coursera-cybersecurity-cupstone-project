@@ -1,7 +1,4 @@
-try:
-    from utils import ValidationError
-except ImportError:
-    from .utils import ValidationError
+from utils import ValidationError
 
 
 def parse_args(argument_list, mapping):
