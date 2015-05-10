@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import logparser
+import validators
 
 full_arguments = sys.argv
 
@@ -21,7 +22,9 @@ mapping = {
 log_file = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
-except logparser.ValidationError:
+    validators.logread_argument_validator(arguments, log_file)
+except logparser.ValidationError as exc:
+    print(exc)
     print('invalid')
     sys.exit(255)
 

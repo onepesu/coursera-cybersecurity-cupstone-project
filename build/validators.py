@@ -2,13 +2,21 @@ import re
 import logparser
 import os.path
 
+PATH = 'logs'
+
+
 alphanumeric_pattern = re.compile('^[a-zA-Z0-9]+')
 alpha_pattern = re.compile('^[a-zA-Z]+')
 
 
+def is_filename_valid(file):
+    return re.fullmatch('^[a-zA-Z0-9_]+', file) is not None
+
+
 def validate_file(file_name):
-    if re.fullmatch('^[a-zA-Z0-9_]+', file_name) is None or not os.path.isfile(file_name):
-            raise logparser.ValidationError('file/log name invalid')
+    full_file_name = os.path.join(PATH, file_name)
+    if not is_filename_valid(file_name) or not os.path.isfile(full_file_name):
+        raise logparser.ValidationError('file/log name invalid')
 
 
 def is_alphanumeric(token):
@@ -24,21 +32,16 @@ def logappend_argument_validator(args, file):
         if any([args.get('timestamp'), args.get('token'), args.get('employee'), args.get('guest'),
                 args.get('arrival'), args.get('departure'), args.get('room_id')]):
             raise logparser.ValidationError('You have a batch file and other args')
-        #todo: check that file is a valid name for a file
         validate_file(file)
         print('true 1')
         return True
     try:
         timestamp = int(args['timestamp'][0])
-        #todo: need to check elsewhere(?) if timestamp increases. Make a global time for each log?
-
         token = args['token'][0]
-        #todo: need to check elsewhere(?) if the log specified, when exists, has this token
-
     except (KeyError, ValueError, IndexError):
         raise logparser.ValidationError("timestamp of wrong type or token doesn't exist")
 
-    if timestamp < 0:
+    if timestamp < 0 or timestamp > 2147483647:
             raise logparser.ValidationError('timestamp negative')
 
     if is_alphanumeric(token):
@@ -68,9 +71,9 @@ def logappend_argument_validator(args, file):
         if room_id < 0:
             raise logparser.ValidationError('room_id is negative')
 
-    if not file:
-        validate_file(file)
+    if not file or not is_filename_valid(file):
         raise logparser.ValidationError('log file not valid')
+
     print('true 2')
     return True
 
@@ -105,17 +108,17 @@ def logread_argument_validator(args, file):
         return True
 
     if args.get('room_id'):
-        if any([args.get('status'), args.get('total_time'),args.get('rooms')]):
+        if any([args.get('status'), args.get('total_time'), args.get('rooms')]):
             raise logparser.ValidationError('too many parameters')
         if len(humans) != 1:
             raise logparser.ValidationError('only one human allowed')
     elif args.get('total_time'):
-        if any([args.get('room_id'), args.get('status'),args.get('rooms')]):
+        if any([args.get('room_id'), args.get('status'), args.get('rooms')]):
             raise logparser.ValidationError('too many parameters')
         if len(humans) != 1:
             raise logparser.ValidationError('only one human allowed')
     elif args.get('rooms'):
-        if any([args.get('room_id'), args.get('total_time'),args.get('status')]):
+        if any([args.get('room_id'), args.get('total_time'), args.get('status')]):
             raise logparser.ValidationError('too many parameters')
     print('all fine')
     return True
