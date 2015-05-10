@@ -28,4 +28,10 @@ except logparser.ValidationError as exc:
     print('invalid')
     sys.exit(255)
 
+try:
+    validators.token_validator(log_file, arguments['token'][0])
+except logparser.ValidationError as exc:
+    print(exc)
+    print('security error', file=sys.stderr)
+    sys.exit(255)
 print(arguments)

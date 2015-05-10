@@ -1,4 +1,5 @@
 import re
+import hashlib
 import logparser
 import os.path
 
@@ -122,3 +123,11 @@ def logread_argument_validator(args, file):
             raise logparser.ValidationError('too many parameters')
     print('all fine')
     return True
+
+def token_validator(file, token):
+    with open(file, 'r') as opened_file:
+        encrypted_token = opened_file.read().replace('\n', '')
+
+    supplied_token = hashlib.sha512(bytes(token, 'utf-8')).hexdigest()
+    if supplied_token != encrypted_token:
+        raise logparser.ValidationError('Wrong authentication token')

@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 import os
+import os.path
 import sys
+import hashlib
 import logparser
 import validators
 
-
-
-
-
+LOG_PATH = 'logs'
 full_arguments = sys.argv
 
 if len(full_arguments) < 3:
@@ -28,7 +27,7 @@ mapping = {
 file = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
-    validators.logappend_argument_validator(arguments)
+    validators.logappend_argument_validator(arguments, file)
 except logparser.ValidationError as exc:
     print(exc)
     print('invalid')
@@ -37,6 +36,22 @@ except logparser.ValidationError as exc:
 if arguments.get('batch_file'):
     with open(file, 'r') as opened_file:
         for line in opened_file.readlines():
+            if '-B' in line:
+                os.system('./logappend ')
             os.system('./logappend ' + line)
+else:
+    log_file_name = os.path.join(LOG_PATH, file)
+    token = arguments['token'][0]
+    if os.path.isfile(log_file_name):
+        try:
+            validators.token_validator(log_file_name, token)
+        except logparser.ValidationError as exc:
+            print(exc)
+            print('security error', file=sys.stderr)
+            sys.exit(255)
+    else:
+        with open(log_file_name, 'w') as opened_file:
+            supplied_token = hashlib.sha512(bytes(token, 'utf-8')).hexdigest()
+            opened_file.write(supplied_token)
 
 print(arguments)
