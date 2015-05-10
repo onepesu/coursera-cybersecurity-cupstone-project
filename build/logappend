@@ -3,10 +3,15 @@ import os
 import os.path
 import sys
 import hashlib
-import logparser
-import validators
+try:
+    from log_libraries import logparser
+    from log_libraries import validators
+    from log_libraries.utils import LOG_PATH, ValidationError
+except ImportError:
+    from .log_libraries import logparser
+    from .log_libraries import validators
+    from .log_libraries.utils import LOG_PATH, ValidationError
 
-LOG_PATH = 'logs'
 full_arguments = sys.argv
 
 if len(full_arguments) < 3:

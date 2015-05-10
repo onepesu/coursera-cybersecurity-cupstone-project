@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 import sys
-import logparser
-import validators
+try:
+    from log_libraries import logparser
+    from log_libraries import validators
+    from log_libraries.utils import LOG_PATH, ValidationError
+except ImportError:
+    from .log_libraries import logparser
+    from .log_libraries import validators
+    from .log_libraries.utils import LOG_PATH, ValidationError
 
 full_arguments = sys.argv
 
@@ -23,7 +29,7 @@ file = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
     validators.filename_validator(file)
-    validators.logread_argument_validator(arguments, file)
+    validators.logread_argument_validator(arguments)
 except logparser.ValidationError as exc:
     print(exc)
     print('invalid')
