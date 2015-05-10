@@ -5,7 +5,7 @@ import sys
 
 from log_libraries import logparser
 from log_libraries import validators
-from log_libraries.utils import LOG_PATH, ValidationError
+from log_libraries.utils import LOG_PATH, ValidationError, extract
 
 
 path_to_here = os.path.dirname(os.path.abspath(__file__))
@@ -43,3 +43,5 @@ try:
 except ValidationError:
     print('security error', file=sys.stderr)
     sys.exit(255)
+
+print(extract(arguments, log_file_name))
