@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 import os
+import os.path
 import sys
+import hashlib
 import logparser
 import validators
 
+LOG_PATH = 'logs'
 full_arguments = sys.argv
 
 if len(full_arguments) < 3:
@@ -37,11 +40,18 @@ if arguments.get('batch_file'):
                 os.system('./logappend ')
             os.system('./logappend ' + line)
 else:
-    try:
-        validators.token_validator(file, arguments['token'][0])
-    except logparser.ValidationError as exc:
-        print(exc)
-        print('security error', file=sys.stderr)
-        sys.exit(255)
+    log_file_name = os.path.join(LOG_PATH, file)
+    token = arguments['token'][0]
+    if os.path.isfile(log_file_name):
+        try:
+            validators.token_validator(log_file_name, token)
+        except logparser.ValidationError as exc:
+            print(exc)
+            print('security error', file=sys.stderr)
+            sys.exit(255)
+    else:
+        with open(log_file_name, 'w') as opened_file:
+            supplied_token = hashlib.sha512(bytes(token, 'utf-8')).hexdigest()
+            opened_file.write(supplied_token)
 
 print(arguments)

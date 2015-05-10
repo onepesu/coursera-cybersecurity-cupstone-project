@@ -1,7 +1,6 @@
 import re
 import hashlib
 import logparser
-import os.path
 
 
 def validate_file_name(file_name):
@@ -67,11 +66,9 @@ def logappend_argument_validator(args, file):
 
 
 def token_validator(file, token):
-    if os.path.isfile(file):
-        with open(file, 'r') as opened_file:
-            encrypted_token = opened_file.read().replace('\n', '')
+    with open(file, 'r') as opened_file:
+        encrypted_token = opened_file.read().replace('\n', '')
 
-        hex_digest = hashlib.sha512(bytes(token, 'utf-8')).hexdigest()
-        print(hex_digest)
-        if hex_digest != encrypted_token:
-            raise logparser.ValidationError('Wrong authentication token')
+    supplied_token = hashlib.sha512(bytes(token, 'utf-8')).hexdigest()
+    if supplied_token != encrypted_token:
+        raise logparser.ValidationError('Wrong authentication token')
