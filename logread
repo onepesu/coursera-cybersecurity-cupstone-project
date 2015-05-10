@@ -5,7 +5,7 @@ import sys
 
 from log_libraries import logparser
 from log_libraries import validators
-from log_libraries.utils import LOG_PATH, ValidationError, extract
+from log_libraries import utils
 
 
 path_to_here = os.path.dirname(os.path.abspath(__file__))
@@ -30,18 +30,25 @@ try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
     validators.filename_validator(file_)
     validators.logread_argument_validator(arguments)
-except ValidationError:
+except utils.ValidationError:
     print('invalid')
     sys.exit(255)
 
 try:
-    log_file_name = os.path.join(path_to_here, LOG_PATH, file_)
+    log_file_name = os.path.join(path_to_here, utils.LOG_PATH, file_)
     if not os.path.isfile(log_file_name):
-        raise ValidationError('file does not exist')
+        raise utils.ValidationError('file does not exist')
     token = arguments['token']
     validators.token_validator(log_file_name, token)
-except ValidationError:
+except utils.ValidationError:
     print('security error', file=sys.stderr)
     sys.exit(255)
 
-print(extract(arguments, log_file_name))
+if arguments.get('status'):
+    utils.print_status(arguments, log_file_name)
+if arguments.get('room_id'):
+    utils.print_room_id(arguments, log_file_name)
+if arguments.get('total_time'):
+    utils.print_total_time(arguments, log_file_name)
+if arguments.get('rooms'):
+    utils.print_rooms(arguments, log_file_name)

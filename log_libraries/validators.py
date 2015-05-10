@@ -133,3 +133,7 @@ def token_validator(file_, token):
     supplied_token = hashlib.sha512(token).hexdigest()
     if supplied_token != encrypted_token:
         raise ValidationError('Wrong authentication token')
+
+
+def context_validator(arguments, filename):
+    pass

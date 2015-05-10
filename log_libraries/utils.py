@@ -37,3 +37,18 @@ def extract(arguments, filename):
             out.append(json.loads(decrypted_line))
     return out
 
+
+def print_status(arguments, filename):
+    print(extract(arguments, filename))
+
+
+def print_room_id(arguments, filename):
+    print(extract(arguments, filename))
+
+
+def print_total_time(arguments, filename):
+    print(extract(arguments, filename))
+
+
+def print_rooms(arguments, filename):
+    print(extract(arguments, filename))
