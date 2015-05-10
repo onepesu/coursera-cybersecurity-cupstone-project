@@ -7,7 +7,7 @@ import hashlib
 
 from log_libraries import logparser
 from log_libraries import validators
-from log_libraries.utils import LOG_PATH, ValidationError
+from log_libraries.utils import LOG_PATH, ValidationError, append_to_log
 
 
 path_to_here = os.path.dirname(os.path.abspath(__file__))
@@ -54,4 +54,6 @@ else:
     else:
         with open(log_file_name, 'w') as opened_file:
             supplied_token = hashlib.sha512(token).hexdigest()
-            opened_file.write(supplied_token)
+            opened_file.write(supplied_token + '\n')
+
+    append_to_log(arguments, log_file_name)

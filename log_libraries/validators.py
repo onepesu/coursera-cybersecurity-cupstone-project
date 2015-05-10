@@ -131,7 +131,7 @@ def logread_argument_validator(args):
 
 def token_validator(file_, token):
     with open(file_, 'r') as opened_file:
-        encrypted_token = opened_file.read().replace('\n', '')
+        encrypted_token = opened_file.readline().replace('\n', '')
 
     supplied_token = hashlib.sha512(token).hexdigest()
     if supplied_token != encrypted_token:
