@@ -1,4 +1,4 @@
-from utils import ValidationError
+from log_libraries.utils import ValidationError
 
 
 def parse_args(argument_list, mapping):
