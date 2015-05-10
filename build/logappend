@@ -35,7 +35,7 @@ try:
     print(arguments)
     validators.filename_validator(file)
     validators.logappend_argument_validator(arguments)
-except logparser.ValidationError as exc:
+except ValidationError as exc:
     print(exc)
     print('invalid')
     sys.exit(255)
@@ -52,7 +52,7 @@ else:
     if os.path.isfile(log_file_name):
         try:
             validators.token_validator(log_file_name, token)
-        except logparser.ValidationError as exc:
+        except ValidationError as exc:
             print(exc)
             print('security error', file=sys.stderr)
             sys.exit(255)
@@ -60,5 +60,3 @@ else:
         with open(log_file_name, 'w') as opened_file:
             supplied_token = hashlib.sha512(bytes(token, 'utf-8')).hexdigest()
             opened_file.write(supplied_token)
-
-print(arguments)

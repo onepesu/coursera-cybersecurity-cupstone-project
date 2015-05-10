@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os.path
 import sys
 try:
     from log_libraries import logparser
@@ -28,17 +29,21 @@ mapping = {
 file = full_arguments[-1]
 try:
     arguments = logparser.parse_args(full_arguments[1:-1], mapping)
+    print(arguments)
     validators.filename_validator(file)
     validators.logread_argument_validator(arguments)
-except logparser.ValidationError as exc:
+except ValidationError as exc:
     print(exc)
     print('invalid')
     sys.exit(255)
 
 try:
-    validators.token_validator(file, arguments['token'][0])
-except logparser.ValidationError as exc:
+    log_file_name = os.path.join(LOG_PATH, file)
+    if not os.path.isfile(log_file_name):
+        raise ValidationError('file does not exist')
+    token = arguments['token'][0]
+    validators.token_validator(log_file_name, token)
+except ValidationError as exc:
     print(exc)
     print('security error', file=sys.stderr)
     sys.exit(255)
-print(arguments)
