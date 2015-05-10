@@ -27,7 +27,7 @@ def logappend_argument_validator(args):
                 args.get('guest'), args.get('arrival'), args.get('departure'),
                 args.get('room_id')]):
             raise ValidationError('You have a batch file and other args')
-        return True
+        return
     try:
         timestamp = int(args['timestamp'][0])
         token = args['token'][0]
@@ -36,17 +36,23 @@ def logappend_argument_validator(args):
 
     if timestamp < 0 or timestamp > 1073741824:
             raise ValidationError('timestamp negative')
+    args['timestamp'] = timestamp
 
     if not is_alphanumeric(token):
             raise ValidationError('token contains invalid characters')
+    args['token'] = token
 
     if args.get('employee'):
         if args.get('guest'):
             raise ValidationError('have both -G and -E')
         human = args.get('employee')[0]
+        args['employee'] = human
+        args['guest'] = ""
     else:
         if args.get('guest'):
             human = args.get('guest')[0]
+            args['guest'] = human
+            args['employee'] = ""
         else:
             raise ValidationError('Neither -E or -G')
 
@@ -67,8 +73,9 @@ def logappend_argument_validator(args):
             raise ValidationError('room_id is of wrong type')
         if room_id < 0 or room_id > 1073741824:
             raise ValidationError('room_id is negative')
-
-    return True
+        args['room_id'] = room_id
+    else:
+        args['room_id'] = -1
 
 
 def logread_argument_validator(args):
@@ -76,21 +83,17 @@ def logread_argument_validator(args):
         token = args['token'][0]
     except (KeyError, IndexError):
         raise ValidationError("There is no token")
-    humans = []
 
     if not is_alphanumeric(token):
             raise ValidationError('token contains invalid characters')
+    args['token'] = token
 
-    if args.get('employee'):
-        if args.get('guest'):
-            raise ValidationError('guest and employee')
-        humans = args['employee']
-    if args.get('guest'):
-        if args.get('employee'):
-            raise ValidationError('guest and employee')
-        humans = args['guest']
+    args['employee'] = args.get('employee', [])
+    args['guest'] = args.get('guest', [])
 
-    for human in humans:
+    employees, guests = len(args['employee']), len(args['guest'])
+
+    for human in args['employee'] + args['guest']:
         if not is_only_letters(human):
             raise ValidationError('invalid name')
 
@@ -98,35 +101,29 @@ def logread_argument_validator(args):
         if any([args.get('room_id'), args.get('total_time'),
                 args.get('rooms')]):
             raise ValidationError('too many parameters')
-        if len(humans) != 0:
+        if employees + guests != 0:
             raise ValidationError('humans are present')
-        return True
+        return
     else:
-        if not (args.get('employee') or args.get('guest')):
+        if employees + guests == 0:
             raise ValidationError('neither employee nor guest')
 
     if args.get('room_id'):
-        if any([args.get('status'), args.get('total_time'),
-                args.get('rooms')]):
+        if any([args.get('total_time'), args.get('rooms')]):
             raise ValidationError('too many parameters')
-        if len(humans) != 1:
+        if employees + guests != 1:
             raise ValidationError('only one human allowed')
-        try:
-            room_id = int(args['room_id'])
-        except (ValueError, IndexError):
-            raise ValidationError('room id invalid')
-        if room_id < 0 or room_id > 1073741824:
-            raise ValidationError('room number out of bounds')
+
     elif args.get('total_time'):
-        if any([args.get('room_id'), args.get('status'), args.get('rooms')]):
+        if args.get('rooms'):
             raise ValidationError('too many parameters')
-        if len(humans) != 1:
+        if employees + guests != 1:
             raise ValidationError('only one human allowed')
-    elif args.get('rooms'):
-        if any([args.get('room_id'), args.get('total_time'),
-                args.get('status')]):
-            raise ValidationError('too many parameters')
-    return True
+    else:
+        try:
+            args['rooms']
+        except KeyError:
+            raise ValidationError('too few parameters')
 
 
 def token_validator(file_, token):

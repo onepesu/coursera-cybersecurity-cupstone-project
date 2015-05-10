@@ -38,7 +38,7 @@ try:
     log_file_name = os.path.join(path_to_here, LOG_PATH, file_)
     if not os.path.isfile(log_file_name):
         raise ValidationError('file does not exist')
-    token = arguments['token'][0]
+    token = arguments['token']
     validators.token_validator(log_file_name, token)
 except ValidationError:
     print('security error', file=sys.stderr)

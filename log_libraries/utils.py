@@ -17,10 +17,10 @@ def append_to_log(arguments, filename):
     lines = result.strip().split()[0]
     encrypt = Encrypt(arguments['token'][0], lines)
     type_ = 'A' if arguments.get('arrival') else 'D'
-    room_id = arguments.get('room_id', [None])[0] or 'G'
+    room_id = arguments['room_id']
     plaintext_arguments = json.dumps([
-        arguments['timestamp'][0], arguments.get('employee', [''])[0],
-        arguments.get('guest', [''])[0], type_, room_id
+        arguments['timestamp'], arguments['employee'],
+        arguments['guest'], type_, room_id
     ])
     with open(filename, 'a') as opened_file:
         opened_file.write(encrypt.encrypt(plaintext_arguments) + '\n')
