@@ -1,5 +1,6 @@
 import re
 import hashlib
+from log_libraries import utils
 
 from utils import ValidationError
 
@@ -136,4 +137,20 @@ def token_validator(file_, token):
 
 
 def context_validator(arguments, filename):
-    pass
+    if arguments.get('batch'):
+        return
+    time, status, position = utils.extract_for_append(arguments, filename)
+    if arguments['timestamp'] <= time:
+        raise ValidationError('This time has passed')
+    if position == -2:
+        if arguments.get('room_id', -1) != -1:
+            raise ValidationError('cannot enter if not gallery')
+        return
+
+    real_status = 'E' if arguments.get('employee') else 'G'
+    if status != real_status:
+        raise ValidationError('name taken')
+
+    if position - arguments.get('room_id', -1) not in {-1, 1}:
+        raise ValidationError('Cannot make this move from room to room')
+    return

@@ -43,6 +43,31 @@ def extract(arguments, filename, filtering=False):
     return out
 
 
+def extract_for_append(arguments, filename):
+    decryptor = Encrypt(arguments['token'])
+    human = arguments.get('guest', arguments.get('employee'))
+    time = 0
+    last_line = []
+    status = ''
+    position = -2
+    with open(filename, 'r') as opened_file:
+        for n, line in enumerate(opened_file.readlines()):
+            if n == 0:
+                continue
+            decrypted_line = decryptor.decrypt(line.replace('\n', ''))
+            line = json.loads(decrypted_line)
+            last_line = line
+            if line[1] != human and line[2] != human:
+                    continue
+            if line[1] == human:
+                status = 'E'
+            else:
+                status = 'G'
+            position = line[-1]
+    time = last_line[0]
+    return [time, status, position]
+
+
 def print_status(arguments, filename):
     print(extract(arguments, filename))
 
