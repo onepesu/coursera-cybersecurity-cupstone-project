@@ -37,11 +37,12 @@ except ValidationError:
     print('invalid')
     sys.exit(255)
 if arguments.get('batch_file'):
+    command = os.path.join(path_to_here, 'logappend')
     with open(file_, 'r') as opened_file:
         for line in opened_file.readlines():
             if '-B' in line:
-                os.system('./logappend ')
-            os.system('./logappend ' + line)
+                os.system(command + ' ')
+            os.system(command + ' ' + line)
 else:
     log_file_name = os.path.join(path_to_here, LOG_PATH, file_)
     token = arguments['token']
