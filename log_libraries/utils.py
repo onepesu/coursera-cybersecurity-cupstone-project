@@ -21,15 +21,21 @@ def append_to_log(arguments, filename):
         opened_file.write(encryptor.encrypt(plaintext_arguments) + '\n')
 
 
-def extract(arguments, filename):
+def extract(arguments, filename, filtering=False):
     out = []
     decryptor = Encrypt(arguments['token'])
+    guest_list = arguments['guest']
+    employee_list = arguments['employee']
     with open(filename, 'r') as opened_file:
         for n, line in enumerate(opened_file.readlines()):
             if n == 0:
                 continue
             decrypted_line = decryptor.decrypt(line.replace('\n', ''))
-            out.append(json.loads(decrypted_line))
+            line = json.loads(decrypted_line)
+            if filtering:
+                if line[1] not in employee_list and line[2] not in guest_list:
+                    continue
+            out.append(line)
     return out
 
 
@@ -38,12 +44,12 @@ def print_status(arguments, filename):
 
 
 def print_room_id(arguments, filename):
-    print(extract(arguments, filename))
+    print(extract(arguments, filename, filtering=True))
 
 
 def print_total_time(arguments, filename):
-    print(extract(arguments, filename))
+    print(extract(arguments, filename, filtering=True))
 
 
 def print_rooms(arguments, filename):
-    print(extract(arguments, filename))
+    print(extract(arguments, filename, filtering=True))
