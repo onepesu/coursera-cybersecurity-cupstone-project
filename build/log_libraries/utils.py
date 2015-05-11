@@ -64,16 +64,18 @@ def print_status(arguments, filename):
         else:
             change_status(employers, event[1], event[3], event[4])
 
-    print(''.join(sorted(employers.keys())))
-    print(''.join(sorted(guests.keys())))
+    print(','.join(sorted(employers.keys())))
+    print(','.join(sorted(guests.keys())))
 
     rooms = defaultdict(list)
     for human, room in chain(employers.iteritems(), guests.iteritems()):
         rooms[room].append(human)
 
     for room in sorted(rooms.iterkeys()):
-        people_in_the_room = sorted(rooms[room])
-        print(room + '; ' + ','.join(people_in_the_room))
+        if room != -1:
+            people_in_the_room = sorted(rooms[room])
+            print(str(room) + ': ' + ','.join(people_in_the_room))
+
     sys.exit(0)
 
 
