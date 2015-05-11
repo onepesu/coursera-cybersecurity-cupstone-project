@@ -1,5 +1,5 @@
+import sys
 import json
-import subprocess
 from encryption import Encrypt
 
 LOG_PATH = 'logs'
@@ -44,7 +44,14 @@ def print_status(arguments, filename):
 
 
 def print_room_id(arguments, filename):
-    print(extract(arguments, filename, filtering=True))
+    history = extract(arguments, filename, filtering=True)
+    rooms = []
+    for event in history:
+        room = event[-1]
+        if room != -1 and event[-2] == 'A':
+            rooms.append(str(room))
+    print(','.join(rooms))
+    sys.exit(0)
 
 
 def print_total_time(arguments, filename):
