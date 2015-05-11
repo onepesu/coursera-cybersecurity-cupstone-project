@@ -1,7 +1,7 @@
 import re
 import hashlib
 
-from log_libraries.utils import ValidationError
+from utils import ValidationError
 
 
 alphanumeric_pattern = re.compile('^[a-zA-Z0-9]+$')

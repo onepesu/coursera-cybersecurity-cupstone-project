@@ -2,7 +2,9 @@ from __future__ import print_function
 
 import sys
 import json
+
 from encryption import Encrypt
+
 
 LOG_PATH = 'logs'
 
