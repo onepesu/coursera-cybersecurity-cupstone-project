@@ -2,6 +2,8 @@ from __future__ import print_function
 
 import sys
 import json
+from itertools import chain
+from collections import defaultdict
 
 from encryption import Encrypt
 
@@ -43,8 +45,36 @@ def extract(arguments, filename, filtering=False):
     return out
 
 
+def change_status(humans, name, event_type, room_id):
+    if event_type == 'A':
+        humans[name] = room_id
+    elif humans[name] == -1:
+        del humans[name]
+    else:
+        humans[name] = -1
+
+
 def print_status(arguments, filename):
-    print(extract(arguments, filename))
+    history = extract(arguments, filename)
+    employers = {}
+    guests = {}
+    for event in history:
+        if event[1] == '':
+            change_status(guests, event[2], event[3], event[4])
+        else:
+            change_status(employers, event[1], event[3], event[4])
+
+    print(''.join(sorted(employers.keys())))
+    print(''.join(sorted(guests.keys())))
+
+    rooms = defaultdict(list)
+    for human, room in chain(employers.iteritems(), guests.iteritems()):
+        rooms[room].append(human)
+
+    for room in sorted(rooms.iterkeys()):
+        people_in_the_room = sorted(rooms[room])
+        print(room + '; ' + ','.join(people_in_the_room))
+    sys.exit(0)
 
 
 def print_room_id(arguments, filename):
