@@ -1,7 +1,10 @@
+from copy import deepcopy
+
 from utils import ValidationError
 
 
 def parse_args(argument_list, mapping):
+    mapping = deepcopy(mapping)
     parsed_arguments = {}
     accepting_arguments = False
     for argument in argument_list:
