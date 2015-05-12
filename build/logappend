@@ -51,7 +51,6 @@ def run_unnamed(parsed_arguments, filename, batch=False):
         try:
             validators.context_validator(parsed_arguments, log_file_name)
         except ValidationError as err:
-            # print(err)
             print('invalid')
             if batch is False:
                 sys.exit(255)

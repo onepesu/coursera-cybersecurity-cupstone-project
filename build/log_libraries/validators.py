@@ -140,11 +140,7 @@ def context_validator(arguments, filename):
     if arguments.get('batch'):
         return
     time, status, position, action = utils.extract_for_append(arguments, filename)
-    # print('-----')
-    # print(previous_action)
-    # print('-----')
-    # print(arguments['arrival'])
-    # print('-----')
+
     if arguments['timestamp'] <= time:
         raise ValidationError('This time has passed')
     if position == -2:
@@ -157,9 +153,6 @@ def context_validator(arguments, filename):
         raise ValidationError('name taken')
 
     future_action = 'A' if arguments.get('arrival') else 'D'
-    # print('-----')
-    # print(action)
-    # print('-----')
 
     future_position = arguments.get('room_id', -1)
 
@@ -175,7 +168,5 @@ def context_validator(arguments, filename):
                          future_position not in {-1, -2} and future_action == 'D',
                          }
 
-    # print(position, action, future_position, future_action)
-    # print(allowed_positions)
     if not any(allowed_positions):
         raise ValidationError('move not allowed')
