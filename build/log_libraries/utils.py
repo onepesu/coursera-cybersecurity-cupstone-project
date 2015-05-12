@@ -47,11 +47,11 @@ def extract(arguments, filename, filtering=False):
 
 def extract_for_append(arguments, filename):
     decryptor = Encrypt(arguments['token'])
-    human = arguments.get('guest', arguments.get('employee'))
-    time = 0
+    human = arguments['guest'] or arguments['employee']
     last_line = []
     status = ''
     position = -2
+    previous = ''
     with open(filename, 'r') as opened_file:
         for n, line in enumerate(opened_file.readlines()):
             if n == 0:
@@ -61,13 +61,14 @@ def extract_for_append(arguments, filename):
             last_line = line
             if line[1] != human and line[2] != human:
                     continue
+            previous = line[3]
             if line[1] == human:
                 status = 'E'
             else:
                 status = 'G'
             position = line[-1]
     time = last_line[0]
-    return [time, status, position]
+    return [time, status, position, previous]
 
 
 def change_status(humans, name, event_type, room_id):

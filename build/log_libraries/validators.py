@@ -139,7 +139,12 @@ def token_validator(file_, token):
 def context_validator(arguments, filename):
     if arguments.get('batch'):
         return
-    time, status, position = utils.extract_for_append(arguments, filename)
+    time, status, position, action = utils.extract_for_append(arguments, filename)
+    # print('-----')
+    # print(previous_action)
+    # print('-----')
+    # print(arguments['arrival'])
+    # print('-----')
     if arguments['timestamp'] <= time:
         raise ValidationError('This time has passed')
     if position == -2:
@@ -151,6 +156,26 @@ def context_validator(arguments, filename):
     if status != real_status:
         raise ValidationError('name taken')
 
-    if position - arguments.get('room_id', -1) not in {-1, 1}:
-        raise ValidationError('Cannot make this move from room to room')
-    return
+    future_action = 'A' if arguments.get('arrival') else 'D'
+    # print('-----')
+    # print(action)
+    # print('-----')
+
+    future_position = arguments.get('room_id', -1)
+
+    allowed_positions = {position == -1 and action == 'D' and
+                         future_position == -1 and future_action == 'A',
+                         position == -1 and action == 'A' and
+                         (future_position == -1 and future_action == 'D' or
+                          future_position not in {-1, -2} and future_action == 'A'),
+                         position not in {-1, -2} and action == 'D' and
+                         (future_position == -1 and future_action == 'D' or
+                          future_position not in {-1, -2} and future_action == 'A'),
+                         position not in {-1, -2} and action == 'A' and
+                         future_position not in {-1, -2} and future_action == 'D',
+                         }
+
+    # print(position, action, future_position, future_action)
+    # print(allowed_positions)
+    if not any(allowed_positions):
+        raise ValidationError('move not allowed')
