@@ -8,8 +8,8 @@ from log_libraries import validators
 from log_libraries import utils
 
 
-path_to_here = os.path.dirname(os.path.abspath(__file__))
 full_arguments = sys.argv
+path = os.getcwd()
 
 if len(full_arguments) < 3:
     print('invalid')
@@ -35,7 +35,7 @@ except utils.ValidationError:
     sys.exit(255)
 
 try:
-    log_file_name = os.path.join(path_to_here, utils.LOG_PATH, file_)
+    log_file_name = os.path.join(path, file_)
     if not os.path.isfile(log_file_name):
         raise utils.ValidationError('file does not exist')
     token = arguments['token']

@@ -1,4 +1,4 @@
-log_dir:
-	mkdir -p logs
+foo:
+	@true
 
-.PHONY: log_dir
+.PHONY: foo
