@@ -11,7 +11,8 @@ from log_libraries.utils import ValidationError, append_to_log
 
 
 full_arguments = sys.argv
-path = os.path.dirname(full_arguments[0])
+path = os.getcwd()
+
 mapping = {
     '-T': {'name': 'timestamp', 'max_args': 1},
     '-K': {'name': 'token', 'max_args': 1},

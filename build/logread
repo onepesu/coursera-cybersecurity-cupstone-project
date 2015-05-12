@@ -9,7 +9,7 @@ from log_libraries import utils
 
 
 full_arguments = sys.argv
-path = os.path.dirname(full_arguments[0])
+path = os.getcwd()
 
 if len(full_arguments) < 3:
     print('invalid')
