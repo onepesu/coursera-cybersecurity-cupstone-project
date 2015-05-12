@@ -8,9 +8,6 @@ from collections import defaultdict
 from encryption import Encrypt
 
 
-LOG_PATH = 'logs'
-
-
 class ValidationError(ValueError):
     pass
 
