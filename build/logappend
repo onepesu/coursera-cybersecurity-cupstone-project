@@ -24,18 +24,20 @@ mapping = {
 }
 
 
-def parse_and_validate(argument_list, filename):
+def parse_and_validate(argument_list, filename, batch=False):
     try:
         arguments_ = logparser.parse_args(argument_list, mapping)
         validators.filename_validator(filename)
         validators.logappend_argument_validator(arguments_)
     except ValidationError:
         print('invalid')
-        sys.exit(255)
-    return arguments_
+        if batch is False:
+            sys.exit(255)
+    else:
+        return arguments_
 
 
-def run_unnamed(parsed_arguments, filename):
+def run_unnamed(parsed_arguments, filename, batch=False):
     log_file_name = os.path.join(path_to_here, LOG_PATH, filename)
     token = parsed_arguments['token']
     if os.path.isfile(log_file_name):
@@ -43,12 +45,14 @@ def run_unnamed(parsed_arguments, filename):
             validators.token_validator(log_file_name, token)
         except ValidationError:
             print('security error', file=sys.stderr)
-            sys.exit(255)
+            if batch is False:
+                sys.exit(255)
         try:
             validators.context_validator(parsed_arguments, log_file_name)
         except ValidationError:
             print('invalid')
-            sys.exit(255)
+            if batch is False:
+                sys.exit(255)
     else:
         with open(log_file_name, 'w') as opened_file:
             supplied_token = hashlib.sha512(token).hexdigest()
@@ -67,8 +71,10 @@ if arguments.get('batch_file'):
         for line in opened_batch_file.readlines():
             if '-B' in line:
                 print('invalid')
-                sys.exit(255)
             new_arguments = line.split()
-            run_unnamed(new_arguments[:-1], new_arguments[-1])
+            new_file = new_arguments[-1]
+            args = parse_and_validate(new_arguments[:-1], new_file, batch=True)
+            if args is not None:
+                run_unnamed(args, new_file, batch=True)
 else:
     run_unnamed(arguments, file_)
