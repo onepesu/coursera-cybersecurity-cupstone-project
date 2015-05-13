@@ -134,4 +134,24 @@ def print_total_time(arguments, filename):
 
 
 def print_rooms(arguments, filename):
-    print(extract(arguments, filename, filtering=True))
+    history = extract(arguments, filename, filtering=True)
+    if not history:
+        sys.exit(0)
+    rooms = set()
+    humans = {
+        human: -2 for human in arguments['guest'] + arguments['employee']
+    }
+    for event in history:
+        human = event[1] or event[2]
+        room_id = event[-1]
+        if event[-2] == 'A':
+            humans[human] = room_id
+            if len(set(humans.itervalues())) == 1 and room_id >= 0:
+                rooms.add(str(room_id))
+        elif room_id == -1:
+            humans[human] = -2
+        else:
+            humans[human] = -1
+
+    print(','.join(sorted(rooms)))
+    sys.exit(0)
