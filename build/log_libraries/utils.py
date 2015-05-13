@@ -114,7 +114,23 @@ def print_room_id(arguments, filename):
 
 
 def print_total_time(arguments, filename):
-    print(extract(arguments, filename, filtering=True))
+    history = extract(arguments, filename, filtering=True)
+    if not history:
+        sys.exit(0)
+    total_time = 0
+    in_gallery = False
+    for event in history:
+        if event[-1] == -1 and event[-2] == 'A':
+            in_gallery = True
+            arrival_time = event[0]
+        if event[-1] == -1 and event[-2] == 'L':
+            in_gallery = False
+            total_time += event[0] - arrival_time
+    if in_gallery:
+        total_time += history[-1][0] - arrival_time
+
+    print(total_time)
+    sys.exit(0)
 
 
 def print_rooms(arguments, filename):
