@@ -41,7 +41,7 @@ try:
     token = arguments['token']
     validators.token_validator(log_file_name, token)
 except utils.ValidationError:
-    print('security error', file=sys.stderr)
+    print('integrity violation')
     sys.exit(255)
 
 if arguments.get('status'):

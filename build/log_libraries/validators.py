@@ -35,7 +35,7 @@ def logappend_argument_validator(args):
     except (KeyError, ValueError, IndexError):
         raise ValidationError("timestamp of wrong type or token doesn't exist")
 
-    if timestamp < 0 or timestamp > 1073741824:
+    if timestamp < 1 or timestamp > 1073741823:
             raise ValidationError('timestamp negative')
     args['timestamp'] = timestamp
 
@@ -72,7 +72,7 @@ def logappend_argument_validator(args):
             room_id = int(args['room_id'][0])
         except (KeyError, ValueError, IndexError):
             raise ValidationError('room_id is of wrong type')
-        if room_id < 0 or room_id > 1073741824:
+        if room_id < 0 or room_id > 1073741823:
             raise ValidationError('room_id is negative')
         args['room_id'] = room_id
     else:

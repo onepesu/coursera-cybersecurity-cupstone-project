@@ -50,7 +50,7 @@ def run_unnamed(parsed_arguments, filename, batch=False):
                 sys.exit(255)
         try:
             validators.context_validator(parsed_arguments, log_file_name)
-        except ValidationError as err:
+        except ValidationError:
             print('invalid')
             if batch is False:
                 sys.exit(255)
@@ -68,6 +68,9 @@ file_ = full_arguments[-1]
 arguments = parse_and_validate(full_arguments[1:-1], file_)
 
 if arguments.get('batch_file'):
+    if not os.path.isfile(os.path.join(path, file_)):
+        print('invalid')
+        sys.exit(255)
     with open(file_, 'r') as opened_batch_file:
         for line in opened_batch_file.readlines():
             if '-B' in line:
