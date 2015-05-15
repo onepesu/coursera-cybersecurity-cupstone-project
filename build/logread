@@ -25,9 +25,8 @@ mapping = {
     '-G': {'name': 'guest'}
 }
 
-file_ = full_arguments[-1]
 try:
-    arguments = logparser.parse_args(full_arguments[1:-1], mapping)
+    arguments, file_ = logparser.parse_args(full_arguments[1:], mapping)
     validators.filename_validator(file_)
     validators.logread_argument_validator(arguments)
 except utils.ValidationError:

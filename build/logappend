@@ -25,9 +25,9 @@ mapping = {
 }
 
 
-def parse_and_validate(argument_list, filename, batch=False):
+def parse_and_validate(argument_list, batch=False):
     try:
-        arguments_ = logparser.parse_args(argument_list, mapping)
+        arguments_, filename = logparser.parse_args(argument_list, mapping)
         validators.filename_validator(filename)
         validators.logappend_argument_validator(arguments_)
     except ValidationError:
@@ -35,7 +35,7 @@ def parse_and_validate(argument_list, filename, batch=False):
         if batch is False:
             sys.exit(255)
     else:
-        return arguments_
+        return arguments_, filename
 
 
 def run_unnamed(parsed_arguments, filename, batch=False):
@@ -64,8 +64,7 @@ if len(full_arguments) < 3:
     print('invalid')
     sys.exit(255)
 
-file_ = full_arguments[-1]
-arguments = parse_and_validate(full_arguments[1:-1], file_)
+arguments, file_ = parse_and_validate(full_arguments[1:])
 
 if arguments.get('batch_file'):
     if not os.path.isfile(os.path.join(path, file_)):
@@ -76,8 +75,7 @@ if arguments.get('batch_file'):
             if '-B' in line:
                 print('invalid')
             new_arguments = line.split()
-            new_file = new_arguments[-1]
-            args = parse_and_validate(new_arguments[:-1], new_file, batch=True)
+            args, new_file = parse_and_validate(new_arguments, batch=True)
             if args is not None:
                 run_unnamed(args, new_file, batch=True)
 else:

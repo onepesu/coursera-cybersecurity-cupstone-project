@@ -7,6 +7,7 @@ def parse_args(argument_list, mapping):
     mapping = deepcopy(mapping)
     parsed_arguments = {}
     accepting_arguments = False
+    file_ = None
     for argument in argument_list:
         if argument in mapping.keys():
             if mapping[argument].get('is_flag'):
@@ -31,9 +32,12 @@ def parse_args(argument_list, mapping):
                 parsed_arguments[key] = [argument]
             accepting_arguments = False
         else:
-            raise ValidationError('Unexpected argument')
+            if file_ is None:
+                file_ = argument
+            else:
+                raise ValidationError('Unexpected argument')
 
     if accepting_arguments:
         raise ValidationError('Missing argument')
 
-    return parsed_arguments
+    return parsed_arguments, file_
