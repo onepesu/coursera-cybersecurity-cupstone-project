@@ -6,8 +6,9 @@ from utils import ValidationError
 def parse_args(argument_list, mapping):
     mapping = deepcopy(mapping)
     parsed_arguments = {}
-    accepting_arguments = False
     file_ = None
+    argument_list = argument_list
+    accepting_arguments = False
     for argument in argument_list:
         if argument in mapping.keys():
             if mapping[argument].get('is_flag'):
