@@ -33,10 +33,19 @@ except utils.ValidationError:
     print('invalid')
     sys.exit(255)
 
+log_file_name = os.path.join(path, file_)
+if not os.path.isfile(log_file_name):
+    if arguments.get('status'):
+        print('\n\n')
+    elif arguments.get('room_id'):
+        print('')
+    elif arguments.get('total_time'):
+        print('')
+    elif arguments.get('rooms'):
+        print('')
+    sys.exit(0)
+
 try:
-    log_file_name = os.path.join(path, file_)
-    if not os.path.isfile(log_file_name):
-        raise utils.ValidationError('file does not exist')
     token = arguments['token']
     validators.token_validator(log_file_name, token)
 except utils.ValidationError:

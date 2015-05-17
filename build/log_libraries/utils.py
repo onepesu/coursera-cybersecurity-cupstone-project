@@ -64,7 +64,10 @@ def extract_for_append(arguments, filename):
             else:
                 status = 'G'
             position = line[-1]
-    time = last_line[0]
+    try:
+        time = last_line[0]
+    except IndexError:
+        time = 0
     return [time, status, position, previous]
 
 

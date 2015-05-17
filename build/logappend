@@ -48,16 +48,16 @@ def run_unnamed(parsed_arguments, filename, batch=False):
             print('invalid')
             if batch is False:
                 sys.exit(255)
-        try:
-            validators.context_validator(parsed_arguments, log_file_name)
-        except ValidationError:
-            print('invalid')
-            if batch is False:
-                sys.exit(255)
     else:
         with open(log_file_name, 'w') as opened_file:
             supplied_token = hashlib.sha512(token).hexdigest()
             opened_file.write(supplied_token + '\n')
+    try:
+        validators.context_validator(parsed_arguments, log_file_name)
+    except ValidationError:
+        print('invalid')
+        if batch is False:
+            sys.exit(255)
     append_to_log(parsed_arguments, log_file_name)
 
 if len(full_arguments) < 3:
