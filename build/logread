@@ -40,7 +40,7 @@ if not os.path.isfile(log_file_name):
     elif arguments.get('room_id'):
         print('')
     elif arguments.get('total_time'):
-        print('')
+        print('0\n')
     elif arguments.get('rooms'):
         print('')
     sys.exit(0)

@@ -1,5 +1,6 @@
 import re
 import hashlib
+import os.path
 from log_libraries import utils
 
 from utils import ValidationError
@@ -137,10 +138,15 @@ def token_validator(file_, token):
 def context_validator(arguments, filename):
     if arguments.get('batch'):
         return
-    time, status, position, action = utils.extract_for_append(arguments, filename)
+    if os.path.isfile(filename):
+        time, status, position, action = utils.extract_for_append(
+            arguments, filename
+        )
+        if arguments['timestamp'] <= time:
+            raise ValidationError('This time has passed')
+    else:
+        time, status, position, action = 0, '', -2, 'D'
 
-    if arguments['timestamp'] <= time:
-        raise ValidationError('This time has passed')
     if position == -2:
         if arguments.get('room_id', -1) != -1:
             raise ValidationError('cannot enter if not gallery')
