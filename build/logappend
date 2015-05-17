@@ -14,11 +14,11 @@ full_arguments = sys.argv
 path = os.getcwd()
 
 mapping = {
-    '-T': {'name': 'timestamp', 'max_args': 1},
-    '-K': {'name': 'token', 'max_args': 1},
-    '-E': {'name': 'employee', 'max_args': 1},
-    '-G': {'name': 'guest', 'max_args': 1},
-    '-R': {'name': 'room_id', 'max_args': 1},
+    '-T': {'name': 'timestamp'},
+    '-K': {'name': 'token'},
+    '-E': {'name': 'employee'},
+    '-G': {'name': 'guest'},
+    '-R': {'name': 'room_id'},
     '-A': {'name': 'arrival', 'is_flag': True},
     '-L': {'name': 'departure', 'is_flag': True},
     '-B': {'name': 'batch_file', 'is_flag': True}

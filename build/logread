@@ -16,7 +16,7 @@ if len(full_arguments) < 3:
     sys.exit(255)
 
 mapping = {
-    '-K': {'name': 'token', 'max_args': 1},
+    '-K': {'name': 'token'},
     '-S': {'name': 'status', 'is_flag': True},
     '-R': {'name': 'room_id', 'is_flag': True},
     '-T': {'name': 'total_time', 'is_flag': True},

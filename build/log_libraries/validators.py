@@ -22,36 +22,44 @@ def is_only_letters(name):
     return alpha_pattern.search(name) is not None
 
 
+def validate_integer_list(integer_list, lower_bound=1, upper_bound=1073741823):
+    for integer in integer_list:
+        try:
+            integer = int(integer)
+        except ValueError:
+            raise ValidationError('integer not an int')
+        if integer < lower_bound or integer > upper_bound:
+            raise ValidationError('integer out of bounds')
+
+    return int(integer_list[-1])
+
+
 def logappend_argument_validator(args):
     if args.get('batch_file'):
-        if any([args.get('timestamp'), args.get('token'), args.get('employee'),
-                args.get('guest'), args.get('arrival'), args.get('departure'),
-                args.get('room_id')]):
+        if len(args) > 1:
             raise ValidationError('You have a batch file and other args')
         return
     try:
-        timestamp = int(args['timestamp'][0])
-        token = args['token'][0]
-    except (KeyError, ValueError, IndexError):
+        timestamp = validate_integer_list(args['timestamp'])
+        token = args['token'][-1]
+    except KeyError:
         raise ValidationError("timestamp of wrong type or token doesn't exist")
 
-    if timestamp < 1 or timestamp > 1073741823:
-            raise ValidationError('timestamp negative')
     args['timestamp'] = timestamp
 
     if not is_alphanumeric(token):
-            raise ValidationError('token contains invalid characters')
+        raise ValidationError('token contains invalid characters')
     args['token'] = token
 
     if args.get('employee'):
         if args.get('guest'):
             raise ValidationError('have both -G and -E')
-        human = args.get('employee')[0]
+        human = args.get('employee')[-1]
         args['employee'] = human
         args['guest'] = ""
     else:
         if args.get('guest'):
-            human = args.get('guest')[0]
+            human = args.get('guest')[-1]
             args['guest'] = human
             args['employee'] = ""
         else:
@@ -60,29 +68,19 @@ def logappend_argument_validator(args):
     if not is_only_letters(human):
         raise ValidationError('invalid human name')
 
-    # todo: make the next two checks a xor
-    if args.get('arrival') and args.get('departure'):
-        raise ValidationError('both arrival and departure')
+    if not (bool(args.get('arrival')) ^ bool(args.get('departure'))):
+        raise ValidationError('not arrival xor departure')
 
-    if not (args.get('arrival') or args.get('departure')):
-        raise ValidationError('neither arrival nor departure')
-
-    if args.get('room_id'):
-        try:
-            room_id = int(args['room_id'][0])
-        except (KeyError, ValueError, IndexError):
-            raise ValidationError('room_id is of wrong type')
-        if room_id < 0 or room_id > 1073741823:
-            raise ValidationError('room_id is negative')
-        args['room_id'] = room_id
-    else:
+    try:
+        args['room_id'] = validate_integer_list(args['room_id'], lower_bound=0)
+    except KeyError:
         args['room_id'] = -1
 
 
 def logread_argument_validator(args):
     try:
-        token = args['token'][0]
-    except (KeyError, IndexError):
+        token = args['token'][-1]
+    except KeyError:
         raise ValidationError("There is no token")
 
     if not is_alphanumeric(token):
