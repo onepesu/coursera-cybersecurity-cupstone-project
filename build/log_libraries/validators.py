@@ -154,17 +154,18 @@ def context_validator(arguments, filename):
 
     future_position = arguments.get('room_id', -1)
 
-    allowed_positions = {position == -1 and action == 'D' and
-                         future_position == -1 and future_action == 'A',
-                         position == -1 and action == 'A' and
-                         (future_position == -1 and future_action == 'D' or
-                          future_position not in {-1, -2} and future_action == 'A'),
-                         position not in {-1, -2} and action == 'D' and
-                         (future_position == -1 and future_action == 'D' or
-                          future_position not in {-1, -2} and future_action == 'A'),
-                         position not in {-1, -2} and action == 'A' and
-                         future_position not in {-1, -2} and future_action == 'D',
-                         }
+    allowed_positions = {
+        position == -1 and action == 'D' and
+        future_position == -1 and future_action == 'A',
+        position == -1 and action == 'A' and
+        (future_position == -1 and future_action == 'D' or
+         future_position not in {-1, -2} and future_action == 'A'),
+        position not in {-1, -2} and action == 'D' and
+        (future_position == -1 and future_action == 'D' or
+         future_position not in {-1, -2} and future_action == 'A'),
+        position not in {-1, -2} and action == 'A' and
+        future_position not in {-1, -2} and future_action == 'D'
+    }
 
     if not any(allowed_positions):
         raise ValidationError('move not allowed')
