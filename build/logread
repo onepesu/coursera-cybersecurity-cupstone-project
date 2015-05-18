@@ -47,7 +47,7 @@ if not os.path.isfile(log_file_name):
 
 try:
     token = arguments['token']
-    validators.token_validator(log_file_name, token)
+    timestamps, employees, guests = validators.token_validator(log_file_name, token)
 except utils.ValidationError:
     print('integrity violation')
     sys.exit(255)

@@ -1,4 +1,5 @@
 import re
+import json
 import hashlib
 import os.path
 from log_libraries import utils
@@ -126,21 +127,28 @@ def logread_argument_validator(args):
             raise ValidationError('too few parameters')
 
 
-def token_validator(file_, token):
+def token_validator(file_, encryptor):
     with open(file_, 'r') as opened_file:
-        encrypted_token = opened_file.readline().replace('\n', '')
+        contents = []
+        for line in opened_file.readlines():
+            decrypted_line = encryptor.decrypt(line.replace('\n', ''))
+            line = json.loads(decrypted_line)
+            contents.append(line)
+    timestamps, employees, guests = contents[0], contents[1], contents[2]
+    if not (isinstance(timestamps, int) or isinstance(employees, dict) or isinstance(guests, dict)):
+        raise ValidationError('corrupted file')
+    return timestamps, employees, guests
 
-    supplied_token = hashlib.sha512(token).hexdigest()
-    if supplied_token != encrypted_token:
-        raise ValidationError('Wrong authentication token')
+    # supplied_token = hashlib.sha512(token).hexdigest()
+    # if supplied_token != encrypted_token:
+    #     raise ValidationError('Wrong authentication token')
 
 
-def context_validator(arguments, filename, encryptor):
+def context_validator(arguments, timestamps, employees, guests):
     if arguments.get('batch'):
         return
-    if os.path.isfile(filename):
-        time, status, position, action = utils.extract_for_append(
-            arguments, filename, encryptor
+    time, status, position, action = utils.extract_for_append(
+            arguments, timestamps, employees, guests
         )
         if arguments['timestamp'] <= time:
             raise ValidationError('This time has passed')

@@ -43,19 +43,18 @@ def run_unnamed(parsed_arguments, filename, batch=False):
     log_file_name = os.path.join(path, filename)
     token = parsed_arguments['token']
     file_exists = os.path.isfile(log_file_name)
+    encryptor = Encrypt(token)
     if file_exists:
         try:
-            validators.token_validator(log_file_name, token)
+            timestamps, employees, guests = validators.token_validator(log_file_name, encryptor)
         except ValidationError:
             print('invalid')
             if batch is False:
                 sys.exit(255)
 
-    encryptor = Encrypt(token)
-
     try:
-        validators.context_validator(
-            parsed_arguments, log_file_name, encryptor
+        timestamps, employees, guests = validators.context_validator(
+            parsed_arguments, timestamps, employees, guests
         )
     except ValidationError:
         print('invalid')
@@ -67,7 +66,7 @@ def run_unnamed(parsed_arguments, filename, batch=False):
             supplied_token = hashlib.sha512(token).hexdigest()
             opened_file.write(supplied_token + '\n')
 
-    append_to_log(parsed_arguments, log_file_name, encryptor)
+    append_to_log(timestamps, employees, guests, log_file_name, encryptor)
 
 if len(full_arguments) < 3:
     print('invalid')

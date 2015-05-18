@@ -38,12 +38,13 @@ def extract(arguments, filename, decryptor, filtering=False):
     return out
 
 
-def extract_for_append(arguments, filename, decryptor):
-    human = arguments['guest'] or arguments['employee']
+def extract_for_append(arguments, timestamps, employees, guests):
+    (human, future_status) = (arguments['guest'], 'G') or (arguments['employee'], 'E')
     last_line = []
     status = ''
     position = -2
     previous = ''
+
     with open(filename, 'r') as opened_file:
         for n, line in enumerate(opened_file.readlines()):
             if n == 0:
