@@ -134,10 +134,10 @@ def token_validator(file_, encryptor):
             decrypted_line = encryptor.decrypt(line.replace('\n', ''))
             line = json.loads(decrypted_line)
             contents.append(line)
-    timestamps, employees, guests = contents[0], contents[1], contents[2]
-    if not (isinstance(timestamps, int) or isinstance(employees, dict) or isinstance(guests, dict)):
+    timestamp, employees, guests = contents[0], contents[1], contents[2]
+    if not (isinstance(timestamp, int) or isinstance(employees, dict) or isinstance(guests, dict)):
         raise ValidationError('corrupted file')
-    return timestamps, employees, guests
+    return timestamp, employees, guests
 
     # supplied_token = hashlib.sha512(token).hexdigest()
     # if supplied_token != encrypted_token:
@@ -145,13 +145,19 @@ def token_validator(file_, encryptor):
 
 
 def context_validator(arguments, timestamp, employees, guests):
-    if arguments.get('batch'):
-        return
 
-    if arguments['timestamp'] <= timestamp:
+    time = arguments['timestamp']
+
+    if time <= timestamp:
         raise ValidationError('This time has passed')
 
-    (human, status) = (arguments.get('employee'), 'E') or (arguments.get('guest'), 'G')
+    if arguments.get('employee'):
+        human = arguments['employee']
+        status = 'E'
+    else:
+        human = arguments['guest']
+        status = 'G'
+    found = False
 
     position = -2
     if timestamp == 0:
@@ -159,19 +165,11 @@ def context_validator(arguments, timestamp, employees, guests):
         for visitor, situation in information.items():
             if human == visitor:
                 position = situation[0]
+                found = True
                 break
 
     future_position = arguments.get('room_id', -1)
     future_action = 'A' if arguments.get('arrival') else 'D'
-
-    if position == -2:
-        if arguments.get('room_id', -1) != -1:
-            raise ValidationError('cannot enter if not gallery')
-        return
-
-    real_status = 'E' if arguments.get('employee') else 'G'
-    if status != real_status:
-        raise ValidationError('name taken')
 
     allowed_positions = {
         position == -1 and future_position == -1 and future_action == 'D',
@@ -182,3 +180,19 @@ def context_validator(arguments, timestamp, employees, guests):
 
     if not any(allowed_positions):
         raise ValidationError('move not allowed')
+
+    if status == 'E':
+        if found:
+            new_employees = employees[human][1]
+            new_employees.append([time, future_position])
+            employees[human] = [future_position, new_employees]
+        else:
+            employees[human] = [future_position, [time, future_position]]
+    elif found:
+            new_guests = guests[human][1]
+            new_guests.append([time, future_position])
+            guests[human] = [future_position, new_guests]
+    else:
+        guests[human] = [future_position, [time, future_position]]
+
+    return time, employees, guests
