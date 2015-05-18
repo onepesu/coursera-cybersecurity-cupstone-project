@@ -12,9 +12,9 @@ class ValidationError(ValueError):
 
 def append_to_log(timestamps, employees, guests, filename, encryptor):
     with open(filename, 'w') as opened_file:
-        opened_file.write(encryptor.encrypt(timestamps) + '\n')
-        opened_file.write(encryptor.encrypt(employees) + '\n')
-        opened_file.write(encryptor.encrypt(guests) + '\n')
+        opened_file.write(encryptor.encrypt(json.dumps(timestamps)) + '\n')
+        opened_file.write(encryptor.encrypt(json.dumps(employees)) + '\n')
+        opened_file.write(encryptor.encrypt(json.dumps(guests)) + '\n')
 
 
 def extract(arguments, filename, decryptor, filtering=False):

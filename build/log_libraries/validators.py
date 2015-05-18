@@ -139,10 +139,6 @@ def token_validator(file_, encryptor):
         raise ValidationError('corrupted file')
     return timestamp, employees, guests
 
-    # supplied_token = hashlib.sha512(token).hexdigest()
-    # if supplied_token != encrypted_token:
-    #     raise ValidationError('Wrong authentication token')
-
 
 def context_validator(arguments, timestamp, employees, guests):
 
