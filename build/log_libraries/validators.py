@@ -131,11 +131,20 @@ def token_validator(file_, encryptor):
     with open(file_, 'r') as opened_file:
         contents = []
         for line in opened_file.readlines():
-            decrypted_line = encryptor.decrypt(line.replace('\n', ''))
-            line = json.loads(decrypted_line)
+            try:
+                decrypted_line = encryptor.decrypt(line.replace('\n', ''))
+                line = json.loads(decrypted_line)
+            except ValueError:
+                raise ValidationError('corrupted file')
             contents.append(line)
-    timestamp, employees, guests = contents[0], contents[1], contents[2]
-    if not (isinstance(timestamp, int) or isinstance(employees, dict) or isinstance(guests, dict)):
+
+    try:
+        timestamp, employees, guests = contents
+    except ValueError:
+        raise ValidationError('corrupted file')
+
+    if not (isinstance(timestamp, int) or isinstance(employees, dict)
+            or isinstance(guests, dict)):
         raise ValidationError('corrupted file')
     return timestamp, employees, guests
 
