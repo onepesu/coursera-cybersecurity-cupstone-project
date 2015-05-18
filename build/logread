@@ -45,20 +45,23 @@ if not os.path.isfile(log_file_name):
         print('')
     sys.exit(0)
 
+token = arguments['token']
+encryptor = Encrypt(token)
+
 try:
-    token = arguments['token']
-    timestamps, employees, guests = validators.token_validator(log_file_name, token)
+    timestamps, employees, guests = validators.token_validator(
+        log_file_name, encryptor
+    )
 except utils.ValidationError:
     print('integrity violation')
     sys.exit(255)
 
-encryptor = Encrypt(token)
 
 if arguments.get('status'):
-    utils.print_status(arguments, log_file_name, encryptor)
+    utils.print_status(arguments, timestamps, employees, guests)
 elif arguments.get('room_id'):
-    utils.print_room_id(arguments, log_file_name, encryptor)
+    utils.print_room_id(arguments, timestamps, employees, guests)
 elif arguments.get('total_time'):
-    utils.print_total_time(arguments, log_file_name, encryptor)
+    utils.print_total_time(arguments, timestamps, employees, guests)
 elif arguments.get('rooms'):
-    utils.print_rooms(arguments, log_file_name, encryptor)
+    utils.print_rooms(arguments, timestamps, employees, guests)

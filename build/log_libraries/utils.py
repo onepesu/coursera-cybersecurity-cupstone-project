@@ -10,15 +10,11 @@ class ValidationError(ValueError):
     pass
 
 
-def append_to_log(arguments, filename, encryptor):
-    type_ = 'A' if arguments.get('arrival') else 'D'
-    room_id = arguments['room_id']
-    plaintext_arguments = json.dumps([
-        arguments['timestamp'], arguments['employee'],
-        arguments['guest'], type_, room_id
-    ])
-    with open(filename, 'a') as opened_file:
-        opened_file.write(encryptor.encrypt(plaintext_arguments) + '\n')
+def append_to_log(timestamps, employees, guests, filename, encryptor):
+    with open(filename, 'w') as opened_file:
+        opened_file.write(encryptor.encrypt(timestamps) + '\n')
+        opened_file.write(encryptor.encrypt(employees) + '\n')
+        opened_file.write(encryptor.encrypt(guests) + '\n')
 
 
 def extract(arguments, filename, decryptor, filtering=False):
@@ -74,7 +70,7 @@ def change_status(humans, name, event_type, room_id):
         humans[name] = -1
 
 
-def print_status(arguments, filename, encryptor):
+def print_status(arguments, timestamps, employees, guests):
     history = extract(arguments, filename, encryptor)
     employers = {}
     guests = {}
@@ -99,7 +95,7 @@ def print_status(arguments, filename, encryptor):
     sys.exit(0)
 
 
-def print_room_id(arguments, filename, encryptor):
+def print_room_id(arguments, timestamps, employees, guests):
     history = extract(arguments, filename, encryptor, filtering=True)
     rooms = []
     for event in history:
@@ -110,7 +106,7 @@ def print_room_id(arguments, filename, encryptor):
     sys.exit(0)
 
 
-def print_total_time(arguments, filename, encryptor):
+def print_total_time(arguments, timestamps, employees, guests):
     history = extract(arguments, filename, encryptor, filtering=True)
     if not history:
         sys.exit(0)
@@ -130,7 +126,7 @@ def print_total_time(arguments, filename, encryptor):
     sys.exit(0)
 
 
-def print_rooms(arguments, filename, encryptor):
+def print_rooms(arguments, timestamps, employees, guests):
     history = extract(arguments, filename, encryptor, filtering=True)
     if not history:
         sys.exit(0)

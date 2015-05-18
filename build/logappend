@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import os
-import os.path
 import sys
-import hashlib
+import os.path
 
 from log_libraries import logparser
 from log_libraries import validators
@@ -44,13 +43,19 @@ def run_unnamed(parsed_arguments, filename, batch=False):
     token = parsed_arguments['token']
     file_exists = os.path.isfile(log_file_name)
     encryptor = Encrypt(token)
+
     if file_exists:
         try:
-            timestamps, employees, guests = validators.token_validator(log_file_name, encryptor)
+            timestamps, employees, guests = validators.token_validator(
+                log_file_name, encryptor
+            )
         except ValidationError:
             print('invalid')
             if batch is False:
                 sys.exit(255)
+            return
+    else:
+        timestamps, employees, guests = 0, {}, {}
 
     try:
         timestamps, employees, guests = validators.context_validator(
@@ -60,11 +65,7 @@ def run_unnamed(parsed_arguments, filename, batch=False):
         print('invalid')
         if batch is False:
             sys.exit(255)
-
-    if not file_exists:
-        with open(log_file_name, 'w') as opened_file:
-            supplied_token = hashlib.sha512(token).hexdigest()
-            opened_file.write(supplied_token + '\n')
+        return
 
     append_to_log(timestamps, employees, guests, log_file_name, encryptor)
 
