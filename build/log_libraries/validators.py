@@ -150,7 +150,6 @@ def token_validator(file_, encryptor):
 
 
 def context_validator(arguments, timestamp, employees, guests):
-
     time = arguments['timestamp']
 
     if time <= timestamp:
@@ -162,10 +161,10 @@ def context_validator(arguments, timestamp, employees, guests):
     else:
         human = arguments['guest']
         status = 'G'
-    found = False
 
+    found = False
     position = -2
-    if timestamp == 0:
+    if timestamp != 0:
         information = employees if status == 'E' else guests
         for visitor, situation in information.items():
             if human == visitor:
@@ -173,14 +172,20 @@ def context_validator(arguments, timestamp, employees, guests):
                 found = True
                 break
 
-    future_position = arguments.get('room_id', -1)
-    future_action = 'A' if arguments.get('arrival') else 'D'
+    action = 'A' if arguments.get('arrival') else 'D'
+    if action == 'A':
+        future_position = arguments.get('room_id', -1)
+    else:
+        if arguments.get('room_id') >= 0:
+            future_position = -1
+        else:
+            future_position = -2
 
     allowed_positions = {
-        position == -1 and future_position == -1 and future_action == 'D',
-        position == -1 and future_position != -1 and future_action == 'A',
-        position == -2 and future_position == -1 and future_action == 'A',
-        position != -1 and future_position == position and future_action == 'D'
+        position == -1 and future_position == -2 and action == 'D',
+        position == -1 and future_position >= 0 and action == 'A',
+        position == -2 and future_position == -1 and action == 'A',
+        position >= 0 and future_position == -1 and action == 'D'
     }
 
     if not any(allowed_positions):
@@ -192,12 +197,12 @@ def context_validator(arguments, timestamp, employees, guests):
             new_employees.append([time, future_position])
             employees[human] = [future_position, new_employees]
         else:
-            employees[human] = [future_position, [time, future_position]]
+            employees[human] = [future_position, [[time, future_position]]]
     elif found:
             new_guests = guests[human][1]
             new_guests.append([time, future_position])
             guests[human] = [future_position, new_guests]
     else:
-        guests[human] = [future_position, [time, future_position]]
+        guests[human] = [future_position, [[time, future_position]]]
 
     return time, employees, guests

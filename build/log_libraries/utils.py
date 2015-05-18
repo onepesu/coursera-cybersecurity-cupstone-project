@@ -34,10 +34,11 @@ def extract(arguments, filename, decryptor, filtering=False):
     return out
 
 
-
 def print_status(employees, guests):
-    print(','.join(sorted(employees.keys())))
-    print(','.join(sorted(guests.keys())))
+    print(','.join(sorted([employee for employee, history in employees.items()
+                           if history[0] != -2])))
+    print(','.join(sorted([guest for guest, history in guests.items()
+                           if history[0] != -2])))
 
     rooms = defaultdict(list)
     for human, history in chain(employees.iteritems(), guests.iteritems()):
