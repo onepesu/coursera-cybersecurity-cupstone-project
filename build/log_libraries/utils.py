@@ -34,32 +34,6 @@ def extract(arguments, filename, decryptor, filtering=False):
     return out
 
 
-def extract_for_append(arguments, timestamps, employees, guests):
-    (human, future_status) = (arguments['guest'], 'G') or (arguments['employee'], 'E')
-    last_line = []
-    status = ''
-    position = -2
-    previous = ''
-
-    with open(filename, 'r') as opened_file:
-        for n, line in enumerate(opened_file.readlines()):
-            if n == 0:
-                continue
-            decrypted_line = decryptor.decrypt(line.replace('\n', ''))
-            line = json.loads(decrypted_line)
-            last_line = line
-            if line[1] != human and line[2] != human:
-                    continue
-            previous = line[3]
-            if line[1] == human:
-                status = 'E'
-            else:
-                status = 'G'
-            position = line[-1]
-    time = last_line[0]
-
-    return [time, status, position, previous]
-
 
 def print_status(employees, guests):
     print(','.join(sorted(employees.keys())))

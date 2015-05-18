@@ -46,7 +46,7 @@ def run_unnamed(parsed_arguments, filename, batch=False):
 
     if file_exists:
         try:
-            timestamps, employees, guests = validators.token_validator(
+            timestamp, employees, guests = validators.token_validator(
                 log_file_name, encryptor
             )
         except ValidationError:
@@ -55,11 +55,11 @@ def run_unnamed(parsed_arguments, filename, batch=False):
                 sys.exit(255)
             return
     else:
-        timestamps, employees, guests = 0, {}, {}
+        timestamp, employees, guests = 0, {}, {}
 
     try:
-        timestamps, employees, guests = validators.context_validator(
-            parsed_arguments, timestamps, employees, guests
+        timestamp, employees, guests = validators.context_validator(
+            parsed_arguments, timestamp, employees, guests
         )
     except ValidationError:
         print('invalid')
@@ -67,7 +67,7 @@ def run_unnamed(parsed_arguments, filename, batch=False):
             sys.exit(255)
         return
 
-    append_to_log(timestamps, employees, guests, log_file_name, encryptor)
+    append_to_log(timestamp, employees, guests, log_file_name, encryptor)
 
 if len(full_arguments) < 3:
     print('invalid')
