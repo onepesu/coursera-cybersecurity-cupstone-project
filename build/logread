@@ -49,7 +49,7 @@ token = arguments['token']
 encryptor = Encrypt(token)
 
 try:
-    timestamps, employees, guests = validators.token_validator(
+    timestamp, employees, guests = validators.token_validator(
         log_file_name, encryptor
     )
 except utils.ValidationError:
@@ -58,10 +58,10 @@ except utils.ValidationError:
 
 
 if arguments.get('status'):
-    utils.print_status(arguments, timestamps, employees, guests)
+    utils.print_status(employees, guests)
 elif arguments.get('room_id'):
-    utils.print_room_id(arguments, timestamps, employees, guests)
+    utils.print_room_id(arguments, employees, guests)
 elif arguments.get('total_time'):
-    utils.print_total_time(arguments, timestamps, employees, guests)
+    utils.print_total_time(arguments, timestamp, employees, guests)
 elif arguments.get('rooms'):
-    utils.print_rooms(arguments, timestamps, employees, guests)
+    utils.print_rooms(arguments, employees, guests)

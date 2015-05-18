@@ -61,75 +61,65 @@ def extract_for_append(arguments, timestamps, employees, guests):
     return [time, status, position, previous]
 
 
-def change_status(humans, name, event_type, room_id):
-    if event_type == 'A':
-        humans[name] = room_id
-    elif humans[name] == -1:
-        del humans[name]
-    else:
-        humans[name] = -1
-
-
-def print_status(arguments, timestamps, employees, guests):
-    history = extract(arguments, filename, encryptor)
-    employers = {}
-    guests = {}
-    for event in history:
-        if event[1] == '':
-            change_status(guests, event[2], event[3], event[4])
-        else:
-            change_status(employers, event[1], event[3], event[4])
-
-    print(','.join(sorted(employers.keys())))
+def print_status(employees, guests):
+    print(','.join(sorted(employees.keys())))
     print(','.join(sorted(guests.keys())))
 
     rooms = defaultdict(list)
-    for human, room in chain(employers.iteritems(), guests.iteritems()):
-        rooms[room].append(human)
+    for human, history in chain(employees.iteritems(), guests.iteritems()):
+        room_id = history[0]
+        if room_id >= 0:
+            rooms[room_id].append(human)
 
     for room in sorted(rooms.iterkeys()):
-        if room != -1:
-            people_in_the_room = sorted(rooms[room])
-            print(str(room) + ': ' + ','.join(people_in_the_room))
-
-    sys.exit(0)
+        people_in_the_room = sorted(rooms[room])
+        print(str(room) + ': ' + ','.join(people_in_the_room))
 
 
-def print_room_id(arguments, timestamps, employees, guests):
-    history = extract(arguments, filename, encryptor, filtering=True)
+def print_room_id(arguments, employees, guests):
+    if arguments['employee']:
+        history = employees[arguments['employee'][0]][1]
+    else:
+        history = guests[arguments['guest'][0]][1]
     rooms = []
     for event in history:
-        room = event[-1]
-        if room != -1 and event[-2] == 'A':
+        room = event[1]
+        if room >= 0:
             rooms.append(str(room))
     print(','.join(rooms))
-    sys.exit(0)
 
 
-def print_total_time(arguments, timestamps, employees, guests):
-    history = extract(arguments, filename, encryptor, filtering=True)
+def print_total_time(arguments, timestamp, employees, guests):
+    if arguments['employee']:
+        history = employees[arguments['employee'][0]][1]
+    else:
+        history = guests[arguments['guest'][0]][1]
     if not history:
         sys.exit(0)
+
     total_time = 0
     in_gallery = False
     for event in history:
-        if event[-1] == -1 and event[-2] == 'A':
+        if event[1] == -1 and not in_gallery:
             in_gallery = True
             arrival_time = event[0]
-        if event[-1] == -1 and event[-2] == 'L':
+        if event[-1] == -2:
             in_gallery = False
             total_time += event[0] - arrival_time
     if in_gallery:
-        total_time += history[-1][0] - arrival_time
+        total_time += timestamp - arrival_time
 
     print(total_time)
-    sys.exit(0)
 
 
-def print_rooms(arguments, timestamps, employees, guests):
-    history = extract(arguments, filename, encryptor, filtering=True)
+def print_rooms(arguments, employees, guests):
+    if arguments['employee']:
+        history = employees[arguments['employee'][0]][1]
+    else:
+        history = guests[arguments['guest'][0]][1]
     if not history:
         sys.exit(0)
+
     rooms = set()
     humans = {
         human: -2 for human in arguments['guest'] + arguments['employee']
@@ -147,4 +137,3 @@ def print_rooms(arguments, timestamps, employees, guests):
             humans[human] = -1
 
     print(','.join(sorted(rooms)))
-    sys.exit(0)
