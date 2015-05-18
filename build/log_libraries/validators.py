@@ -144,16 +144,25 @@ def token_validator(file_, encryptor):
     #     raise ValidationError('Wrong authentication token')
 
 
-def context_validator(arguments, timestamps, employees, guests):
+def context_validator(arguments, timestamp, employees, guests):
     if arguments.get('batch'):
         return
-    time, status, position, action = utils.extract_for_append(
-            arguments, timestamps, employees, guests
-        )
-        if arguments['timestamp'] <= time:
-            raise ValidationError('This time has passed')
-    else:
-        time, status, position, action = 0, '', -2, 'D'
+
+    if arguments['timestamp'] <= timestamp:
+        raise ValidationError('This time has passed')
+
+    (human, status) = (arguments.get('employee'), 'E') or (arguments.get('guest'), 'G')
+
+    position = -2
+    if timestamp == 0:
+        information = employees if status == 'E' else guests
+        for visitor, situation in information.items():
+            if human == visitor:
+                position = situation[0]
+                break
+
+    future_position = arguments.get('room_id', -1)
+    future_action = 'A' if arguments.get('arrival') else 'D'
 
     if position == -2:
         if arguments.get('room_id', -1) != -1:
@@ -164,21 +173,11 @@ def context_validator(arguments, timestamps, employees, guests):
     if status != real_status:
         raise ValidationError('name taken')
 
-    future_action = 'A' if arguments.get('arrival') else 'D'
-
-    future_position = arguments.get('room_id', -1)
-
     allowed_positions = {
-        position == -1 and action == 'D' and
-        future_position == -1 and future_action == 'A',
-        position == -1 and action == 'A' and
-        (future_position == -1 and future_action == 'D' or
-         future_position not in {-1, -2} and future_action == 'A'),
-        position not in {-1, -2} and action == 'D' and
-        (future_position == -1 and future_action == 'D' or
-         future_position not in {-1, -2} and future_action == 'A'),
-        position not in {-1, -2} and action == 'A' and
-        future_position not in {-1, -2} and future_action == 'D'
+        position == -1 and future_position == -1 and future_action == 'D',
+        position == -1 and future_position != -1 and future_action == 'A',
+        position == -2 and future_position == -1 and future_action == 'A',
+        position != -1 and future_position == position and future_action == 'D'
     }
 
     if not any(allowed_positions):
