@@ -16,7 +16,8 @@ def unpad(s):
 
 class Encrypt(object):
     def __init__(self, key):
-        self.key = hashlib.md5(key).hexdigest()
+        salted = key + hashlib.sha512(key).hexdigest()
+        self.key = hashlib.md5(salted).hexdigest()
 
     def encrypt(self, raw):
         raw = pad(raw)

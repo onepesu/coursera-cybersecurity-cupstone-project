@@ -5,15 +5,12 @@ import json
 from itertools import chain
 from collections import defaultdict
 
-from encryption import Encrypt
-
 
 class ValidationError(ValueError):
     pass
 
 
-def append_to_log(arguments, filename):
-    encryptor = Encrypt(arguments['token'])
+def append_to_log(arguments, filename, encryptor):
     type_ = 'A' if arguments.get('arrival') else 'D'
     room_id = arguments['room_id']
     plaintext_arguments = json.dumps([
@@ -24,9 +21,8 @@ def append_to_log(arguments, filename):
         opened_file.write(encryptor.encrypt(plaintext_arguments) + '\n')
 
 
-def extract(arguments, filename, filtering=False):
+def extract(arguments, filename, decryptor, filtering=False):
     out = []
-    decryptor = Encrypt(arguments['token'])
     guest_list = arguments['guest']
     employee_list = arguments['employee']
     with open(filename, 'r') as opened_file:
@@ -42,8 +38,7 @@ def extract(arguments, filename, filtering=False):
     return out
 
 
-def extract_for_append(arguments, filename):
-    decryptor = Encrypt(arguments['token'])
+def extract_for_append(arguments, filename, decryptor):
     human = arguments['guest'] or arguments['employee']
     last_line = []
     status = ''
@@ -78,8 +73,8 @@ def change_status(humans, name, event_type, room_id):
         humans[name] = -1
 
 
-def print_status(arguments, filename):
-    history = extract(arguments, filename)
+def print_status(arguments, filename, encryptor):
+    history = extract(arguments, filename, encryptor)
     employers = {}
     guests = {}
     for event in history:
@@ -103,8 +98,8 @@ def print_status(arguments, filename):
     sys.exit(0)
 
 
-def print_room_id(arguments, filename):
-    history = extract(arguments, filename, filtering=True)
+def print_room_id(arguments, filename, encryptor):
+    history = extract(arguments, filename, encryptor, filtering=True)
     rooms = []
     for event in history:
         room = event[-1]
@@ -114,8 +109,8 @@ def print_room_id(arguments, filename):
     sys.exit(0)
 
 
-def print_total_time(arguments, filename):
-    history = extract(arguments, filename, filtering=True)
+def print_total_time(arguments, filename, encryptor):
+    history = extract(arguments, filename, encryptor, filtering=True)
     if not history:
         sys.exit(0)
     total_time = 0
@@ -134,8 +129,8 @@ def print_total_time(arguments, filename):
     sys.exit(0)
 
 
-def print_rooms(arguments, filename):
-    history = extract(arguments, filename, filtering=True)
+def print_rooms(arguments, filename, encryptor):
+    history = extract(arguments, filename, encryptor, filtering=True)
     if not history:
         sys.exit(0)
     rooms = set()

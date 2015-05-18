@@ -6,7 +6,7 @@ import sys
 from log_libraries import logparser
 from log_libraries import validators
 from log_libraries import utils
-
+from log_libraries.encryption import Encrypt
 
 full_arguments = sys.argv
 path = os.getcwd()
@@ -52,11 +52,13 @@ except utils.ValidationError:
     print('integrity violation')
     sys.exit(255)
 
+encryptor = Encrypt(token)
+
 if arguments.get('status'):
-    utils.print_status(arguments, log_file_name)
+    utils.print_status(arguments, log_file_name, encryptor)
 elif arguments.get('room_id'):
-    utils.print_room_id(arguments, log_file_name)
+    utils.print_room_id(arguments, log_file_name, encryptor)
 elif arguments.get('total_time'):
-    utils.print_total_time(arguments, log_file_name)
+    utils.print_total_time(arguments, log_file_name, encryptor)
 elif arguments.get('rooms'):
-    utils.print_rooms(arguments, log_file_name)
+    utils.print_rooms(arguments, log_file_name, encryptor)

@@ -135,12 +135,12 @@ def token_validator(file_, token):
         raise ValidationError('Wrong authentication token')
 
 
-def context_validator(arguments, filename):
+def context_validator(arguments, filename, encryptor):
     if arguments.get('batch'):
         return
     if os.path.isfile(filename):
         time, status, position, action = utils.extract_for_append(
-            arguments, filename
+            arguments, filename, encryptor
         )
         if arguments['timestamp'] <= time:
             raise ValidationError('This time has passed')
