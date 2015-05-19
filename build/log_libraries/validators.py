@@ -129,23 +129,20 @@ def logread_argument_validator(args):
 
 def token_validator(file_, encryptor):
     with open(file_, 'r') as opened_file:
-        contents = []
-        for line in opened_file.readlines():
-            try:
-                decrypted_line = encryptor.decrypt(line.replace('\n', ''))
-                line = json.loads(decrypted_line)
-            except ValueError:
-                raise ValidationError('corrupted file')
-            contents.append(line)
+        lines = opened_file.readlines()
+        if len(lines) != 1:
+            raise ValidationError('corrupted file')
+        try:
+            decrypted_line = encryptor.decrypt(lines[0])
+            line = json.loads(decrypted_line)
+        except ValueError:
+            raise ValidationError('corrupted file')
 
     try:
-        timestamp, employees, guests = contents
-    except ValueError:
+        timestamp, employees, guests = line
+    except (ValueError, TypeError):
         raise ValidationError('corrupted file')
 
-    if not (isinstance(timestamp, int) or isinstance(employees, dict)
-            or isinstance(guests, dict)):
-        raise ValidationError('corrupted file')
     return timestamp, employees, guests
 
 
