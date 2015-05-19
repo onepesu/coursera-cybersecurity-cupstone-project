@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
+from collections import defaultdict
 import os
 import sys
 import os.path
@@ -60,7 +61,7 @@ def run_unnamed(parsed_arguments, filename, batch=False):
                 sys.exit(255)
             return
     else:
-        timestamp, employees, guests = 0, {}, {}
+        timestamp, employees, guests = 0, {}, {},
 
     try:
         timestamp, employees, guests = validators.context_validator(
@@ -71,8 +72,8 @@ def run_unnamed(parsed_arguments, filename, batch=False):
         if batch is False:
             sys.exit(255)
         return
+    return timestamp, employees, guests, log_file_name, encryptor
 
-    append_to_log(timestamp, employees, guests, log_file_name, encryptor)
 
 if len(full_arguments) < 3:
     print('invalid')
@@ -84,6 +85,7 @@ if arguments.get('batch_file'):
     if not os.path.isfile(os.path.join(path, file_)):
         print('invalid')
         sys.exit(255)
+    data = defaultdict(list)
     with open(file_, 'r') as opened_batch_file:
         for line in opened_batch_file.readlines():
             new_arguments = line.split()
@@ -91,6 +93,21 @@ if arguments.get('batch_file'):
                 args, new_file = parse_and_validate(new_arguments, batch=True)
             except TypeError:
                 continue
-            run_unnamed(args, new_file, batch=True)
+            log_file_name = os.path.join(path, new_file)
+            encryptor = Encrypt(args['token'])
+            if data[log_file_name]:
+                timestamp, employees, guests = data[log_file_name][0], data[log_file_name][1], data[log_file_name][2]
+                try:
+                    timestamp, employees, guests = validators.context_validator(
+                        args, timestamp, employees, guests
+                    )
+                except ValidationError:
+                    print('invalid')
+            else:
+                timestamp, employees, guests, log_file_name, encryptor = run_unnamed(args, new_file, batch=True)
+            data[log_file_name] = [timestamp, employees, guests, encryptor]
+    for key, value in data.items():
+        append_to_log(value[0], value[1], value[2], key, value[3])
 else:
-    run_unnamed(arguments, file_)
+    timestamp, employees, guests, log_file_name, encryptor = run_unnamed(arguments, file_)
+    append_to_log(timestamp, employees, guests, log_file_name, encryptor)
