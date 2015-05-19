@@ -34,8 +34,13 @@ def parse_and_validate(argument_list, batch=False):
         print('invalid')
         if batch is False:
             sys.exit(255)
-    else:
-        return arguments_, filename
+        return
+
+    if batch and arguments.get('batch'):
+        print('invalid')
+        return
+
+    return arguments_, filename
 
 
 def run_unnamed(parsed_arguments, filename, batch=False):
@@ -81,11 +86,11 @@ if arguments.get('batch_file'):
         sys.exit(255)
     with open(file_, 'r') as opened_batch_file:
         for line in opened_batch_file.readlines():
-            if '-B' in line:
-                print('invalid')
             new_arguments = line.split()
-            args, new_file = parse_and_validate(new_arguments, batch=True)
-            if args is not None:
-                run_unnamed(args, new_file, batch=True)
+            try:
+                args, new_file = parse_and_validate(new_arguments, batch=True)
+            except TypeError:
+                continue
+            run_unnamed(args, new_file, batch=True)
 else:
     run_unnamed(arguments, file_)
