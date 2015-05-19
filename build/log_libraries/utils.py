@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import sys
 import json
-from itertools import chain
+from bisect import insort
 from collections import defaultdict
 
 
@@ -34,21 +34,29 @@ def extract(arguments, filename, decryptor, filtering=False):
     return out
 
 
-def print_status(employees, guests):
-    print(','.join(sorted([employee for employee, history in employees.items()
-                           if history[0] != -2])))
-    print(','.join(sorted([guest for guest, history in guests.items()
-                           if history[0] != -2])))
+def change_status(human, history, humans_in, rooms):
+    room_id = history[0]
+    if room_id >= 0:
+        insort(humans_in, human)
+        insort(rooms[room_id], human)
+    elif room_id == -1:
+        insort(humans_in, human)
 
+
+def print_status(employees, guests):
     rooms = defaultdict(list)
-    for human, history in chain(employees.iteritems(), guests.iteritems()):
-        room_id = history[0]
-        if room_id >= 0:
-            rooms[room_id].append(human)
+    employees_in = []
+    guests_in = []
+    for employee, history in employees.iteritems():
+        change_status(employee, history, employees_in, rooms)
+    print(','.join(employees_in))
+
+    for guest, history in guests.iteritems():
+        change_status(guest, history, guests_in, rooms)
+    print(','.join(guests_in))
 
     for room in sorted(rooms.iterkeys()):
-        people_in_the_room = sorted(rooms[room])
-        print(str(room) + ': ' + ','.join(people_in_the_room))
+        print(str(room) + ': ' + ','.join(rooms[room]))
 
 
 def print_room_id(arguments, employees, guests):
@@ -94,17 +102,17 @@ def print_rooms(arguments, employees, guests):
         human = 'E' + employee
         humans[human] = -2
         for event in employees[employee][1]:
-            history.append(event + [human])
+            insort(history, event + [human])
     for guest in arguments['guest']:
         human = 'G' + guest
         humans[human] = -2
         for event in guests[guest][1]:
-            history.append(event + [human])
+            insort(history, event + [human])
     if not history:
         sys.exit(0)
 
     rooms = set()
-    for event in sorted(history):
+    for event in history:
         human = event[2]
         room_id = event[1]
         humans[human] = room_id
