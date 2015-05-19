@@ -88,27 +88,27 @@ def print_total_time(arguments, timestamp, employees, guests):
 
 
 def print_rooms(arguments, employees, guests):
-    if arguments['employee']:
-        history = employees[arguments['employee'][0]][1]
-    else:
-        history = guests[arguments['guest'][0]][1]
+    history = []
+    humans = {}
+    for employee in arguments['employee']:
+        human = 'E' + employee
+        humans[human] = -2
+        for event in employees[employee][1]:
+            history.append(event + [human])
+    for guest in arguments['guest']:
+        human = 'G' + guest
+        humans[human] = -2
+        for event in guests[guest][1]:
+            history.append(event + [human])
     if not history:
         sys.exit(0)
 
     rooms = set()
-    humans = {
-        human: -2 for human in arguments['guest'] + arguments['employee']
-    }
     for event in history:
-        human = event[1] or event[2]
-        room_id = event[-1]
-        if event[-2] == 'A':
-            humans[human] = room_id
-            if len(set(humans.itervalues())) == 1 and room_id >= 0:
-                rooms.add(str(room_id))
-        elif room_id == -1:
-            humans[human] = -2
-        else:
-            humans[human] = -1
+        human = event[2]
+        room_id = event[1]
+        humans[human] = room_id
+        if len(set(humans.itervalues())) == 1 and room_id >= 0:
+            rooms.add(str(room_id))
 
     print(','.join(sorted(rooms)))

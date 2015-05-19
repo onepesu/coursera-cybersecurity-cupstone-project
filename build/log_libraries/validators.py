@@ -1,8 +1,5 @@
 import re
 import json
-import hashlib
-import os.path
-from log_libraries import utils
 
 from utils import ValidationError
 
