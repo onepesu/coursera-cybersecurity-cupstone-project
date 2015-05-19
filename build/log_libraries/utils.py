@@ -104,7 +104,7 @@ def print_rooms(arguments, employees, guests):
         sys.exit(0)
 
     rooms = set()
-    for event in history:
+    for event in sorted(history):
         human = event[2]
         room_id = event[1]
         humans[human] = room_id
