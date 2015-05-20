@@ -125,12 +125,9 @@ def logread_argument_validator(args):
 
 
 def token_validator(file_, encryptor):
-    with open(file_, 'r') as opened_file:
-        lines = opened_file.readlines()
-        if len(lines) != 1:
-            raise ValidationError('corrupted file')
+    with open(file_, 'rb') as opened_file:
         try:
-            line = encryptor.decrypt(lines[0])
+            line = encryptor.decrypt(opened_file.read())
         except ValueError:
             raise ValidationError('corrupted file')
 

@@ -1,9 +1,8 @@
 import json
 import zlib
-import base64
 import hashlib
-from Crypto.Cipher import AES
 from Crypto import Random
+from Crypto.Cipher import AES
 
 BS = 32
 
@@ -26,11 +25,10 @@ class Encrypt(object):
         raw = pad(zlib.compress(json_obj))
         iv = Random.new().read(AES.block_size)
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        to_write = base64.b64encode(iv + cipher.encrypt(raw))
+        to_write = iv + cipher.encrypt(raw)
         return to_write
 
     def decrypt(self, enc):
-        enc = base64.b64decode(enc)
         iv = enc[:16]
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         try:

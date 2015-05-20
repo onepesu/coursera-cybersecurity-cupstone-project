@@ -11,7 +11,7 @@ class ValidationError(ValueError):
 
 
 def append_to_log(timestamps, employees, guests, filename, encryptor):
-    with open(filename, 'w') as opened_file:
+    with open(filename, 'wb') as opened_file:
         opened_file.write(encryptor.encrypt([timestamps, employees, guests]))
 
 
