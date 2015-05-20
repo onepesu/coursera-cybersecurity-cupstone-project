@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import sys
-import json
 from bisect import insort
 from itertools import izip
 from collections import defaultdict
@@ -13,26 +12,7 @@ class ValidationError(ValueError):
 
 def append_to_log(timestamps, employees, guests, filename, encryptor):
     with open(filename, 'w') as opened_file:
-        opened_file.write(encryptor.encrypt(json.dumps([
-            timestamps, employees, guests
-        ]).replace(' ', '')))
-
-
-def extract(arguments, filename, decryptor, filtering=False):
-    out = []
-    guest_list = arguments['guest']
-    employee_list = arguments['employee']
-    with open(filename, 'r') as opened_file:
-        for n, line in enumerate(opened_file.readlines()):
-            if n == 0:
-                continue
-            decrypted_line = decryptor.decrypt(line.replace('\n', ''))
-            line = json.loads(decrypted_line)
-            if filtering:
-                if line[1] not in employee_list and line[2] not in guest_list:
-                    continue
-            out.append(line)
-    return out
+        opened_file.write(encryptor.encrypt([timestamps, employees, guests]))
 
 
 def change_status(human, history, humans_in, rooms):

@@ -130,8 +130,7 @@ def token_validator(file_, encryptor):
         if len(lines) != 1:
             raise ValidationError('corrupted file')
         try:
-            decrypted_line = encryptor.decrypt(lines[0])
-            line = json.loads(decrypted_line)
+            line = encryptor.decrypt(lines[0])
         except ValueError:
             raise ValidationError('corrupted file')
 
