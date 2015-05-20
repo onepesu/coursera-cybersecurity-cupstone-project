@@ -162,7 +162,7 @@ def context_validator(arguments, timestamp, employees, guests):
         information = employees if status == 'E' else guests
         for visitor, situation in information.items():
             if human == visitor:
-                position = situation[0]
+                position = situation[1][-1]
                 found = True
                 break
 
@@ -187,16 +187,16 @@ def context_validator(arguments, timestamp, employees, guests):
 
     if status == 'E':
         if found:
-            new_employees = employees[human][1]
-            new_employees.append([time, future_position])
-            employees[human] = [future_position, new_employees]
+            times, positions = employees[human]
+            times.append(time)
+            positions.append(future_position)
         else:
-            employees[human] = [future_position, [[time, future_position]]]
+            employees[human] = [[time], [future_position]]
     elif found:
-            new_guests = guests[human][1]
-            new_guests.append([time, future_position])
-            guests[human] = [future_position, new_guests]
+            times, positions = guests[human]
+            times.append(time)
+            positions.append(future_position)
     else:
-        guests[human] = [future_position, [[time, future_position]]]
+        guests[human] = [[time], [future_position]]
 
     return time, employees, guests

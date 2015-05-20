@@ -3,6 +3,7 @@ from __future__ import print_function
 import sys
 import json
 from bisect import insort
+from itertools import izip
 from collections import defaultdict
 
 
@@ -35,7 +36,7 @@ def extract(arguments, filename, decryptor, filtering=False):
 
 
 def change_status(human, history, humans_in, rooms):
-    room_id = history[0]
+    room_id = history[1][-1]
     if room_id >= 0:
         insort(humans_in, human)
         insort(rooms[room_id], human)
@@ -61,34 +62,29 @@ def print_status(employees, guests):
 
 def print_room_id(arguments, employees, guests):
     if arguments['employee']:
-        history = employees[arguments['employee'][0]][1]
+        room_history = employees[arguments['employee'][0]][1]
     else:
-        history = guests[arguments['guest'][0]][1]
-    rooms = []
-    for event in history:
-        room = event[1]
-        if room >= 0:
-            rooms.append(str(room))
-    print(','.join(rooms))
+        room_history = guests[arguments['guest'][0]][1]
+    print(','.join([str(room) for room in room_history if room >= 0]))
 
 
 def print_total_time(arguments, timestamp, employees, guests):
     if arguments['employee']:
-        history = employees[arguments['employee'][0]][1]
+        history = employees[arguments['employee'][0]]
     else:
-        history = guests[arguments['guest'][0]][1]
+        history = guests[arguments['guest'][0]]
     if not history:
         sys.exit(0)
 
     total_time = 0
     in_gallery = False
-    for event in history:
-        if event[1] == -1 and not in_gallery:
+    for time, position in izip(*history):
+        if position == -1 and not in_gallery:
             in_gallery = True
-            arrival_time = event[0]
-        if event[-1] == -2:
+            arrival_time = time
+        if position == -2:
             in_gallery = False
-            total_time += event[0] - arrival_time
+            total_time += time - arrival_time
     if in_gallery:
         total_time += timestamp - arrival_time
 
@@ -101,22 +97,20 @@ def print_rooms(arguments, employees, guests):
     for employee in arguments['employee']:
         human = 'E' + employee
         humans[human] = -2
-        for event in employees[employee][1]:
-            insort(history, event + [human])
+        for time, position in izip(*employees[employee]):
+            insort(history, [time, position, human])
     for guest in arguments['guest']:
         human = 'G' + guest
         humans[human] = -2
-        for event in guests[guest][1]:
-            insort(history, event + [human])
+        for time, position in izip(*guests[guest]):
+            insort(history, [time, position, human])
     if not history:
         sys.exit(0)
 
     rooms = set()
-    for event in history:
-        human = event[2]
-        room_id = event[1]
-        humans[human] = room_id
-        if len(set(humans.itervalues())) == 1 and room_id >= 0:
-            rooms.add(str(room_id))
+    for time, position, human in history:
+        humans[human] = position
+        if len(set(humans.itervalues())) == 1 and position >= 0:
+            rooms.add(str(position))
 
     print(','.join(sorted(rooms)))
