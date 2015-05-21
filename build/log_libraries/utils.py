@@ -82,6 +82,8 @@ def print_rooms(arguments, employees, guests):
         for time, position in izip(*employees[employee]):
             insort(history, [time, position, human])
     for guest in arguments['guest']:
+        if guest not in guests:
+            return
         human = 'G' + guest
         humans[human] = -2
         for time, position in izip(*guests[guest]):
