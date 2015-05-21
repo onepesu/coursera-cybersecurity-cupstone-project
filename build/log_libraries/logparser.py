@@ -10,6 +10,8 @@ def parse_args(argument_list, mapping):
     argument_list = argument_list
     accepting_arguments = False
     for argument in argument_list:
+        if argument == '':
+            continue
         if argument in mapping.keys():
             if mapping[argument].get('is_flag'):
                 if accepting_arguments:
