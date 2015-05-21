@@ -1,15 +1,15 @@
 import re
-import json
 
 from utils import ValidationError
 
 
 alphanumeric_pattern = re.compile('^[a-zA-Z0-9]+$')
 alpha_pattern = re.compile('^[a-zA-Z]+$')
+filename_pattern = re.compile('^[a-zA-Z0-9_]+$')
 
 
 def filename_validator(file_):
-    if file_ is None or len(file_) > 255 or re.search('^[a-zA-Z0-9_]+$', file_) is None:
+    if file_ is None or len(file_) > 255 or filename_pattern.search(file_) is None:
         raise ValidationError('filename not valid')
 
 
