@@ -75,6 +75,8 @@ def print_rooms(arguments, employees, guests):
     history = []
     humans = {}
     for employee in arguments['employee']:
+        if employee not in employees:
+            return
         human = 'E' + employee
         humans[human] = -2
         for time, position in izip(*employees[employee]):
