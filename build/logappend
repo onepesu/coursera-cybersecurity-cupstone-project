@@ -46,7 +46,6 @@ def parse_and_validate(argument_list, batch=False):
 
 def run_unnamed(parsed_arguments, log_file_name, encryptor, batch=False):
     file_exists = os.path.isfile(log_file_name)
-
     if file_exists:
         try:
             timestamp, employees, guests = validators.token_validator(
