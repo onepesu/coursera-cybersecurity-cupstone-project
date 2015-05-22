@@ -36,7 +36,7 @@ def parse_args(argument_list, mapping):
             else:
                 raise ValidationError('Unexpected argument')
 
-    if accepting_arguments:
+    if accepting_arguments or file_ is None:
         raise ValidationError('Missing argument')
 
     return parsed_arguments, file_

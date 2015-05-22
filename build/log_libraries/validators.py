@@ -147,52 +147,46 @@ def context_validator(arguments, timestamp, employees, guests):
 
     if arguments.get('employee'):
         human = arguments['employee']
+        humans = employees
         status = 'E'
     else:
         human = arguments['guest']
+        humans = guests
         status = 'G'
+
+    action = 'A' if arguments.get('arrival') else 'D'
 
     found = False
     position = -2
     if timestamp != 0:
-        information = employees if status == 'E' else guests
-        for visitor, situation in information.items():
-            if human == visitor:
-                position = situation[1][-1]
-                found = True
-                break
+        if human in humans.keys():
+            position = humans[human][1][-1]
+            found = True
 
-    action = 'A' if arguments.get('arrival') else 'D'
+    room_id = arguments['room_id']
+    if found is False:
+        if action == 'D' or room_id >= 0:
+            raise ValidationError('move not allowed')
+        humans[human] = [[time], [-1]]
+        return time, employees, guests
+
     if action == 'A':
-        future_position = arguments.get('room_id', -1)
+        if not((position == -1 and room_id >= 0) or
+               (position == -2 and room_id == -1)):
+            raise ValidationError('move not allowed')
+        future_position = room_id
     else:
-        if arguments.get('room_id') >= 0:
+        if room_id >= 0:
+            if position < 0:
+                raise ValidationError('move not allowed')
             future_position = -1
         else:
+            if position != -1:
+                raise ValidationError('move not allowed')
             future_position = -2
 
-    allowed_positions = {
-        position == -1 and future_position == -2 and action == 'D',
-        position == -1 and future_position >= 0 and action == 'A',
-        position == -2 and future_position == -1 and action == 'A',
-        position >= 0 and future_position == -1 and action == 'D'
-    }
-
-    if not any(allowed_positions):
-        raise ValidationError('move not allowed')
-
-    if status == 'E':
-        if found:
-            times, positions = employees[human]
-            times.append(time)
-            positions.append(future_position)
-        else:
-            employees[human] = [[time], [future_position]]
-    elif found:
-            times, positions = guests[human]
-            times.append(time)
-            positions.append(future_position)
-    else:
-        guests[human] = [[time], [future_position]]
+    times, positions = humans[human]
+    times.append(time)
+    positions.append(future_position)
 
     return time, employees, guests

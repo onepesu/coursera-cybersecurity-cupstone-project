@@ -12,7 +12,6 @@ from log_libraries.utils import ValidationError, append_to_log
 
 
 full_arguments = sys.argv
-path = os.getcwd()
 
 mapping = {
     '-T': {'name': 'timestamp'},
@@ -79,7 +78,7 @@ if len(full_arguments) < 3:
 arguments, file_ = parse_and_validate(full_arguments[1:])
 
 if arguments.get('batch_file'):
-    if not os.path.isfile(os.path.join(path, file_)):
+    if not os.path.isfile(os.path.abspath(file_)):
         print('invalid')
         sys.exit(255)
     data = defaultdict(list)
@@ -90,7 +89,7 @@ if arguments.get('batch_file'):
                 args, new_file = parse_and_validate(new_arguments, batch=True)
             except TypeError:
                 continue
-            log_file_name = os.path.join(path, new_file)
+            log_file_name = os.path.abspath(new_file)
             if data[log_file_name]:
                 timestamp, employees, guests, encryptor, token = data[log_file_name]
                 if args['token'] != token:
@@ -109,6 +108,6 @@ if arguments.get('batch_file'):
         append_to_log(key, *value[:-1])
 else:
     encryptor = Encrypt(arguments['token'])
-    log_file_name = os.path.join(path, file_)
+    log_file_name = os.path.abspath(file_)
     timestamp, employees, guests = run_unnamed(arguments, log_file_name, encryptor)
     append_to_log(log_file_name, timestamp, employees, guests, encryptor)

@@ -9,7 +9,6 @@ from log_libraries import utils
 from log_libraries.encryption import Encrypt
 
 full_arguments = sys.argv
-path = os.getcwd()
 
 if len(full_arguments) < 3:
     print('invalid')
@@ -33,7 +32,7 @@ except utils.ValidationError:
     print('invalid')
     sys.exit(255)
 
-log_file_name = os.path.join(path, file_)
+log_file_name = os.path.abspath(file_)
 if not os.path.isfile(log_file_name):
     if arguments.get('status'):
         print('\n\n')
