@@ -145,11 +145,9 @@ def context_validator(arguments, timestamp, employees, guests):
     if arguments.get('employee'):
         human = arguments['employee']
         humans = employees
-        status = 'E'
     else:
         human = arguments['guest']
         humans = guests
-        status = 'G'
 
     action = 'A' if arguments.get('arrival') else 'D'
 
@@ -168,19 +166,17 @@ def context_validator(arguments, timestamp, employees, guests):
         return time, employees, guests
 
     if action == 'A':
-        if not((position == -1 and room_id >= 0) or
-               (position == -2 and room_id == -1)):
+        if position >= 0 or room_id <= position:
             raise ValidationError('move not allowed')
         future_position = room_id
+    elif room_id >= 0:
+        if position < 0:
+            raise ValidationError('move not allowed')
+        future_position = -1
     else:
-        if room_id >= 0:
-            if position < 0:
-                raise ValidationError('move not allowed')
-            future_position = -1
-        else:
-            if position != -1:
-                raise ValidationError('move not allowed')
-            future_position = -2
+        if position != -1:
+            raise ValidationError('move not allowed')
+        future_position = -2
 
     times, positions = humans[human]
     times.append(time)

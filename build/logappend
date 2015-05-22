@@ -12,6 +12,7 @@ from log_libraries.utils import ValidationError, append_to_log
 
 
 full_arguments = sys.argv
+clean_filenames = []
 
 mapping = {
     '-T': {'name': 'timestamp'},
@@ -28,8 +29,12 @@ mapping = {
 def parse_and_validate(argument_list, batch=False):
     try:
         arguments_, filename = logparser.parse_args(argument_list, mapping)
-        abs_file = os.path.abspath(filename)
-        validators.filename_validator(filename, abs_file)
+        if filename not in clean_filenames:
+            abs_file = os.path.abspath(filename)
+            validators.filename_validator(filename, abs_file)
+            clean_filenames.append(filename)
+        else:
+            pass
         validators.logappend_argument_validator(arguments_)
     except ValidationError:
         print('invalid')
