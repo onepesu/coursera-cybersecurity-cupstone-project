@@ -1,16 +1,19 @@
 import re
+import os.path
 
 from utils import ValidationError
 
 
 alphanumeric_pattern = re.compile('^[a-zA-Z0-9]+$')
 alpha_pattern = re.compile('^[a-zA-Z]+$')
-filename_pattern = re.compile('^[a-zA-Z0-9_\.]+$')
+filename_pattern = re.compile('^[a-zA-Z0-9_\./]+$')
 
 
-def filename_validator(file_):
+def filename_validator(file_, abs_file):
     if file_ is None or len(file_) > 255 or file_ in ('.', '..') or filename_pattern.search(file_) is None:
         raise ValidationError('filename not valid')
+    if '/' in file_ and not os.path.isfile(abs_file):
+        raise ValidationError('slashes not allowed if file does not exist.')
 
 
 def is_alphanumeric(token):
@@ -147,46 +150,52 @@ def context_validator(arguments, timestamp, employees, guests):
 
     if arguments.get('employee'):
         human = arguments['employee']
-        humans = employees
         status = 'E'
     else:
         human = arguments['guest']
-        humans = guests
         status = 'G'
-
-    action = 'A' if arguments.get('arrival') else 'D'
 
     found = False
     position = -2
     if timestamp != 0:
-        if human in humans.keys():
-            position = humans[human][1][-1]
-            found = True
+        information = employees if status == 'E' else guests
+        for visitor, situation in information.items():
+            if human == visitor:
+                position = situation[1][-1]
+                found = True
+                break
 
-    room_id = arguments['room_id']
-    if found is False:
-        if action == 'D' or room_id >= 0:
-            raise ValidationError('move not allowed')
-        humans[human] = [[time], [-1]]
-        return time, employees, guests
-
+    action = 'A' if arguments.get('arrival') else 'D'
     if action == 'A':
-        if not((position == -1 and room_id >= 0) or
-               (position == -2 and room_id == -1)):
-            raise ValidationError('move not allowed')
-        future_position = room_id
+        future_position = arguments.get('room_id', -1)
     else:
-        if room_id >= 0:
-            if position < 0:
-                raise ValidationError('move not allowed')
+        if arguments.get('room_id') >= 0:
             future_position = -1
         else:
-            if position != -1:
-                raise ValidationError('move not allowed')
             future_position = -2
 
-    times, positions = humans[human]
-    times.append(time)
-    positions.append(future_position)
+    allowed_positions = {
+        position == -1 and future_position == -2 and action == 'D',
+        position == -1 and future_position >= 0 and action == 'A',
+        position == -2 and future_position == -1 and action == 'A',
+        position >= 0 and future_position == -1 and action == 'D'
+    }
+
+    if not any(allowed_positions):
+        raise ValidationError('move not allowed')
+
+    if status == 'E':
+        if found:
+            times, positions = employees[human]
+            times.append(time)
+            positions.append(future_position)
+        else:
+            employees[human] = [[time], [future_position]]
+    elif found:
+            times, positions = guests[human]
+            times.append(time)
+            positions.append(future_position)
+    else:
+        guests[human] = [[time], [future_position]]
 
     return time, employees, guests

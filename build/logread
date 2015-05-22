@@ -26,7 +26,8 @@ mapping = {
 
 try:
     arguments, file_ = logparser.parse_args(full_arguments[1:], mapping)
-    validators.filename_validator(file_)
+    abs_file = os.path.abspath(file_)
+    validators.filename_validator(file_, abs_file)
     validators.logread_argument_validator(arguments)
 except utils.ValidationError:
     print('invalid')

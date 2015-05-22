@@ -28,7 +28,8 @@ mapping = {
 def parse_and_validate(argument_list, batch=False):
     try:
         arguments_, filename = logparser.parse_args(argument_list, mapping)
-        validators.filename_validator(filename)
+        abs_file = os.path.abspath(filename)
+        validators.filename_validator(filename, abs_file)
         validators.logappend_argument_validator(arguments_)
     except ValidationError:
         print('invalid')
