@@ -1,0 +1,3 @@
+The program does not respond correctly to a logread -I command where
+one of the employees/guests queried is not in the gallery. Specifically, this
+prints invalid, 255 while the oracle prints nothing, 0.

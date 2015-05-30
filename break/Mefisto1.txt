@@ -1,0 +1,2 @@
+When a logread command is given on a log that hasn't yet been created,
+the programme returns invalid, 255, while the oracle returns nothing, 0.

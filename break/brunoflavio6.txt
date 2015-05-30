@@ -1,0 +1,5 @@
+This programme handles wrongly how people are allowed to move within the gallery.
+Specifically, it allows an employee/guest to arrive with two consecutive commands in two different rooms
+while they must first depart from the rooms. In this test, in the first command the
+employee arrives at room 1 and on the following command they arrive at room 2, while
+the command should be invalid because they would first need to leave room 1.

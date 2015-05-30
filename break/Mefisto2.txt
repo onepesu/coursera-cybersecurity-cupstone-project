@@ -1,0 +1,2 @@
+The programme is not registering correctly when periods are and
+are not allowed in the logfile name.

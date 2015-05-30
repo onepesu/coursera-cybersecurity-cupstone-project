@@ -1,0 +1,4 @@
+This programme does not handle correctly a logread -I command with an
+employee/guest that has never been in the gallery. Specifically, it ignores
+that person and prints out the logread command for the rest of the people
+in the arguments. This results to the wrong output 1 while nothing is expected.

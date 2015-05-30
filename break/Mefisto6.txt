@@ -1,0 +1,3 @@
+The programme doesn't respond correctly when a logread command is given with two
+different employees. Instead of returning invalid, 255 it returns the information on
+the second employee.

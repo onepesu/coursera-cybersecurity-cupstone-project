@@ -1,0 +1,4 @@
+This programme does not handle correctly a logread -R command with more than one
+employee/guest argument. Specifically, it should consider such commands as
+invalid and print invalid, 255 while it registers one of the people in the command and prints
+their information.

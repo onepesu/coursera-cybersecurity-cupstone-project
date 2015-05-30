@@ -1,0 +1,3 @@
+This programme does not respond correctly to a logread -R command when there are two
+-E arguments that have either the same or different value.
+Specifically, the programme prints the answer, 1, and 0 while the oracle prints invalid and 255.

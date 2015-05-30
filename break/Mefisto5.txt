@@ -1,0 +1,2 @@
+The programme crashes because it doesn't handle a logappend command that
+has a long filename. It should return 255 and invalid instead.

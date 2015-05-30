@@ -1,0 +1,3 @@
+This programme does not handle long filenames correctly. It registers a logappend
+with a long filename as valid and prints out 0 while it should be considered invalid
+print 255

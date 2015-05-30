@@ -1,0 +1,2 @@
+This programme prints invalid, 255 while the oracle prints nothing and 0. This happens
+because it doesn't handle spaces at the end of commands.

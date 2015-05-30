@@ -1,0 +1,4 @@
+This programme does not handle correctly a logappend command whith a -R1 argument.
+It should register that as invalid, yet it separates -R1 into two components,
+one being -R and the second is considered to be the room number 1. This results to a
+wrong output for this command and a wrong output to a logread -S command that follows.

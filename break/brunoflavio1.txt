@@ -1,0 +1,3 @@
+This programme does not respond correctly to a logread -T command on a log that has
+not been created. Specifically, when this command is given it prints nothing
+while the oracle prints 0.

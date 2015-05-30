@@ -1,0 +1,4 @@
+When a logappend is given that has two different rooms and the first rooms is
+outside the allowed bounds, the programme doesn't recognise that it is wrong
+and registers the logappend. This is also shown from the logread command that
+follows, where the programme prints 1 while the expected is to print nothing.

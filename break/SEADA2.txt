@@ -1,0 +1,2 @@
+This programme does not properly handle slashes in the logfile name,
+ resulting to an output of (nothing,) 0 while the oracle prints (invalid,) 255.

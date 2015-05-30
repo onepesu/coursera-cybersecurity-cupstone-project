@@ -1,0 +1,2 @@
+This programme accepts a logread -T command with two employees/guests and prints out
+the results for the second employee/guest while it should print invalid, 255
