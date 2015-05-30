@@ -1,0 +1,3 @@
+This programme does not consider the right bound for the room numbers in logappend commands.
+In this example it registers a logappend command with the room number ouside allowed
+bounds, while it should register this as invalid

@@ -1,0 +1,3 @@
+This programme does not handle correctly logread commands with two -K arguments.
+When given such a command, it prints invalid, 255 while the oracle prints the response,
+Gauss in this test, and 0

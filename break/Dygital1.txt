@@ -1,0 +1,3 @@
+When a logread -R command has two employees, the programme does not
+recognise this as an error. This results to an output of 1, 0 while the oracle
+prints invalid, 255

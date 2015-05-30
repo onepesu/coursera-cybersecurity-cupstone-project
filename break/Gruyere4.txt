@@ -1,0 +1,4 @@
+This programme does not have the correct bounds for the length of the filename. Specifically, for this programme,
+the maximum allowed logfile name is 248. This is because with each log the programme creates a file whose
+name is the logfile name with the added extension "_header". Hence, the error results from the fact that
+the file system does not allow file names longer than 255 and the logfileName_header is not created.

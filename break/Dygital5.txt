@@ -1,0 +1,3 @@
+This programme prints the wrong output when two people meet twice in
+ different times, in the same room. In this test it prints 1, 2, 1 while
+ the oracle prints 1, 2.

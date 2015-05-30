@@ -1,0 +1,2 @@
+This programme does not handle slashes in the logfile name correctly.
+This results in accepting a case that is invalid according to the oracle.

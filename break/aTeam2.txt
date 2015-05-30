@@ -1,0 +1,4 @@
+This programme doesn't correctly handle a logappend command with two -R arguments.
+It handles only the second room number, missing that the first one is out of bounds,
+resulting to it printing nothing and 0 while the oracle prints invalid and 255.
+This is further supported by the response to the following logread command.

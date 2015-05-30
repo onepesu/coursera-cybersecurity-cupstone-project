@@ -1,0 +1,3 @@
+The programme does not recognise that an invalid room number was given before a valid one,
+on the same logappend command. This results to it printing '', 0 while the
+oracle prints invalid, 255

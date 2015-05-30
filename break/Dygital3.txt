@@ -1,0 +1,2 @@
+The programme does not recognise correctly the periods in the logfile name.
+This results in various different outcomes than the oracle.

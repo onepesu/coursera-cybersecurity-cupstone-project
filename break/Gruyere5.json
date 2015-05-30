@@ -1,0 +1,66 @@
+{
+    "target_team": 124,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "0", "-K", "secret", "-A", "-E", "Fred", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-K", "secret", "-A", "-E", "Fred", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-K", "secret", "-A", "-E", "Fred", "log3", "4"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-0", "-K", "secret", "-A", "-E", "Fred", "log4"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "7", "-K", "secret", "-A", "-E", "Fred", "log5"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "7", "-K", "secret", "-A", "-E", "Fred", "log5"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-1", "-K", "secret", "-A", "-E", "Fred", "log6"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-K", "secret", "-A", "-E", "Fred", "log7"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "1073741823", "-K", "secret", "-A", "-E", "Fred", "log8"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "1073741824", "-K", "secret", "-A", "-E", "Fred", "log9"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-1073741824", "-K", "secret", "-A", "-E", "Fred", "log10"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-K", "4", "secret", "-A", "-E", "Fred", "log11"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-K", "secret", "4", "-A", "-E", "Fred", "log12"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "-K", "secret", "-A", "4", "-E", "Fred", "log13"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "2", "-K", "secret", "-A", "-E", "Fred"]
+        }
+    ]
+}

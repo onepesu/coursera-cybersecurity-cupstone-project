@@ -1,0 +1,7 @@
+When this programme is given an invalid logappend command (the room number is out of bounds)
+followed by a valid logappend command with the same logfile name but different token, it prints
+the wrong output. Specifically, it considers the second valid command as invalid, and thus
+prints invalid, 255 while the oracle prints nothing and 0. This is due to the fact that in the first
+ invalid logappend command, while the programme recognises it as invalid, creates the logfile with
+the name and token specified by the invalid command. Therefore no other logfile can be created with
+the same name, even when the token is the same.

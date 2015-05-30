@@ -1,0 +1,2 @@
+The programme wrongly accepts a logread command with a -T argument and
+responds to it with an output of 3 and 0 while the oracle prints invalid and 255

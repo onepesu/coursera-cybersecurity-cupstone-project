@@ -1,0 +1,14 @@
+{
+    "target_team": 149,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "-K", "token", "-A", "-E", "Gauss", "log1"]
+        },
+        {
+            "program": "logread",
+            "args": ["-K", "token1", "-K", "token", "-S", "log1"]
+        }
+    ]
+}

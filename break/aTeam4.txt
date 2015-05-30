@@ -1,0 +1,1 @@
+This programme does not handle correctly the slashes in the logfile name.

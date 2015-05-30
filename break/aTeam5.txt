@@ -1,0 +1,4 @@
+The programme doesn't handle correctly a logread -I command when given an
+employee/guest that has never been in the gallery, resulting to wrong results.
+In this test it prints 1 when nothing is expected, which shows that the "unknown"
+user/employee is ignored in the logread command.

@@ -1,0 +1,4 @@
+This programme does not register the room numbers correctly.
+It considers that 5 and 0005 are different room numbers, hence giving wrong
+results. Specifically, it prints nothing while the oracle prints 5 in both
+of the last two commands.

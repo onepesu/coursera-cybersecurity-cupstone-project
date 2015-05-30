@@ -1,0 +1,3 @@
+The programme does not recognise the wrong input in the logappend command that
+has a -T witch is not followed by a timestamp. It should consider that this is invalid,
+but it just registers the information in the log.
