@@ -1,0 +1,1 @@
+The log is a compressed file of plaintext commands that contain the logappend history. It can be edited and saved.
