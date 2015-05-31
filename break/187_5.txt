@@ -1,0 +1,1 @@
+Program fails to accept logread -K key -S Jim. Returns invalid 255 when it should return (0 Jim is a valid logfile).
