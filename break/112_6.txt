@@ -1,0 +1,4 @@
+This program does not respond correctly to a logappend command with two room
+numbers when the first is out of bounds. This should be recognised as an invalid
+command, instead the program accepts it and then gives the wrong results to
+the following logread command.
