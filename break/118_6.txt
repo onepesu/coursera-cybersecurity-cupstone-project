@@ -1,0 +1,1 @@
+logappend does not handle periods in the filename
