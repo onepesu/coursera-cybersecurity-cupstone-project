@@ -1,0 +1,2 @@
+Specs: If the same argument is provided multiple times, the last value is accepted.
+When key is provided multiple times program returns error, instead of accepting the last value.
