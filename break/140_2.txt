@@ -1,0 +1,3 @@
+This program doesn't respond correctly to a logappend command with two
+different -R arguments where the first is out of bounds. It should consider it as
+invalid, while it just registers the information for the second room in the logfile.
