@@ -1,0 +1,1 @@
+The history of logappend commands is stored in plaintext in the log file.
