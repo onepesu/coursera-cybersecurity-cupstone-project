@@ -1,0 +1,1 @@
+When in log filename period or slashes have been used improperly program should return invalid, instead returns no file.
