@@ -1,0 +1,3 @@
+This program does not recognise the invalid logread command that has the
+wrong token for a logfile. This results to an output of nothing while the
+oracle prints integrity violations.

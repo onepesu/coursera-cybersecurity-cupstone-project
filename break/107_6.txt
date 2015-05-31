@@ -1,0 +1,3 @@
+This program does not respond correctly to the invalid logread -R
+command that has two different people. This results to an output of nothing
+and 0 while the oracle prints invalid and 255.

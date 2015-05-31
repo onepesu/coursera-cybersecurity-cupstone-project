@@ -1,0 +1,4 @@
+This program allows logapend and logread commands with the logfile name being
+/dev/null, which should not be allowed. This results to it printing nothing and 0
+in both cases, while the oracle prints invalid and 255 in the logappend command
+and integrity violation and 255 in the case of the logread command.

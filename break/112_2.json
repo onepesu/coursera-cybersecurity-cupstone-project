@@ -1,0 +1,12 @@
+{
+    "target_team": 112,
+    "type": "integrity",
+    "commands": [
+        {
+            "program": "logread",
+            "args": ["-R", "-E", "MARLIN"]
+        }
+    ],
+    "logfile": "DHEYCFCB",
+    "replacement": "H4sICLkSa1UC/0RIRVlDRkNCAE1V227jNhB956e0AlbDOwXkgbHkWI5EJYqdwAnyuEji1OhiW+yi+fqeoWzZL7bIuc+cM3x5fxW7TZS9TB9D/Xzo9+kz3ex02m9Nv7//2j2tP3b79Weq26/h6f53f0iH/quROznu+6+o0tP6kOrn993h8ZA21+/P+/RXv3mT/dvVVfF5997/XP757+Ijxa2+f7z9vfjnObrx7dvq88fv51/Ln9fr/u8fif5rrwoKQbx8//UqqPqj6OP4sIqFFAqHm3g9tk0XCy0MH5vUPMaCnLAVlaejE74imoVWBKjexc3YJvhRgkqcu21TEAmS+F6OMS3ahAsINS7qpltmZS/IVKTO1lIQnNuzhhPE7us4duxBWiHZfd923a6QJKSuyJ3FRkhWXw912xTKC1VWZE5HEkqy8+NRC8U1r5q2bgpdCmWqWdUJZdnxJFRBaO7VdTOmdoPuSKHZdBmfUqGt0Lpyx4MR2kFy23RtYUqhfSWngw7CsI/FkBYrduJLYSTs5gujhNGVv7hwwvAY6iGlXeEgtlzbtm4LZ4XxXNqsbDGyUOlJbEthqSqPukZYHsNibB82w3XsiiCFVRVd3HgtrKlkefbngrAcLg1xVQT4cxWFYyoWMs9DbgZghUopXMmQOCaKI1e6aYZ6GIeC0C7HY39qU2qXY1MDNLhyaE327p1w3KfJnSfhJXKfTkEJr3Io2AJBFugzKPOiGOhzov3itk1dsytK4T00JtdBBD27Dk4EbugGo9ohLy+C5bxPzkvIfaXmukiEwCi4SJwM8M0IjKkeGyihc1QqBvGcAGE6VGpu57kH4EKZYw89vJQ45WEO4w0Ca3bic9FTJkyEkpG8aru6uYljzeyBFU2c3V03XdcUfCEZBpdqMuBWZaRktLISt/829i2cwDNZwOyiKFCByOFuUmHSEc93jPfbpsMFu+BsxqGPiR1KYq5M/gmsI6m43HlKaIDkmIs4niwsK5xMHCJKz709ZoX2ZDbeb5EWHGAzZD5eYoZ1bGXP5ZNHZMV864dV7PtYcyTFqacdTxCkIMWJQ70dNizVQKo85UWAHmUqt+mmGQsyMNA8pnUcOSgbACLHwsmgteC3ntV5oeWFEx9bXEDdlAzrKTqkmfP9lrdqlkpepOdsMr973nR8sMBePhCoTyC4m2W2ROHHLEBNsmx414wj4AaOkOUsYrcc0vPA+iCkOsUlh845RJ4vQAtyinfhyQVQ4Qwz/AwaEBTcOKPas06mfWSaQ8OXaMWMCU+IcG4EaGsuSUmeG3kJXc+kPyMk5F197lXg1o1NipwfABUYUKnNuWUaw/RhQD8CwBLc9JbhGcjywGibzy/fD6+5Z6jdmsw9fJU2B8EXdgiboPFYEXi/WJj5yh8mZ8o4x4uBG+xh/JqcMI+KMuSgifdGs4JW/Eh1BdPGZEtjcnvxhScQy7grrMx7hP2XGcO5rGyOX970CGHzEmAdxl0W8fOCCI4fJPyTeHl75UUNj/wQYx3msXCk/ODAC+WxTf5N/nd8D1B4DucVb2ecNb+dyDpkmMKDCnlzICzimly0yZuBb3weKMchXqoIzB3JzeR3FW1S/EggL5+hAU0dMk6nAerpn3tBMg+UTeGD//My4I6qjCM8Clb8D1kReHFACQAA"
+}

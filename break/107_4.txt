@@ -1,0 +1,3 @@
+This program does respond correctly to a logread command with a logfile that does not exist.
+This results to the wrong output of invalid and 255, while the oracle prints
+nothing and 0.
