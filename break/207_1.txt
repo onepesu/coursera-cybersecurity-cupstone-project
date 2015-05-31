@@ -1,0 +1,1 @@
+Deleting lines from the end bring the file back to an earlier status.
