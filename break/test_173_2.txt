@@ -1,0 +1,1 @@
+This program doesn t return the correct result (rooms) with logread -I when guest and employee have the same name. 

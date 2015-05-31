@@ -1,0 +1,2 @@
+This program doesn t return the correct result (returns some rooms, when it should print nothing) with logread -I when an employee that does not exist in the log is given.
+"-I or -T used specifying an employee that does not exist in the log, should print nothing and exit with return 0"

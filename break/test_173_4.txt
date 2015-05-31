@@ -1,0 +1,1 @@
+This program sometimes accepts commands with incorrect syntax.

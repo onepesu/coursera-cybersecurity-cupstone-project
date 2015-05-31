@@ -1,0 +1,1 @@
+This program fails to understand the logfile name "2" and returns invalid 255, when it should return 0.

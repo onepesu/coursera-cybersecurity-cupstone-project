@@ -1,0 +1,1 @@
+This program in some cases where period has been used in logfile name returns invalid 255, instead of 0.

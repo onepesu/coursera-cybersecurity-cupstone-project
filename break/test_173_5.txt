@@ -1,0 +1,2 @@
+This program sometimes returns error with logread -I when an employee that does not exist in the log is given.
+"-I or -T used specifying an employee that does not exist in the log, should print nothing and exit with return 0"
