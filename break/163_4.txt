@@ -1,0 +1,2 @@
+Logread -T returns wrong result when there is an employee and a guest with the same name.
+In this case program returns 8, instead of correct answer 6.
