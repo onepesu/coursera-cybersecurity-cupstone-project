@@ -1,0 +1,1 @@
+logread -R should return error invalid 255 when value for room is given, but program returns 0.
