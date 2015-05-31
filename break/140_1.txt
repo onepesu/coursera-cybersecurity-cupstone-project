@@ -1,0 +1,2 @@
+This program does not register room numbers correctly. This results, in this test,
+to it printing different results from the oracle (repeating room numbers).
