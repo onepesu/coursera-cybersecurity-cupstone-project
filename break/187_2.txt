@@ -1,1 +1,1 @@
-logread command for unknown log file should return nothing, but program returns invalid 255.
+Logread command for unknown log file should return nothing, but program returns invalid 255.

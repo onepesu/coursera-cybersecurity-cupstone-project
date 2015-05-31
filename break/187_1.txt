@@ -1,2 +1,2 @@
-If an invalid (not accepted) command has been given with a token. Program does not accept a valid command with a
+If an invalid command (not accepted) has been given with a token. Program does not accept a valid command with a
 differnet token.
