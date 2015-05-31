@@ -1,0 +1,2 @@
+Since every line after the first one is an encrypted logappend or logread command, by deleting
+the appropriate lines one can alter the log state.
