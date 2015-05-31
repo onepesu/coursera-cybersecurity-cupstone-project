@@ -1,0 +1,1 @@
+In logread same argument used multiple times should return invalid 255 but returns 0.
