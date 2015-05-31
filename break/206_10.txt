@@ -1,0 +1,1 @@
+Program accepts unknown argument. Returns 0, when it should have returned 255 invalid.
