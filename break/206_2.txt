@@ -1,0 +1,1 @@
+By using different order in arguments, some cases return invalid 255 when they should have returned 0.
