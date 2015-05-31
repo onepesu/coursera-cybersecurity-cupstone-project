@@ -1,0 +1,3 @@
+The program does not handle correctly the spaces at the end of the logappen command.
+Specifically, it considers such a command as invalid, when it should be valid.
+This results in it printing invalid, 255, while the oracle prints nothing and 0.
