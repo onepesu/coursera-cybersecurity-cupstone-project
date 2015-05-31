@@ -1,0 +1,1 @@
+Logread command for unknown log file should return nothing, but program returns integrity violation 255.

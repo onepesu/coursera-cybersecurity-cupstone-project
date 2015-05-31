@@ -1,0 +1,1 @@
+Slash "/" is not a valid filename for log, program should return invalid 255, instead returns 0.
