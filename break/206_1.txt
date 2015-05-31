@@ -1,0 +1,2 @@
+In this case logread -I does not always return the correct room.
+logread -K key -I -E Ann -E Jim -E CEO log2  should return 5, but got nothing.

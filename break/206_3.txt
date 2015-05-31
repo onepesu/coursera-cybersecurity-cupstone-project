@@ -1,0 +1,1 @@
+In this case program fails to accept the proper key "log22" for log file name "key"
