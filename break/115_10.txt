@@ -1,0 +1,3 @@
+Using a hex editor every time you delete something
+that starts from 00 00 00 up to, but not including,
+the next 00 00 00, you "delete" a logappend entry from history

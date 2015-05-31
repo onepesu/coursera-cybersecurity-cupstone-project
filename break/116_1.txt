@@ -1,0 +1,1 @@
+logappend treats /dev/null as a valid target.

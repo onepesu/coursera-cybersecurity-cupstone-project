@@ -1,0 +1,1 @@
+logread accepts -S and -E arguments at the same call.

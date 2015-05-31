@@ -1,0 +1,2 @@
+logappend encounters an invalid argument but exits normally (exit code 0)
+instead of having an exit code 255.
