@@ -1,0 +1,1 @@
+This program does not allow for an employee and a guest to have the same name.

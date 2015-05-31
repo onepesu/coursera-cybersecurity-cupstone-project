@@ -1,0 +1,3 @@
+This program does not respond correctly to a logappend command that has two
+-R tokens with the same value. It considers this command to be invalid,
+printing invalid and 255, while the oracle prints nothing and 0.
