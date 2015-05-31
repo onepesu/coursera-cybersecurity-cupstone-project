@@ -1,0 +1,4 @@
+This program does not respond correctly in a logappend command that has a room
+number that starts with zero. Specifically, in this test it fails to register
+a logappend command with room number 0000000000000001, resulting in an outpt of invalid and 255 while the
+oracle prints nothing and 0. Moreover, this results to a wrong output in the logread command that follows.
