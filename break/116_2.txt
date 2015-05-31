@@ -1,0 +1,2 @@
+if logread -I encounters an employee that does not exist in the history instead
+of disregarding the person, treats him as someone who has not entered any room
