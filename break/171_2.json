@@ -1,0 +1,22 @@
+{
+    "target_team": 171,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logread",
+            "args": ["-K", "token", "-S", "log1"]
+        },
+        {
+            "program": "logread",
+            "args": ["-K", "token", "-R", "-G", "martha", "log1"]
+        },
+        {
+            "program": "logread",
+            "args": ["-K", "token", "-T", "-G", "martha", "log1"]
+        },
+        {
+            "program": "logread",
+            "args": ["-K", "token", "-I", "-G", "martha", "log1"]
+        }
+    ]
+}
