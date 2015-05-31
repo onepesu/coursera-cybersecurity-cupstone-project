@@ -1,0 +1,2 @@
+This programme crashes when given a logappend command that is missing the
+logfile name. It should return invalid and 255 instead.
