@@ -1,0 +1,2 @@
+When logfile name /dev/null is given program returns 0 instead of invalid 255. But when we try to logread from this
+logfile we receive integrity violation error.
