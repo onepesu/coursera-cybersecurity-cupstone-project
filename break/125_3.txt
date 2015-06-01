@@ -1,0 +1,2 @@
+logappend can write to a folder not a file with any
+error

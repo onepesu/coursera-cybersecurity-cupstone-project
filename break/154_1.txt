@@ -1,0 +1,1 @@
+Logappend does not respect the upper bounds for room ids
