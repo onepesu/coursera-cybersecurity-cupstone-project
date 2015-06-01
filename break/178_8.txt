@@ -1,0 +1,1 @@
+In logread -R when we a give a value for room, program returns -11 instead of invalid 255

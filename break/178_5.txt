@@ -1,0 +1,3 @@
+Program accepts command with multiple logfile names given and returns 0 when it should return invalid 255.
+Furthermore takes the first value (instead of only the last) of logfile name and returns result when using logread it to
+access it.

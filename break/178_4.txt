@@ -1,0 +1,1 @@
+When a wrong key is provided by a command, program returns invalid instead of integrity violation.

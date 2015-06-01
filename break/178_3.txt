@@ -1,0 +1,1 @@
+Program returns invalid status with logread -S. In this case got Gauss -1 , instead of Gauss.
