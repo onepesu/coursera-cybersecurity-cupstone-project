@@ -1,0 +1,2 @@
+logappend is able to write to a file '/2', where
+the user should not have any permissions to do so.
