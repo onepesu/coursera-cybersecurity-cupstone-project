@@ -1,0 +1,2 @@
+logappend is accepting filenames with more than 255 characters,
+although this is impossible in the OS.
