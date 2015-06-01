@@ -1,0 +1,2 @@
+Program fails to return the correct result with "logread -I -K key -E Ann -E Jim -G John log2".
+Program returns 1,5 when it should have returned 5.

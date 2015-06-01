@@ -1,0 +1,1 @@
+Program accepts a very long log filename. Returns 0 when it should return invalid 255.

@@ -1,0 +1,1 @@
+Program accepts improper log filenames "." or "/" , and returns 0 instead of invalid 255.

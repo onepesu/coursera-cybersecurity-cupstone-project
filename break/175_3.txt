@@ -1,0 +1,1 @@
+When logfile name /dev/null is given program instead of invalid 255 returns qUncompress: Input data is corrupted.
