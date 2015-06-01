@@ -1,0 +1,2 @@
+Program accepts commands with bad syntax, there should be a period between attribute type and value. Program returns 0
+when it should return invalid 255.

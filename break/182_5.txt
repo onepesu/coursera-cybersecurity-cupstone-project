@@ -1,0 +1,3 @@
+Specs: If the same argument is provided multiple times, the last value is accepted.
+This program despite the fact that when given multiple logfile names in logappend accepts the command, it fails to read
+the logfile with logread -S with every logfile name included in the logappend used.

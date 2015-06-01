@@ -1,0 +1,3 @@
+When an unknown user is given with logread -I program prints integrity violation and 255, when it should print nothing
+and return with 0.
+Specs: -I or -T used specifying an employee that does not exist in the log, should print nothing and exit with return 0

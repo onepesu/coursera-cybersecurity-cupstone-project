@@ -1,0 +1,3 @@
+Specs:An employee and a guest can have the same name.
+Program accepts logappends with same name employee and guest, but when we are trying to get status with logread
+instead of the status (in our case Fred Fred) prints integrity violation 255.
