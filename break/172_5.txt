@@ -1,0 +1,1 @@
+Logread -T prints wrong result, in our case should print 3 but prints 0.
