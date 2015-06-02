@@ -1,0 +1,10 @@
+{
+    "target_team": 119,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "2", "-K", "token1", "-A", "-E", "Gauss", "-R", "1", "log1"]
+        }
+    ]
+}
