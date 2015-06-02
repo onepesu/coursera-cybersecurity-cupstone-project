@@ -1,0 +1,2 @@
+This program considers a logread command that has ./ before the logfile name as invalid,
+while it should consider it as valid print the result (in this case Fred)

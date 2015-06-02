@@ -1,0 +1,3 @@
+This program does not recognise that it is given an invalid logappend command where
+-R and the room number have no spaces between them. This results to it printing
+nothing and 0 while the oracle prints invalid and 255

@@ -1,0 +1,4 @@
+This program allows a logappend command with a person that arrives directly
+to a room, while this should not be allowed. This results to an output
+of nothing and 0 while the oracle prints invalid and 255. Moreover,
+this results to rejecting the following valid logappend command.
