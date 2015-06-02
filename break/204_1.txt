@@ -1,0 +1,1 @@
+No employee or guest should leave a room without entering it. Program allows it and returns 0 instead of invalid 255.
