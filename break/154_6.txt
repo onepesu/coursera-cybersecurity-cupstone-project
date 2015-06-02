@@ -1,0 +1,2 @@
+logread reads from /dev/null without printing
+integrity violation, but invalid

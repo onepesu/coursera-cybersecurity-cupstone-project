@@ -1,0 +1,10 @@
+{
+    "target_team": 154,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logread",
+            "args": ["-K", "secret", "-S", "/dev/null"]
+        }
+    ]
+}
