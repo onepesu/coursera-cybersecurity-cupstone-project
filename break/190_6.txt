@@ -1,0 +1,2 @@
+Specs: Valid times range from 1 to 1073741823 inclusively.
+Program accepts time not in the above range and returns 0 instead of invalid 255.

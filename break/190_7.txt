@@ -1,0 +1,4 @@
+Specs:Some examples of conditions that would result in printing "invalid" and doing nothing to the log:
+    Conflicting command line arguments are given, for example both -E and -G or -A and -L
+
+    Program accepts a logappend with both -G -E present, and returns 0 instead of invalid 255.

@@ -1,0 +1,2 @@
+Programs allows bad syntax, there should be a period between attribute type and value. Program should return invalid
+255 instead of 0.
