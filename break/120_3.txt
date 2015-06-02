@@ -1,0 +1,1 @@
+logappend allows file names to end with /.

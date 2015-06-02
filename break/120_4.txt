@@ -1,0 +1,1 @@
+logread accepts two different employees when called with -R.
