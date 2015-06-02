@@ -1,0 +1,1 @@
+When a single user have been given as argument to logread -I program does not return the correct result.

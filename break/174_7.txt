@@ -1,0 +1,2 @@
+Specs: If the same argument is provided multiple times, the last value is accepted.
+When given 2 timestamps instead of accepting the second one and return 0, program returns invalid 255.
