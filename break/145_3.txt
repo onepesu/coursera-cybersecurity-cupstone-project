@@ -1,0 +1,2 @@
+This program does not respond correctly to a logread -I command when one of the
+queried people has never been in the gallery before.
