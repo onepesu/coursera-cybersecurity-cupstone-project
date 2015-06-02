@@ -1,0 +1,8 @@
+When we give 2 employees as arguments in logread -R instead of invalid or the result from the second employee.
+Program returns 2 and crushes with the following error:
+
+panic: runtime error: index out of range
+
+goroutine 1 [running]:
+main.main()
+	/home/ubuntu/host/logread.go:61 +0x697
