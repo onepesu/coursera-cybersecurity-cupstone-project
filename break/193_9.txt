@@ -1,0 +1,2 @@
+When using logread -I, program sometimes returns invalid 255 instead of the correct results. Even if employees and
+guests were never in the same room, program should return nothing instead of invalid 255.

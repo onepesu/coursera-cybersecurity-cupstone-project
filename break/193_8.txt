@@ -1,0 +1,1 @@
+Program accepts bad syntax, there should be a period between attribute type and value.
