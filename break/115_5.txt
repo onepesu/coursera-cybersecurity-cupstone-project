@@ -1,0 +1,1 @@
+logread cannot read a file if the path to it is given
