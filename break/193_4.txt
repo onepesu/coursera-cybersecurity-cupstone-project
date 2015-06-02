@@ -1,0 +1,2 @@
+Specs:An employee and a guest can have the same name.
+Program returns invalid 255 with logread -S instead of the correct result, when employee and guest have the same name.

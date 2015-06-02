@@ -1,0 +1,2 @@
+Program takes as invalid a proper logappend command when room value has enough leading zeros. Program returns invalid
+255 instead of 0.

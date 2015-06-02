@@ -1,0 +1,2 @@
+When 2 keys were given in logappend, and afterwards we use the first (incorrect) one to access the logfile, program
+returns invalid 255 instead of integrity violation.
