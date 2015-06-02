@@ -1,0 +1,1 @@
+When there are leading zeros in rooms program fails to return the correct result with logread -I.

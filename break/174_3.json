@@ -1,0 +1,58 @@
+{
+    "target_team": 174,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "-K", "secret", "-A", "-E", "Fred", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "2", "-K", "secret", "-A", "-G", "Fredita", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "3", "-K", "secret", "-A", "-E", "Fred", "-R", "1", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "4", "-K", "secret", "-A", "-G", "Fredita", "-R", "1", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "5", "-K", "secret", "-L", "-E", "Fred", "-R", "1", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "6", "-K", "secret", "-L", "-G", "Fredita", "-R", "1", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "7", "-K", "secret", "-A", "-E", "Fred", "-R", "2", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "8", "-K", "secret", "-A", "-G", "Fredita", "-R", "2", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "9", "-K", "secret", "-L", "-E", "Fred", "-R", "2", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "10", "-K", "secret", "-L", "-G", "Fredita", "-R", "2", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "11", "-K", "secret", "-A", "-E", "Fred", "-R", "1", "log1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "12", "-K", "secret", "-A", "-G", "Fredita", "-R", "1", "log1"]
+        },
+        {
+            "program": "logread",
+            "args": ["-K", "secret", "-I", "-E", "Fred", "-G", "Fredita", "log1"]
+        }
+    ]
+}
