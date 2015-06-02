@@ -1,0 +1,1 @@
+Program can not accept long but valid log filenames. It should return 0.
