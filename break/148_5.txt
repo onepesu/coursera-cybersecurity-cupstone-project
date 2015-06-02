@@ -1,0 +1,3 @@
+In this test, an unhandled exception happens. This line is causing an error on:
+/usr/local/go/src/runtime/malloc.go:712
+prooving that the crash is due to a memory violation.
