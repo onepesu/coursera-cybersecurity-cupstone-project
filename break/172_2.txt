@@ -1,0 +1,1 @@
+Logread -S fails to print the correct status when there is a guest and an employee with the same name.

@@ -1,0 +1,2 @@
+Specs:  If the same argument is provided multiple times, the last value is accepted.
+Program accepts the first value when 2 room values are given. In our case logread should print 2 but prints 1.

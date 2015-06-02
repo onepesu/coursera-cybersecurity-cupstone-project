@@ -1,0 +1,1 @@
+Unaccepted error message when given slash in logfile name.
