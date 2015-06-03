@@ -1,0 +1,3 @@
+Specs:If the same argument is provided multiple times, the last value is accepted.
+When in logappend -T is given 2 times, the program instead of accepting last value and return with 0, returns invalid
+255.

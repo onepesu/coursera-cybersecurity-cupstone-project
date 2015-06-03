@@ -1,0 +1,2 @@
+When 2 tokens are given as argument, program mistakenly returns invalid 255, instead of accepting the second one and
+return 0.

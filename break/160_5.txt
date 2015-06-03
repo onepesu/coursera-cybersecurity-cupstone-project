@@ -1,0 +1,5 @@
+Specs: logread -I or -T used specifying an employee that does not exist in the log, should print nothing and exit with
+return 0
+
+When an employee that does not exist in the log is given with logread -I, program prints results (in our case 1)
+instead of nothing.
