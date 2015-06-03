@@ -1,0 +1,2 @@
+Program fails to accept the last value of employee, and returns invalid 255 instead of 0.
+Specs:  If the same argument is provided multiple times, the last value is accepted.
