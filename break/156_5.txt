@@ -1,0 +1,2 @@
+Program does not allow an employee that has left the gallery to reenter it. (Once you leave you are fired ;))
+Returns invalid 255 instead of 0.

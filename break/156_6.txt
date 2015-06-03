@@ -1,0 +1,4 @@
+Specs logread:-I or -T used specifying an employee that does not exist in the log, should print nothing and exit with
+return 0
+
+Program does not print nothing when an unknown employee is given with logread -I, instead prints the rooms ignoring him.
