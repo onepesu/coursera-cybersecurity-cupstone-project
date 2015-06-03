@@ -1,0 +1,1 @@
+logappend raises an unhandled exception with -h
