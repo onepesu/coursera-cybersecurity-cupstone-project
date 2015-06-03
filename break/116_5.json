@@ -1,0 +1,46 @@
+{
+    "target_team": 116,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "-K", "key", "-E", "Jim", "-A", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "3", "-K", "key", "-E", "Jim", "-A", "-R", "1", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "5", "-K", "key", "-E", "Jim", "-L", "-R", "1", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "7", "-K", "key", "-E", "Jim", "-L", "-R", "1", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "9", "-K", "key", "-E", "Jim", "-L", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "11", "-K", "key", "-G", "Jim", "-A", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "13", "-K", "key", "-G", "Jim", "-A", "-R", "2", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "15", "-K", "key", "-G", "Jim", "-L", "-R", "2", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "17", "-K", "key", "-G", "Jim", "-L", "log2"]
+        },
+        {
+            "program": "logread",
+            "args": ["-R", "01", "-K", "key", "-E", "Jim", "log2"]
+        }
+    ]
+}

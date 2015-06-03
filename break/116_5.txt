@@ -1,0 +1,2 @@
+Logread -R should not take argument value as input, program should return with invalid 255 but instead prints room id
+and returns with 0.
