@@ -1,0 +1,8 @@
+Program accepts the first logfile name when multiple names are given.
+
+Specs say that:
+The log file cannot be present multiple times.
+and If the same argument is provided multiple times, the last value is accepted.
+
+So logappend -T 1 -K key -G Nick -A loga20 loga21 loga22 should return invalid 255 instead of 0.
+And in no way logread -S -K key loga20 should return the log status.
