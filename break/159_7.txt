@@ -1,0 +1,4 @@
+Specs:[5/11/15 9:00PM EST] Command line arguments can appear in any order. If the same argument is provided multiple
+times, the last value is accepted.
+When 2 tokens are ginen with logread -S and the last one is valid program fails to prints the log status.
+Program prints invalid and returns 255, when it should print gallery status (in our case Gauss) and return with 0.
