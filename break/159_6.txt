@@ -1,0 +1,3 @@
+Specs:[5/19/15 12:00PM EST] Valid times range from 1 to 1073741823 inclusively.
+Program accepts invalid time value "1073741824", prints nothing and returns with 0 when it should have print invalid and
+ return with 255.
