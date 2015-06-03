@@ -1,0 +1,2 @@
+In this program once an employee leaves the gallery seems unable to reenter. When he tries program returns invalid 255
+instead of 0.
