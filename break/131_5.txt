@@ -1,0 +1,2 @@
+Program accepts logappend command without timestamp.
+It should print invalid and return 255, but prints nothing instead and returns 0.
