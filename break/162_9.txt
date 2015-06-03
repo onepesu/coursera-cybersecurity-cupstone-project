@@ -1,0 +1,2 @@
+Specs: Command line arguments can appear in any order.
+Program fails to support many of them and returns invalid 255 instead of 0.

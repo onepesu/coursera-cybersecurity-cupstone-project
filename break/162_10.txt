@@ -1,0 +1,2 @@
+Specs:Log file names can include periods.
+Program fails to accept a valid logfile name with period and returns invalid 255 instead of 0.
