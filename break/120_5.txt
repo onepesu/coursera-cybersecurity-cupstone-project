@@ -1,0 +1,1 @@
+logappend can be called with unsupported args

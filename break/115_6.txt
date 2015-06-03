@@ -1,0 +1,1 @@
+logread when called with the -R can accept more than one -E

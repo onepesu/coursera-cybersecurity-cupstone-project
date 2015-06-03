@@ -1,0 +1,3 @@
+This program does not recognise a logappend command with more arguments than
+what is allowed as invalid. This results to it printing nothing and 0 while
+the oracle prints invalid and 255

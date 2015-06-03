@@ -1,0 +1,1 @@
+logappend can accept -A and -L at the same time

@@ -1,0 +1,10 @@
+{
+    "target_team": 148,
+    "type": "crash",
+    "commands": [
+        {
+            "program": "logread",
+            "args": ["-K", "secret", "-S", "/dev/null"]
+        }
+    ]
+}

@@ -1,0 +1,2 @@
+This test results to the program printing the wrong output of invalid, 255 while the
+oracle prints nothing and 0

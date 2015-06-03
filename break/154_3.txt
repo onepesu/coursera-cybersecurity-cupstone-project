@@ -1,0 +1,2 @@
+logread, when called with the -R option, is allowed to
+have one and only one employee/guest as an argument.

@@ -1,0 +1,1 @@
+An employee can enter a room before entering the gallery

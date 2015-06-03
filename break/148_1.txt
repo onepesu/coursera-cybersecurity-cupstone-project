@@ -1,0 +1,3 @@
+This program does not respond correctly to a logread command on a logfile
+that hasn't previously been created. This results to the wrong output of
+invalid and 255 while the oracle prints nothing and 0.
