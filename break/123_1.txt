@@ -1,0 +1,3 @@
+This program allows a logread command with the logfile name being
+/dev/null, which should not be allowed. This results to it printing invalid
+while the oracle prints integrity violation.
