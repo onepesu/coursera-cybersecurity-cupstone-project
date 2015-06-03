@@ -1,0 +1,26 @@
+{
+    "target_team": 155,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "-K", "key", "-G", "Jim", "-A", "log3"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "2", "-K", "key", "-G", "Jim", "-A", "-R", "1", "log3"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "3", "-K", "key", "-G", "Ann", "-A", "log3"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "4", "-K", "key", "-G", "Ann", "-A", "-R", "0000000000000001", "log3"]
+        },
+        {
+            "program": "logread",
+            "args": ["-S", "-K", "key", "-G", "Jim", "log3"]
+        }
+    ]
+}

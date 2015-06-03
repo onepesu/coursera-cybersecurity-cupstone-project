@@ -1,0 +1,1 @@
+Program mistakenly accepts a TOO long filename, program should return invalid 255, but instead returns 0.
