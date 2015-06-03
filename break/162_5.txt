@@ -1,0 +1,2 @@
+Accepts bad syntax, logread -R does not take a number as another attribute or value, program should return invalid 255
+instead of 0.
