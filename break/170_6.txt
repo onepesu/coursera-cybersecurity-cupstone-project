@@ -1,0 +1,1 @@
+logappend should only accept strictly increasing time

@@ -1,0 +1,1 @@
+logread with -I fail when employee and guest have the same name

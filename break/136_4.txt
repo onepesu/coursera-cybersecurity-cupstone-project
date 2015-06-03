@@ -1,0 +1,1 @@
+when logappend first fails, it locks the token
