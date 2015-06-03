@@ -1,0 +1,1 @@
+Program prints nothing with logread -I instead of printing the proper rooms.

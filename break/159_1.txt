@@ -1,0 +1,2 @@
+Program does not print the log status with logread -S, in our case prints invalid instead of Jim 0:Jim , and returns
+with 255 instead of 0.
