@@ -1,0 +1,2 @@
+With logread -I, if 1 employee is given as argument the program prints invalid and returns with 255, instead of printing
+the room ids (in our case 1) and return with 0.

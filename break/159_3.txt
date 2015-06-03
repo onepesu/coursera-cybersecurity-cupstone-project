@@ -1,0 +1,2 @@
+Specs:[5/11/15 9:00PM EST] Command line arguments can appear in any order.
+Program fails to accept some of them, and returns invalid 255 instead of 0.
