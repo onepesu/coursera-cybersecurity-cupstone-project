@@ -1,0 +1,11 @@
+Specs:[5/11/15 9:00PM EST] Command line arguments can appear in any order.
+Program fails to accept arguments in some possible orders, and instead of returning with 0, returns with 1 and prints:
+
+Exception in thread "main" java.lang.NullPointerException
+	at sun.nio.fs.UnixPath.normalizeAndCheck(UnixPath.java:77)
+	at sun.nio.fs.UnixPath.<init>(UnixPath.java:71)
+	at sun.nio.fs.UnixFileSystem.getPath(UnixFileSystem.java:281)
+	at java.nio.file.Paths.get(Paths.java:84)
+	at co.com.seclogfile.common.security.TokenValidation.validate(TokenValidation.java:26)
+	at co.com.seclogfile.logappend.main.LogAppend.executeActions(LogAppend.java:82)
+	at co.com.seclogfile.logappend.main.LogAppend.main(LogAppend.java:51)

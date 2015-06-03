@@ -1,0 +1,1 @@
+Program fails to print the correct log status with logread -S. Got invalid 255 instead of log current status.

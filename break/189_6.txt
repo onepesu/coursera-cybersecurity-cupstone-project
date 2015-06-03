@@ -1,0 +1,3 @@
+Specs: No employee or guest should leave a room without entering it.
+This program accepts a logappend command for an employee to leave a room without entering it or even gallery first.
+Returns 0 instead of invalid 255.

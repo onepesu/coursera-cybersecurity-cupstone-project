@@ -1,0 +1,1 @@
+This program prints other message instead of invalid, when non valid logappend commands have been given.

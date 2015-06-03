@@ -1,0 +1,1 @@
+Program fails to accept a valid long logfile name, program should return 0, but returns 1 and prints an error.

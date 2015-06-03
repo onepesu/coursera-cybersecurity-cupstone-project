@@ -1,0 +1,3 @@
+Specs: Leading zeros in room IDs should be dropped, such that 003, 03, and 3 are all equivalent room IDs.
+Program fails to print the correct results with logread -I when there are some leading zeros in room id.
+In our case prints 1 instead of 1,5 and nothing instead of 5.

@@ -1,0 +1,3 @@
+Specs:[5/19/15 12:00PM EST] An employee and a guest can have the same name.
+When a logappend is given with a guest that has the same name with an employee program prints invalid and returns 255,
+instead of 0.

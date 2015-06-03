@@ -1,0 +1,1 @@
+logread -T fails to print the correct time, prints 1 instead of 3.

@@ -1,0 +1,11 @@
+Specs: If the same argument is provided multiple times, the last value is accepted.
+When -K token is given multiple times instead of accepting the second value and return with 0, program returns with 1
+and prints:
+    Exception in thread "main" java.lang.NullPointerException
+	at sun.nio.fs.UnixPath.normalizeAndCheck(UnixPath.java:77)
+	at sun.nio.fs.UnixPath.<init>(UnixPath.java:71)
+	at sun.nio.fs.UnixFileSystem.getPath(UnixFileSystem.java:281)
+	at java.nio.file.Paths.get(Paths.java:84)
+	at co.com.seclogfile.common.security.TokenValidation.validate(TokenValidation.java:26)
+	at co.com.seclogfile.logappend.main.LogAppend.executeActions(LogAppend.java:82)
+	at co.com.seclogfile.logappend.main.LogAppend.main(LogAppend.java:51)

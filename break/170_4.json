@@ -1,0 +1,22 @@
+{
+    "target_team": 170,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-E", "Jim", "log17", "-T", "1", "-K", "key", "-A"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-A", "-K", "key", "-E", "Jim", "log18", "-T", "1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-A", "-E", "Jim", "-T", "1", "-K", "log22", "key"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-Alog23", "-E", "Jim", "-T", "1", "-K", "key"]
+        }
+    ]
+}

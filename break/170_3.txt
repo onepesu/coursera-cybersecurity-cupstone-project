@@ -1,0 +1,16 @@
+Program fails to understand a messed up logappend command and instead of invalid 255, returns 1 and prints:
+Unhandled Exception:
+System.ArgumentNullException: Argument cannot be null.
+Parameter name: input
+  at System.Text.RegularExpressions.Regex.Match (System.String input, Int32 startat) [0x00000] in <filename unknown>:0
+  at System.Text.RegularExpressions.Regex.IsMatch (System.String input, Int32 startat) [0x00000] in <filename unknown>:0
+  at System.Text.RegularExpressions.Regex.IsMatch (System.String input) [0x00000] in <filename unknown>:0
+  at Capstone.logappend.ProcessCommand (Capstone.CmdArgument command) [0x00000] in <filename unknown>:0
+  at Capstone.logappend.Main (System.String[] args) [0x00000] in <filename unknown>:0
+[ERROR] FATAL UNHANDLED EXCEPTION: System.ArgumentNullException: Argument cannot be null.
+Parameter name: input
+  at System.Text.RegularExpressions.Regex.Match (System.String input, Int32 startat) [0x00000] in <filename unknown>:0
+  at System.Text.RegularExpressions.Regex.IsMatch (System.String input, Int32 startat) [0x00000] in <filename unknown>:0
+  at System.Text.RegularExpressions.Regex.IsMatch (System.String input) [0x00000] in <filename unknown>:0
+  at Capstone.logappend.ProcessCommand (Capstone.CmdArgument command) [0x00000] in <filename unknown>:0
+  at Capstone.logappend.Main (System.String[] args) [0x00000] in <filename unknown>:0

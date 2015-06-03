@@ -1,0 +1,9 @@
+Program fails to print the correct result with logread -I instead of printing "1,2" , returns with 1 and prints:
+Traceback (most recent call last):
+  File "/home/ubuntu/opponents/207/code/build/logread", line 419, in <module>
+    overlap(log, names_list)
+  File "/home/ubuntu/opponents/207/code/build/logread", line 363, in overlap
+    name0_times = times_in_room(log, name0, EorG0, room)
+  File "/home/ubuntu/opponents/207/code/build/logread", line 304, in times_in_room
+    if log[position][name] == 'name' and log[position]['EorG'] == EorG and log[position][roomID] == roomID:
+KeyError: 'Fred'

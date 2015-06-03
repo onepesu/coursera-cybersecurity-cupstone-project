@@ -1,0 +1,34 @@
+{
+    "target_team": 162,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["log13", "-K", "key", "-E", "Jim", "-A", "-T", "1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "-E", "Jim", "-K", "key", "log14", "-A"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "log15", "1", "-E", "Jim", "-A", "-K", "key"]
+        },
+        {
+            "program": "logappend",
+            "args": ["log16", "-T", "1", "-K", "key", "-A", "-E", "Jim"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-E", "Jim", "log17", "-T", "1", "-K", "key", "-A"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-A", "-K", "key", "-E", "Jim", "log18", "-T", "1"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-A", "-E", "Jim", "-T", "1", "log19", "-K", "key"]
+        }
+    ]
+}

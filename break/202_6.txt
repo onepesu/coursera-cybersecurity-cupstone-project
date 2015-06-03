@@ -1,0 +1,6 @@
+When batch not found the program istead of invalid 255, returns with 1 and prints:
+
+Exception in thread "main" java.lang.NullPointerException
+	at logappend.ArgStringParser.loadCommanders(Unknown Source)
+	at logappend.BatchFileProcessor.process(Unknown Source)
+	at logappend.Logappend.main(Unknown Source)

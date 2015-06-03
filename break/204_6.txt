@@ -1,0 +1,1 @@
+Program fails to print the correct result with logread -T. In our case prints 0 instead of 21.

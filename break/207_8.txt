@@ -1,0 +1,10 @@
+When a Too long name is given program instad of invalid 255, returns with 1 and prints Traceback (most recent call last):
+  File "/home/ubuntu/opponents/207/code/build/logappend", line 367, in <module>
+    run_args_line(args)
+  File "/home/ubuntu/opponents/207/code/build/logappend", line 325, in run_args_line
+    args.departure, args.room_ID, args.log)
+  File "/home/ubuntu/opponents/207/code/build/logappend", line 157, in input_tests
+    with open(log, "a+") as f:
+OSError: [Errno 36] File name too long: 'log7123456789123456789123456789123456789123456789123456789123456789123456789123
+456789123456789123456789123456789ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'

@@ -1,0 +1,26 @@
+{
+    "target_team": 177,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "-K", "test", "-A", "-E", "Nick", "log8"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "2", "-K", "test", "-A", "-R", "1", "-E", "Nick", "log8"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "3", "-K", "test", "-L", "-R", "1", "-E", "Nick", "log8"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "4", "-K", "test", "-L", "-E", "Nick", "log8"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "5", "-K", "test", "-A", "-E", "Nick", "log8"]
+        }
+    ]
+}

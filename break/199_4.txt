@@ -1,0 +1,1 @@
+Logread -R command takes no value for argument R, when given the program returns o instead of invalid 255.

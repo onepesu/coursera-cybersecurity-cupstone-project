@@ -1,0 +1,13 @@
+Specs:If the log file cannot be created due to an invalid path, or any other error, logappend should print "invalid" and
+return 255.
+When a TOO long logfile name is given program instead of invalid 255, returns 1 and prints:
+Traceback (most recent call last):
+  File "/home/ubuntu/opponents/189/code/build/logappend", line 301, in <module>
+    main()
+  File "/home/ubuntu/opponents/189/code/build/logappend", line 50, in main
+    processEntries()
+  File "/home/ubuntu/opponents/189/code/build/logappend", line 255, in processEntries
+    createLog(entry["log"])
+  File "/home/ubuntu/opponents/189/code/build/logappend", line 296, in createLog
+    print "Error creating log file: " + IOError
+TypeError: cannot concatenate 'str' and 'type' objects
