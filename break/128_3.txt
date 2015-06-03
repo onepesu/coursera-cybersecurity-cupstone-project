@@ -1,0 +1,1 @@
+logappend room id bigger than the upper bound

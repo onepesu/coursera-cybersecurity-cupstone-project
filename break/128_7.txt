@@ -1,0 +1,2 @@
+when logread tries do read from /dev/null
+iit does not print integrity violation

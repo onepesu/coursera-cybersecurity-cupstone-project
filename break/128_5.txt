@@ -1,0 +1,2 @@
+if logappend gets root folder as logfile,
+it raises an unhandled exception

@@ -1,0 +1,2 @@
+if the supplied filename is larger than 255 chars,
+an unhandled exception gets raised

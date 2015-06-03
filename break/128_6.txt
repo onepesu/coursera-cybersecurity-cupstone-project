@@ -1,0 +1,2 @@
+if logappend is given a non-existent batch file as arguments
+it raises an unhandled exception

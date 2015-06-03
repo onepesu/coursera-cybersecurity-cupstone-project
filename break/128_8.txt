@@ -1,0 +1,2 @@
+logappend cannot handle guests and employees with the
+same name

@@ -1,0 +1,1 @@
+logappend accepts timestamps larger than the upper bound
