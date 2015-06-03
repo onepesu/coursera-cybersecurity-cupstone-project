@@ -1,0 +1,2 @@
+logread, when it is called with -R should accept
+only one -E
