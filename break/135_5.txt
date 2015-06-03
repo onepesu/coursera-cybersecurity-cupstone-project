@@ -1,0 +1,2 @@
+Logread -S does not take -G as an argument, program should print invalid and return 255 but instead prints nothing and
+returns with 0.
