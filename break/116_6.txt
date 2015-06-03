@@ -1,0 +1,2 @@
+logread failed to read the log file although the last token given as argument was the correct.
+Prograsm should print Gauss and return with 0, but instead it prints invalid and returns with 255.
