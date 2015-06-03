@@ -1,0 +1,2 @@
+Specs:[5/19/15 12:00PM EST] An employee and a guest can have the same name.
+When a guest with the same name as an employee tries to enter gallery program returns invalid 255 instead of 0.
