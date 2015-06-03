@@ -1,0 +1,2 @@
+Program fails to print the correct result with logread -I.
+Program prints invalid instead of the result and returns 255 instead of 0.
