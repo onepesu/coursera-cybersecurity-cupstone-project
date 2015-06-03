@@ -1,0 +1,3 @@
+Specs:If the log file cannot be created due to an invalid path, or any other error, logappend should print "invalid" and
+return 255.
+When a TOO long logfile name is given program instead of invalid, prints integrity violation.
