@@ -1,0 +1,2 @@
+Specs:If the same argument is provided multiple times, the last value is accepted.
+Program fail to accept the last value when 2 arguments -G are given, returns invalid 255 instead of 0.
