@@ -1,0 +1,1 @@
+Program fails to print the correct result with logread -I, in our case prints nothing when it should print 5.
