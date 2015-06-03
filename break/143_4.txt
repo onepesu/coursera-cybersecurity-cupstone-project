@@ -1,0 +1,4 @@
+Specs: Names are alphabetic characters (a-z, A-Z) in upper and lower case.
+
+Program mistakenly accepts and prints log21 as valid Employee name although it includes numbers.
+It should print invalid and return with 255 instead of accepting it and return with 0.
