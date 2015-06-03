@@ -1,0 +1,1 @@
+logread can be called with -R and two -E arguments
