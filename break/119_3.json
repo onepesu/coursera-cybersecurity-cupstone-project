@@ -1,0 +1,58 @@
+{
+    "target_team": 119,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logappend",
+            "args": ["-T", "1", "-K", "key", "-E", "Jim", "-A", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "2", "-K", "key", "-E", "Jim", "-A", "-R", "1", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "3", "-K", "key", "-E", "Ann", "-A", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "4", "-K", "key", "-E", "Ann", "-A", "-R", "0000000000000001", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "13", "-K", "key", "-E", "Jim", "-L", "-R", "1", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "14", "-K", "key", "-E", "Jim", "-A", "-R", "00005", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "15", "-K", "key", "-E", "Ann", "-L", "-R", "1", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "16", "-K", "key", "-E", "Ann", "-A", "-R", "0000000005", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "17", "-K", "key", "-G", "John", "-A", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "18", "-K", "key", "-G", "John", "-A", "-R", "00000000000000000005", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "25", "-K", "key", "-E", "CEO", "-A", "log2"]
+        },
+        {
+            "program": "logappend",
+            "args": ["-T", "28", "-K", "key", "-E", "CEO", "-A", "-R", "0005", "log2"]
+        },
+        {
+            "program": "logread",
+            "args": ["-I", "-K", "key", "-E", "Ann", "-E", "Jim", "log2"]
+        }
+    ]
+}

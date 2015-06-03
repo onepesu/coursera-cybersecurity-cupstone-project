@@ -1,0 +1,2 @@
+Program does not return the correct result with logread -I when rooms have leading zeros.
+In this case program should print 1,5 but prints nothing instead.
