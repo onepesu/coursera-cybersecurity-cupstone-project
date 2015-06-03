@@ -1,0 +1,8 @@
+Specs:Some examples of conditions that would result in printing "invalid" and doing nothing to the log:
+    Conflicting command line arguments are given, for example both -E and -G or -A and -L
+
+In logappend when both -E -G arguments are given, program returns 2 instead of 255 and prints:
+"usage: logappend [-h] [-T TIME] [-K TOKEN] [-E EMPLOYEE_NAME] [-G GUEST_NAME]
+                 [-A] [-L] [-R ROOM_ID] [-B BATCH_FILE]
+                 [logfile]
+logappend: error: argument -E: expected one argument"  instead of invalid.
