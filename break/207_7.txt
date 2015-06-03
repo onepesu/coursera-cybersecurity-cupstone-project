@@ -1,0 +1,6 @@
+When a nonvalid logappend command is given the program instead of invalid, prints :
+usage: logappend [-h] [-B in-file] [-T TIMESTAMP] [-K TOKEN]
+                 [-E EMPLOYEE_NAME] [-G GUEST_NAME] [-A] [-L] [-R ROOM_ID]
+                 [-H]
+                 [out-file]
+logappend: error: argument -T/--timestamp: expected one argument
