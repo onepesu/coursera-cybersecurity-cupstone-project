@@ -1,0 +1,2 @@
+Specs: Room IDs should be printed in ascending numerical order.
+Program fails to do the above spec. In our case prints 2,1 instead of 1,2.

@@ -1,0 +1,2 @@
+Program does not return the correct result with logread -R, when an employee left and returned in the gallery.
+In our case prints 5 instead of 1,5.

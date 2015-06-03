@@ -1,0 +1,11 @@
+When slashes are used in filename program returns with 1 and prints:
+Traceback (most recent call last):
+  File "/home/ubuntu/opponents/151/code/build/logappend", line 205, in <module>
+    validateAndRunParameters(args, inBatch=False)
+  File "/home/ubuntu/opponents/151/code/build/logappend", line 178, in validateAndRunParameters
+    writeLog2Disk(args.log, log, args.token)
+  File "/home/ubuntu/opponents/151/code/build/logappend", line 23, in writeLog2Disk
+    token, compress=True)
+  File "/home/ubuntu/opponents/151/code/build/EncryptedLogManager.py", line 124, in saveToDisk
+    os.rename(temporary_file_name, logFile)
+NotADirectoryError: [Errno 20] Not a directory: '/tmp/tmpjvy83yqr' -> '2/'

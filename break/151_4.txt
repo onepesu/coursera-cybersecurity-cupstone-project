@@ -1,0 +1,1 @@
+logread -S does not take argument -G, program shoulr return invalid 255, instead prints the status and returns with 0.

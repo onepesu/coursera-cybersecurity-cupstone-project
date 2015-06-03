@@ -1,0 +1,3 @@
+Logread Specs: If the log cannot be authenticated with the token (i.e., it is not the same token that was used to create
+the file), then "integrity violation" should be printed to stdout and 255 should be returned.
+Programs instead of integrity violation prints invalid.

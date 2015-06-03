@@ -1,0 +1,14 @@
+When given a TOO long filename program instead of invalid 255, returns with 1 and prints:
+
+ Traceback (most recent call last):
+  File "/home/ubuntu/opponents/151/code/build/logappend", line 205, in <module>
+    validateAndRunParameters(args, inBatch=False)
+  File "/home/ubuntu/opponents/151/code/build/logappend", line 178, in validateAndRunParameters
+    writeLog2Disk(args.log, log, args.token)
+  File "/home/ubuntu/opponents/151/code/build/logappend", line 23, in writeLog2Disk
+    token, compress=True)
+  File "/home/ubuntu/opponents/151/code/build/EncryptedLogManager.py", line 124, in saveToDisk
+    os.rename(temporary_file_name, logFile)
+OSError: [Errno 36] File name too long: '/tmp/tmpnfsg7bpy' -> 'log712345678912345678912345678912345678912345678912345678
+9123456789123456789123456789123456789123456789123456789ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'

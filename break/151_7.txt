@@ -1,0 +1,3 @@
+Logread specs: -I or -T used specifying an employee that does not exist in the log, should print nothing and exit with
+return 0.
+This program prints room id instead of nothing when an employee or guest that does not exist in the gallery is given.

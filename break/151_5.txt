@@ -1,0 +1,6 @@
+Specs: If the same argument is provided multiple times, the last value is accepted.
+When -G is given 2 times, program instead of taking the value after 2nd argument and return with 0 or return invalid 255
+, it returns with 2 and prints:
+ usage: logappend [-T timestamp] [-K token] [-E employee_name] [-G guest_name]
+                 [-A] [-L] [-R room] [-B [batch_file]]
+                 [logfile]
