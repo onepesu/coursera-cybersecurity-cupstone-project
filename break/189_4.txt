@@ -1,0 +1,2 @@
+Program does not print the result as requested with logread -I.
+In our case prints Fred: 1,2 Fredita: 1,2,3 instead of 1,2.

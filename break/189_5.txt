@@ -1,0 +1,2 @@
+Program does not print the correct status with logread -S when there are employees and guests with the same name.
+In our case prints Fred 3: Fred instead of Fred Fred 1:Fred 3:Fred.
