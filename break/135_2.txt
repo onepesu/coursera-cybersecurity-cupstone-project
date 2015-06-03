@@ -1,0 +1,15 @@
+When a Too long filename is used, instead of 255 program returns 1 and and instead of printing invalid prints:
+ Traceback (most recent call last):
+  File "/home/ubuntu/opponents/135/code/build/logappend", line 90, in <module>
+    main()
+  File "/home/ubuntu/opponents/135/code/build/logappend", line 86, in main
+    update_the_log(arguments)
+  File "/home/ubuntu/opponents/135/code/build/logappend", line 73, in update_the_log
+    log = helper.get_log_file_append(arguments.logfile, arguments.token)
+  File "/home/ubuntu/opponents/135/code/build/helper.py", line 18, in get_log_file_append
+    log = db.LogFile(logfile, token)
+  File "/home/ubuntu/opponents/135/code/build/db.py", line 10, in __init__
+    self.open()
+  File "/home/ubuntu/opponents/135/code/build/db.py", line 23, in open
+    self.connection = sqlite.connect(self.file)
+pysqlcipher.dbapi2.OperationalError: unable to open database file
