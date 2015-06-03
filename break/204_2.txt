@@ -1,0 +1,2 @@
+Specs:  If the same argument is provided multiple times, the last value is accepted.
+Program fails to accept the last value of room id, and returns invalid 255 instead of 0.

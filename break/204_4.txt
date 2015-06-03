@@ -1,0 +1,2 @@
+Room IDs should be printed in ascending numerical order. Program fails to do that with logread -I, prints 2,1 instead
+of 1,2.

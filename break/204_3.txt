@@ -1,0 +1,2 @@
+Program prints same room multiple times, if the users given in logread -I have met more than once in a room.
+Program prints 1,2,1 instead of 1,2.
