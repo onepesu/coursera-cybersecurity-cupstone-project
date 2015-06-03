@@ -1,0 +1,1 @@
+logread -h gives help instead of failing

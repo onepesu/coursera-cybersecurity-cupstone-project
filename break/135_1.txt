@@ -1,0 +1,1 @@
+logappend -h gives help instead of failing

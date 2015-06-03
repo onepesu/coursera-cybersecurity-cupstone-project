@@ -1,0 +1,1 @@
+logappend gives help when called with -h

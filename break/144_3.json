@@ -1,0 +1,10 @@
+{
+    "target_team": 144,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "logread",
+            "args": ["-h"]
+        }
+    ]
+}
