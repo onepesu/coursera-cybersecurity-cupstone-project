@@ -1,0 +1,2 @@
+Program fails to print the correct result with logread -I for 3 users when room ids have leading zeros.
+In our case prints nothing instead of 5.

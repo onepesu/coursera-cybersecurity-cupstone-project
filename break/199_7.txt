@@ -1,0 +1,2 @@
+Program accepts the command with multiple arguments -A, but when logread -S the logfile, instead of printing the status
+and return with 0, the program prints invalid and returns with 255.

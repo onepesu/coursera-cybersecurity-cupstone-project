@@ -1,0 +1,2 @@
+Program fails to print the correct gallery status using logread -S, in our case Jim 0:Jim, and instead prints invalid
+and returns with 255
