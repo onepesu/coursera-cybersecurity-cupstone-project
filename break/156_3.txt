@@ -1,0 +1,2 @@
+When a wrong token is given program should print integrity violation and return 255, instead prints nothing and returns
+0.

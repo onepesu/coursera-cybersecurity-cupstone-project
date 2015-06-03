@@ -1,0 +1,14 @@
+{
+    "target_team": 156,
+    "type": "correctness",
+    "commands": [
+        {
+            "program": "personal/steph/no_batch_file.json",
+            "args": []
+        },
+        {
+            "program": "personal/steph/batch_file_does_not_exist.json",
+            "args": []
+        }
+    ]
+}

@@ -1,0 +1,1 @@
+Program prints invalid instead of nothing when a logread is given for an unknown log file.
