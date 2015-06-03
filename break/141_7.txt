@@ -1,0 +1,2 @@
+Program accepts bad syntax, there should be a space between argument type and value.
+Program should return invalid 255, instead returns 0.

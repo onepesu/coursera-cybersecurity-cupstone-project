@@ -1,0 +1,2 @@
+Program prints nothing and returns with -11, instead of printing invalid and return with 255, when /dev/null is given as
+as logfile name.

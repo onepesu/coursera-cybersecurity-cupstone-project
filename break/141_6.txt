@@ -1,0 +1,2 @@
+Program fails to print the correct result with logread -T.
+In our case with same name guest and employee prints 14 instead of 8.

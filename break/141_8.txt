@@ -1,0 +1,1 @@
+Logread -S takes no argument -E, programd should return invalid 255, instead prints gallery status and returns with 0.

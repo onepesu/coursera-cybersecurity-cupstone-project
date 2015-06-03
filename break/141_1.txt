@@ -1,0 +1,2 @@
+Program fails to create a logfile if previously a different token has been used with a nonvalid and unaccepted logappend
+command. Program returns invalid 255 instead of 0.

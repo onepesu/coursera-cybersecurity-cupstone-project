@@ -1,0 +1,2 @@
+Program fails to print the correct result with logread -I.
+In our case prints  1971985231,-1217448584,-1217448584 instead of 1,2 .

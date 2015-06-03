@@ -1,0 +1,1 @@
+Logread for a non existant logfile should print nothing and return with 0, program prints invalid and returns 255.

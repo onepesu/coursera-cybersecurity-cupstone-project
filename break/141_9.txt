@@ -1,0 +1,2 @@
+Program fails to print correct result with logread -R when users have met more than once.
+In our case prints 1 invalid and returns with 255 instead of printing 1,2 and return with 0.
