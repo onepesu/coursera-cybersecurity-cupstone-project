@@ -1,0 +1,2 @@
+Program should print nothing and return with 0 when a valid logread command have been given for an unknown file, instead
+returns invalid 255.

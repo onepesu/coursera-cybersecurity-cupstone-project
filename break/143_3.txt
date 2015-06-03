@@ -1,0 +1,2 @@
+Program does not allow an employee who left gallery and reenter it, to go into a room.
+Prints invalid and returns 255 instead of 0.

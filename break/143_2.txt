@@ -1,0 +1,1 @@
+When a wrong token have been given, program returns 254, instead of 255.
