@@ -1,0 +1,1 @@
+logappend accept room ids greater than the upper bound
