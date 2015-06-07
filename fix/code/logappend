@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+from __future__ import print_function
+from collections import defaultdict
+import os
+import sys
+import os.path
+
+from log_libraries import logparser
+from log_libraries import validators
+from log_libraries.encryption import Encrypt
+from log_libraries.utils import ValidationError, append_to_log
+
+
+full_arguments = sys.argv
+clean_filenames = []
+
+mapping = {
+    '-T': {'name': 'timestamp'},
+    '-K': {'name': 'token'},
+    '-E': {'name': 'employee'},
+    '-G': {'name': 'guest'},
+    '-R': {'name': 'room_id'},
+    '-A': {'name': 'arrival', 'is_flag': True},
+    '-L': {'name': 'departure', 'is_flag': True},
+    '-B': {'name': 'batch_file', 'is_flag': True}
+}
+
+
+def parse_and_validate(argument_list, batch=False):
+    try:
+        arguments_, filename = logparser.parse_args(argument_list, mapping)
+        if filename not in clean_filenames:
+            abs_file = os.path.abspath(filename)
+            validators.filename_validator(filename, abs_file)
+            clean_filenames.append(filename)
+        else:
+            pass
+        validators.logappend_argument_validator(arguments_)
+    except ValidationError:
+        print('invalid')
+        if batch is False:
+            sys.exit(255)
+        return
+
+    if batch and arguments.get('batch'):
+        print('invalid')
+        return
+
+    return arguments_, filename
+
+
+def run_unnamed(parsed_arguments, log_file_name, encryptor, batch=False):
+    file_exists = os.path.isfile(log_file_name)
+    if file_exists:
+        try:
+            timestamp, employees, guests = validators.token_validator(
+                log_file_name, encryptor
+            )
+        except ValidationError:
+            print('invalid')
+            if batch is False:
+                sys.exit(255)
+            return
+    else:
+        timestamp, employees, guests = 0, {}, {},
+
+    try:
+        timestamp, employees, guests = validators.context_validator(
+            parsed_arguments, timestamp, employees, guests
+        )
+    except ValidationError:
+        print('invalid')
+        if batch is False:
+            sys.exit(255)
+        return
+    return timestamp, employees, guests
+
+
+if len(full_arguments) < 3:
+    print('invalid')
+    sys.exit(255)
+
+arguments, file_ = parse_and_validate(full_arguments[1:])
+
+if arguments.get('batch_file'):
+    if not os.path.isfile(os.path.abspath(file_)):
+        print('invalid')
+        sys.exit(255)
+    data = defaultdict(list)
+    with open(file_, 'r') as opened_batch_file:
+        for line in opened_batch_file.readlines():
+            new_arguments = line.split()
+            try:
+                args, new_file = parse_and_validate(new_arguments, batch=True)
+            except TypeError:
+                continue
+            log_file_name = os.path.abspath(new_file)
+            if data[log_file_name]:
+                timestamp, employees, guests, encryptor, token = data[log_file_name]
+                if args['token'] != token:
+                    raise ValidationError('wrong token')
+                try:
+                    timestamp, employees, guests = validators.context_validator(
+                        args, timestamp, employees, guests
+                    )
+                except ValidationError:
+                    print('invalid')
+            else:
+                encryptor = Encrypt(args['token'])
+                timestamp, employees, guests = run_unnamed(args, log_file_name, encryptor, batch=True)
+            data[log_file_name] = [timestamp, employees, guests, encryptor, args['token']]
+    for key, value in data.items():
+        append_to_log(key, *value[:-1])
+else:
+    encryptor = Encrypt(arguments['token'])
+    log_file_name = os.path.abspath(file_)
+    timestamp, employees, guests = run_unnamed(arguments, log_file_name, encryptor)
+    append_to_log(log_file_name, timestamp, employees, guests, encryptor)

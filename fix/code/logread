@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+from __future__ import print_function
+import os.path
+import sys
+
+from log_libraries import logparser
+from log_libraries import validators
+from log_libraries import utils
+from log_libraries.encryption import Encrypt
+
+full_arguments = sys.argv
+
+if len(full_arguments) < 3:
+    print('invalid')
+    sys.exit(255)
+
+mapping = {
+    '-K': {'name': 'token'},
+    '-S': {'name': 'status', 'is_flag': True},
+    '-R': {'name': 'room_id', 'is_flag': True},
+    '-T': {'name': 'total_time', 'is_flag': True},
+    '-I': {'name': 'rooms', 'is_flag': True},
+    '-E': {'name': 'employee'},
+    '-G': {'name': 'guest'}
+}
+
+try:
+    arguments, file_ = logparser.parse_args(full_arguments[1:], mapping)
+    abs_file = os.path.abspath(file_)
+    validators.filename_validator(file_, abs_file)
+    validators.logread_argument_validator(arguments)
+except utils.ValidationError:
+    print('invalid')
+    sys.exit(255)
+
+log_file_name = os.path.abspath(file_)
+if not os.path.isfile(log_file_name):
+    if arguments.get('status'):
+        print('\n\n')
+    elif arguments.get('room_id'):
+        print('')
+    elif arguments.get('total_time'):
+        print('0\n')
+    elif arguments.get('rooms'):
+        print('')
+    sys.exit(0)
+
+token = arguments['token']
+encryptor = Encrypt(token)
+
+try:
+    timestamp, employees, guests = validators.token_validator(
+        log_file_name, encryptor
+    )
+except utils.ValidationError:
+    print('integrity violation')
+    sys.exit(255)
+
+
+if arguments.get('status'):
+    utils.print_status(employees, guests)
+elif arguments.get('room_id'):
+    utils.print_room_id(arguments, employees, guests)
+elif arguments.get('total_time'):
+    utils.print_total_time(arguments, timestamp, employees, guests)
+elif arguments.get('rooms'):
+    utils.print_rooms(arguments, employees, guests)
