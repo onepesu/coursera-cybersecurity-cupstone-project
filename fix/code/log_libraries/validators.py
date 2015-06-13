@@ -1,4 +1,5 @@
 import re
+import os
 import os.path
 
 from utils import ValidationError
@@ -9,11 +10,22 @@ alpha_pattern = re.compile('^[a-zA-Z]+$')
 filename_pattern = re.compile('^[a-zA-Z0-9_\./]+$')
 
 
-def filename_validator(file_, abs_file):
-    if file_ is None or len(file_) > 255 or file_ in ('.', '..') or filename_pattern.search(file_) is None:
+def filename_validator(file_, abs_file, need_write=True):
+    if filename_pattern.search(file_) is None:
         raise ValidationError('filename not valid')
-    if '/' in file_ and not os.path.isfile(abs_file):
-        raise ValidationError('slashes not allowed if file does not exist.')
+    if need_write:
+        filename = os.path.split(file_)[1]
+        if len(filename) > 255:
+            raise ValidationError('filename not valid')
+        if not filename or os.path.isdir(abs_file):
+            raise ValidationError('directories are not files')
+        if os.path.exists(abs_file):
+            if not os.access(abs_file, os.W_OK):
+                raise ValidationError('destination unwritable')
+        else:
+            directory = os.path.dirname(abs_file)
+            if not os.path.isdir(directory) or not os.access(directory, os.W_OK):
+                raise ValidationError('destination unwritable')
 
 
 def is_alphanumeric(token):

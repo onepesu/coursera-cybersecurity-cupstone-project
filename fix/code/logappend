@@ -50,7 +50,7 @@ def parse_and_validate(argument_list, batch=False):
 
 
 def run_unnamed(parsed_arguments, log_file_name, encryptor, batch=False):
-    file_exists = os.path.isfile(log_file_name)
+    file_exists = os.path.exists(log_file_name)
     if file_exists:
         try:
             timestamp, employees, guests = validators.token_validator(
@@ -83,7 +83,7 @@ if len(full_arguments) < 3:
 arguments, file_ = parse_and_validate(full_arguments[1:])
 
 if arguments.get('batch_file'):
-    if not os.path.isfile(os.path.abspath(file_)):
+    if not os.path.exists(os.path.abspath(file_)):
         print('invalid')
         sys.exit(255)
     data = {}
