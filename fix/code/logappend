@@ -97,9 +97,9 @@ if arguments.get('batch_file'):
             log_file_name = os.path.abspath(new_file)
             if data[log_file_name]:
                 timestamp, employees, guests, encryptor, token = data[log_file_name]
-                if args['token'] != token:
-                    raise ValidationError('wrong token')
                 try:
+                    if args['token'] != token:
+                        raise ValidationError('wrong token')
                     timestamp, employees, guests = validators.context_validator(
                         args, timestamp, employees, guests
                     )
