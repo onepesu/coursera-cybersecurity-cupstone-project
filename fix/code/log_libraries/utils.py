@@ -10,6 +10,12 @@ class ValidationError(ValueError):
     pass
 
 
+def get_human_history(arguments, employees, guests):
+    if arguments['employee']:
+        return employees.get(arguments['employee'][0])
+    return guests.get(arguments['guest'][0])
+
+
 def append_to_log(filename, timestamps, employees, guests, encryptor):
     with open(filename, 'wb') as opened_file:
         opened_file.write(encryptor.encrypt([timestamps, employees, guests]))
@@ -41,19 +47,18 @@ def print_status(employees, guests):
 
 
 def print_room_id(arguments, employees, guests):
-    if arguments['employee']:
-        room_history = employees[arguments['employee'][0]][1]
+    history = get_human_history(arguments, employees, guests)
+    if history is None:
+        room_history = []
     else:
-        room_history = guests[arguments['guest'][0]][1]
+        room_history = history[1]
     print(','.join([str(room) for room in room_history if room >= 0]))
 
 
 def print_total_time(arguments, timestamp, employees, guests):
-    if arguments['employee']:
-        history = employees[arguments['employee'][0]]
-    else:
-        history = guests[arguments['guest'][0]]
+    history = get_human_history(arguments, employees, guests)
     if not history:
+        print(0)
         sys.exit(0)
 
     total_time = 0
