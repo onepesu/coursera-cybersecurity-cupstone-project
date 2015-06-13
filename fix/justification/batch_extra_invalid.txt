@@ -1,0 +1,6 @@
+When a batch file given contained only invalid commands, we were printing
+nothing. It appears, although we still don't understand it, that we should
+instead print an extra invalid. This can be seen in 16959_129_ID013.json.
+
+The fix we implemented was to check whether all commands in the batch file
+failed, and in that case, print invalid.
