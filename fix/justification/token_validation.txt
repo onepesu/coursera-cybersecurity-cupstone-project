@@ -1,0 +1,4 @@
+When the token changed in a batch file, the validation error that was raised,
+was not handled. This can be seen in 7308_b129_df.json.
+
+The fix we implemented was to handle the exception and print 'invalid'.
