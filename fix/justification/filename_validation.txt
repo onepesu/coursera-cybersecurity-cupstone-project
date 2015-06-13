@@ -1,0 +1,6 @@
+We were not accepting all filenames, as they were described in the specs.
+This can be seen in 908_129-dot-log.json, where we fail to write to ./log.
+
+The fix we implemented was to correct the filename validator and change
+os.path.isfile with os.path.exists in order to have a unified way to deal
+with files, directories and devices.
