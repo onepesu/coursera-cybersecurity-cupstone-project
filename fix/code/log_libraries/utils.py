@@ -95,6 +95,6 @@ def print_rooms(arguments, employees, guests):
     for time, position, human in history:
         humans[human] = position
         if len(set(humans.itervalues())) == 1 and position >= 0:
-            rooms.add(str(position))
+            rooms.add(position)
 
-    print(','.join(sorted(rooms)))
+    print(','.join([str(room) for room in sorted(rooms)]))
