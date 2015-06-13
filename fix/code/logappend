@@ -86,7 +86,7 @@ if arguments.get('batch_file'):
     if not os.path.isfile(os.path.abspath(file_)):
         print('invalid')
         sys.exit(255)
-    data = defaultdict(list)
+    data = {}
     with open(file_, 'r') as opened_batch_file:
         for line in opened_batch_file.readlines():
             new_arguments = line.split()
@@ -95,8 +95,15 @@ if arguments.get('batch_file'):
             except TypeError:
                 continue
             log_file_name = os.path.abspath(new_file)
-            if data[log_file_name]:
+            try:
                 timestamp, employees, guests, encryptor, token = data[log_file_name]
+            except KeyError:
+                encryptor = Encrypt(args['token'])
+                try:
+                    timestamp, employees, guests = run_unnamed(args, log_file_name, encryptor, batch=True)
+                except TypeError:
+                    continue
+            else:
                 try:
                     if args['token'] != token:
                         raise ValidationError('wrong token')
@@ -105,9 +112,7 @@ if arguments.get('batch_file'):
                     )
                 except ValidationError:
                     print('invalid')
-            else:
-                encryptor = Encrypt(args['token'])
-                timestamp, employees, guests = run_unnamed(args, log_file_name, encryptor, batch=True)
+                    continue
             data[log_file_name] = [timestamp, employees, guests, encryptor, args['token']]
     if not data:
         print('invalid')
