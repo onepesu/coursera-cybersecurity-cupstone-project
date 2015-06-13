@@ -1,0 +1,9 @@
+When an invalid command was given in a batch file, and the logfile named has
+not appeared previously, then we had an unhandled exception. This can be seen
+in 14938_129_correctness_batch_logfile.json, where the third command in the
+batch is invalid and references the logfile named TPWMVDMZ2 which has not been
+mentioned before.
+
+The fix we implemented was to change the type of the temporary dictionary we
+were using to store the information to be written in the logfile, as well as
+the way we handled its exceptions.
