@@ -1,0 +1,9 @@
+When an human (employee/guest) was given as an argument in a logread command,
+if the human had never previously entered the gallery, an unhandled KeyError
+was raised. This can be seen in 2626_BufferTraceCrash_129.json.
+
+The core of the fix we implemented was to use the .get method of a dictionary,
+instead of the __getitem__ method, to avoid exceptions. With the .get we can
+check if the human ever entered the gallery, and get their history.
+Additionally, in order to avoid duplicate code, this was done in a separate
+method.
