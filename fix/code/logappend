@@ -109,6 +109,9 @@ if arguments.get('batch_file'):
                 encryptor = Encrypt(args['token'])
                 timestamp, employees, guests = run_unnamed(args, log_file_name, encryptor, batch=True)
             data[log_file_name] = [timestamp, employees, guests, encryptor, args['token']]
+    if not data:
+        print('invalid')
+        sys.exit(255)
     for key, value in data.items():
         append_to_log(key, *value[:-1])
 else:
