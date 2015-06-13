@@ -1,0 +1,4 @@
+When -B was in a batch file, there was nothing printed while we should have
+printed 'invalid'. This can be seen in 4714_129_8.json.
+
+The fix we implemented was to basically correct typos we had.
