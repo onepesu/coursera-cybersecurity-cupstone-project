@@ -1,0 +1,5 @@
+A human (employee/guest) was allowed to leave a room that he was not in.
+This can be seen in 1790_129-1.json.
+
+The fix we implemented was to change the way we check if a human's move is
+valid.
