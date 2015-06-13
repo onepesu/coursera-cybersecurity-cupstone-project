@@ -42,7 +42,7 @@ def parse_and_validate(argument_list, batch=False):
             sys.exit(255)
         return
 
-    if batch and arguments.get('batch'):
+    if batch and arguments_.get('batch_file'):
         print('invalid')
         return
 
