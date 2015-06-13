@@ -1,0 +1,7 @@
+We were not displaying the correct order of the rooms when given the command
+logread -I. In particular, in test 1020_129-1-sorted_interaction.json, we were
+printing the rooms in alphabetical order (1, 11, 2), not in numerical order
+(1, 2, 11).
+
+The fix we implemented was that we changed the way we are sorting
+the room numbers in this case; we now order them as integers.
