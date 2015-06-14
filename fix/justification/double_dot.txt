@@ -1,0 +1,10 @@
+From our previous commit we also added the option that the logfile name could
+contain references to files in other directories, namely ../<logfile name>.
+We were unsure as to whether we should have included them in the
+filename_validator fix as we assumed that the oracle tests on these will fail,
+due to the files not being cleaned correctly in the oracle. However, we would
+consider it an injustice if this was considered a different bug fix than the
+previous one.
+
+An example can be seen in 11086_129-23.json, where we previously failed to
+write to ../TESTLOG1.
